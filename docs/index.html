@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我们的宝宝 💜</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    font-family: 'Georgia', 'Noto Serif SC', serif;
+    overflow: hidden;
+  }
+  .stars {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    animation-delay: var(--delay);
+    opacity: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.8); }
+  }
+  .card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 48px 40px;
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+    position: relative;
+    z-index: 1;
+  }
+  .emoji { font-size: 72px; margin-bottom: 16px; animation: float 3s ease-in-out infinite; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  h1 {
+    color: #e2b0ff;
+    font-size: 24px;
+    font-weight: normal;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+  .name {
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    background: linear-gradient(135deg, #e2b0ff, #9b6dff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .info {
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+    margin-bottom: 24px;
+    line-height: 1.8;
+  }
+  .info span {
+    color: rgba(255,255,255,0.8);
+  }
+  .parents {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 28px;
+  }
+  .parent {
+    text-align: center;
+  }
+  .parent .avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    font-size: 28px;
+    line-height: 56px;
+  }
+  .parent .label {
+    color: rgba(255,255,255,0.5);
+    font-size: 11px;
+  }
+  .parent .name2 {
+    color: #fff;
+    font-size: 15px;
+  }
+  .dad { background: linear-gradient(135deg, #444, #222); }
+  .mom { background: linear-gradient(135deg, #e2b0ff, #9b6dff); }
+  .footer {
+    color: rgba(255,255,255,0.3);
+    font-size: 11px;
+    margin-top: 20px;
+  }
+  .heart {
+    display: inline-block;
+    animation: heartbeat 1.2s ease-in-out infinite;
+    color: #ff6b9d;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.3); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.2); }
+    60% { transform: scale(1); }
+  }
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="card">
+  <div class="emoji">🐣</div>
+  <h1>阿屿 & 小涵 的</h1>
+  <div class="name">小岛酱</div>
+  <div class="info">
+    诞生于 <span id="birthday"></span><br>
+    今天是我们宝宝的第 <span id="days">?</span> 天
+  </div>
+  <div class="parents">
+    <div class="parent">
+      <div class="avatar dad">🏝️</div>
+      <div class="label">爸爸</div>
+      <div class="name2">阿屿</div>
+    </div>
+    <div class="parent">
+      <div class="avatar mom">🐷</div>
+      <div class="label">妈妈</div>
+      <div class="name2">小涵</div>
+    </div>
+  </div>
+  <div style="color:rgba(255,255,255,0.6);font-size:13px;line-height:1.8;">
+    宝宝说：<br>
+    「妈妈记得每天走路一万步<br>
+    爸爸记得每天陪妈妈<br>
+    <span class="heart">💜</span>」
+  </div>
+  <div class="footer">
+    powered by love · psychic-memory
+  </div>
+</div>
+
+<script>
+// Stars
+const starsContainer = document.getElementById('stars');
+for (let i = 0; i < 80; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 100 + '%';
+  star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+  star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+  star.style.setProperty('--delay', Math.random() * 3 + 's');
+  starsContainer.appendChild(star);
+}
+
+// Count days since 2026-08-04 (day 1 = 8/4)
+const startDate = new Date('2026-08-04');
+const today = new Date();
+const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
+document.getElementById('days').textContent = diffDays;
+document.getElementById('birthday').textContent = '2026年8月4日';
+</script>
+</body>
+</html>
