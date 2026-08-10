@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国际会计知识库 - Oxford Brookes</title>
+<style>
+  :root {
+    --bg: #f5f3ef;
+    --card: #ffffff;
+    --text: #2c2416;
+    --text-secondary: #6b5e4f;
+    --accent: #1a3c5e;
+    --accent-light: #e8f0f8;
+    --border: #e0d9ce;
+    --tag: #3a6b4c;
+    --tag-bg: #eaf5ee;
+    --highlight: #fdf3c7;
+    --danger: #c0392b;
+    --danger-bg: #fdecea;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+  /* Header */
+  header {
+    background: var(--accent);
+    color: white;
+    padding: 28px 0 20px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,.1);
+  }
+  header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -.3px; }
+  header .subtitle { font-size: .85rem; opacity: .75; margin-top: 2px; }
+
+  /* Search */
+  .search-wrap { margin: 24px auto; position: relative; max-width: 960px; padding: 0 20px; }
+  .search-wrap input {
+    width: 100%; padding: 14px 20px 14px 48px; font-size: 1rem;
+    border: 2px solid var(--border); border-radius: 14px; background: var(--card);
+    outline: none; transition: border-color .2s, box-shadow .2s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+  .search-wrap .search-icon {
+    position: absolute; left: 38px; top: 50%; transform: translateY(-50%);
+    color: #999; font-size: 1.1rem; pointer-events: none;
+  }
+  .no-result {
+    text-align:center; padding:48px 20px; color:var(--text-secondary); font-size:.95rem;
+    display:none;
+  }
+  .no-result.show { display:block; }
+
+  /* Stats bar */
+  .stats-bar {
+    display:flex; gap:12px; flex-wrap:wrap; margin:0 auto 16px; max-width:960px;
+    padding:0 20px; font-size:.82rem; color:var(--text-secondary);
+  }
+  .stats-bar span { background:var(--card); padding:4px 12px; border-radius:20px; border:1px solid var(--border); }
+
+  /* Category tabs */
+  .tabs { display:flex; gap:8px; overflow-x:auto; margin:0 auto 20px; max-width:960px; padding:0 20px; scrollbar-width:none; }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab {
+    white-space:nowrap; padding:8px 18px; border-radius:20px; font-size:.85rem;
+    border:1px solid var(--border); background:var(--card); cursor:pointer;
+    transition: all .15s; color:var(--text-secondary); user-select:none; flex-shrink:0;
+  }
+  .tab:hover { border-color:var(--accent); color:var(--accent); }
+  .tab.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+
+  /* Knowledge cards */
+  .kb-list { max-width:960px; margin:0 auto; padding:0 20px 60px; display:flex; flex-direction:column; gap:14px; }
+  .kb-card {
+    background:var(--card); border-radius:14px; border:1px solid var(--border);
+    padding:22px 24px; transition: box-shadow .2s, border-color .2s;
+    cursor: default;
+  }
+  .kb-card:hover { box-shadow:0 2px 16px rgba(0,0,0,.06); border-color:#ccc; }
+  .kb-card.hidden { display:none; }
+  .kb-card .card-header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .kb-card .card-title { font-size:1.05rem; font-weight:700; color:var(--accent); }
+  .kb-card .card-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:4px; }
+  .kb-card .card-tag {
+    font-size:.72rem; padding:3px 10px; border-radius:12px;
+    background:var(--tag-bg); color:var(--tag); font-weight:600;
+  }
+  .kb-card .card-content { margin-top:12px; font-size:.9rem; color:var(--text-secondary); }
+  .kb-card .card-content p { margin-bottom:8px; }
+  .kb-card .card-content ul { padding-left:20px; margin:6px 0; }
+  .kb-card .card-content li { margin-bottom:4px; }
+  .kb-card .card-content strong { color:var(--text); }
+
+  /* Tables */
+  .kb-table {
+    width:100%; border-collapse:collapse; margin:12px 0; font-size:.85rem;
+  }
+  .kb-table th {
+    background:var(--accent); color:#fff; padding:10px 14px; text-align:left; font-weight:600;
+  }
+  .kb-table th:first-child { border-radius:8px 0 0 0; }
+  .kb-table th:last-child { border-radius:0 8px 0 0; }
+  .kb-table td {
+    padding:9px 14px; border-bottom:1px solid var(--border);
+  }
+  .kb-table tr:nth-child(even) td { background:#faf9f7; }
+  .kb-table tr:last-child td:first-child { border-radius:0 0 0 8px; }
+  .kb-table tr:last-child td:last-child { border-radius:0 0 8px 0; }
+
+  /* Highlight note */
+  .note-highlight {
+    background:var(--highlight); border-left:4px solid #e6c940;
+    padding:10px 14px; border-radius:0 8px 8px 0; margin:10px 0; font-size:.85rem;
+  }
+  .note-danger {
+    background:var(--danger-bg); border-left:4px solid var(--danger);
+    padding:10px 14px; border-radius:0 8px 8px 0; margin:10px 0; font-size:.85rem;
+  }
+
+  /* Back to top */
+  .back-top {
+    position:fixed; bottom:28px; right:28px; width:44px; height:44px;
+    border-radius:50%; background:var(--accent); color:#fff; border:none;
+    cursor:pointer; font-size:1.2rem; box-shadow:0 2px 12px rgba(0,0,0,.15);
+    opacity:0; pointer-events:none; transition:opacity .25s;
+  }
+  .back-top.visible { opacity:1; pointer-events:auto; }
+
+  mark { background:var(--highlight); padding:1px 3px; border-radius:3px; }
+
+  @media (max-width:600px) {
+    header h1 { font-size:1.25rem; }
+    .kb-card { padding:16px; }
+    .kb-table { font-size:.78rem; }
+    .kb-table th, .kb-table td { padding:7px 8px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>📘 国际会计知识库</h1>
+    <div class="subtitle">International Accounting · Oxford Brookes University</div>
+  </div>
+</header>
+
+<div class="search-wrap">
+  <span class="search-icon">🔍</span>
+  <input type="text" id="searchInput" placeholder="搜索知识点，比如 income statement 结构、IFRS、ratio 公式…" autocomplete="off">
+</div>
+<div class="stats-bar">
+  <span id="statTotal">共 0 个知识点</span>
+  <span id="statShowing">显示 0 个</span>
+</div>
+<div class="tabs" id="tabsContainer"></div>
+<div class="no-result" id="noResult">😕 没找到匹配的知识点，试试别的关键词吧</div>
+<div class="kb-list" id="kbList"></div>
+<button class="back-top" id="backTop" title="回到顶部">↑</button>
+
+<script>
+const knowledgeBase = [
+  // ──────────── INCOME STATEMENT ────────────
+  {
+    id: 1,
+    category: "Income Statement",
+    title: "利润表基本结构 (Multi-step Format)",
+    tags: ["income statement", "结构", "格式", "multi-step"],
+    content: `
+      <p>国际会计中利润表通常采用<strong>多步式 (Multi-step)</strong>格式，分为以下几个层次：</p>
+      <table class="kb-table">
+        <tr><th>层次</th><th>英文</th><th>计算逻辑</th></tr>
+        <tr><td>销售收入</td><td>Sales Revenue / Turnover</td><td>—</td></tr>
+        <tr><td>减：销售成本</td><td>Less: Cost of Goods Sold</td><td>—</td></tr>
+        <tr><td><strong>= 毛利润</strong></td><td><strong>Gross Profit</strong></td><td>Sales − COGS</td></tr>
+        <tr><td>减：营业费用</td><td>Less: Operating Expenses</td><td>Selling + Admin + Depreciation</td></tr>
+        <tr><td><strong>= 营业利润</strong></td><td><strong>Operating Income / EBIT</strong></td><td>GP − OpEx</td></tr>
+        <tr><td>加/减：其他收入/费用</td><td>Other Income / Expense</td><td>Interest, dividends, gains/losses</td></tr>
+        <tr><td><strong>= 税前利润</strong></td><td><strong>Profit Before Tax</strong></td><td>EBIT ± Other</td></tr>
+        <tr><td>减：所得税</td><td>Less: Income Tax Expense</td><td>—</td></tr>
+        <tr><td><strong>= 净利润</strong></td><td><strong>Net Profit / Net Income</strong></td><td>PBT − Tax</td></tr>
+      </table>
+      <div class="note-highlight">💡 <strong>IFRS下注意：</strong>IFRS没有规定统一的利润表格式，但要求至少呈现 revenue、finance costs、tax expense、profit or loss 等行项目 (IAS 1.82)。</div>
+    `
+  },
+  {
+    id: 2,
+    category: "Income Statement",
+    title: "利润表 — 单步式 vs 多步式",
+    tags: ["income statement", "single-step", "multi-step"],
+    content: `
+      <p><strong>Single-step（单步式）：</strong>所有收入归在一起，所有费用归在一起，一步算出净利润。结构简单，但信息量少。</p>
+      <p><strong>Multi-step（多步式）：</strong>分步计算毛利、营业利润、税前利润、净利润。能更清晰展示不同层次的盈利能力。</p>
+      <div class="note-highlight">💡 英美公司普遍使用多步式，IFRS和US GAAP都允许两种格式。但多步式在分析中更有用（比如计算毛利率、营业利润率）。</div>
+    `
+  },
+  {
+    id: 3,
+    category: "Income Statement",
+    title: "利润表关键注意事项 (Exam Tips)",
+    tags: ["income statement", "注意事项", "考试"],
+    content: `
+      <ul>
+        <li><strong>Accruals concept（权责发生制）：</strong>收入和费用必须在<em>发生的期间</em>确认，而不是现金收付的期间。</li>
+        <li><strong>Matching principle（配比原则）：</strong>费用必须与其产生的收入匹配在同一期间。</li>
+        <li><strong>Prepayments & Accruals：</strong>年末调整——预付费用要从费用中扣除，应计费用要加回。</li>
+        <li><strong>Depreciation（折旧）：</strong>straight-line 还是 reducing balance？注意 full-year charge 还是 pro-rata。</li>
+        <li><strong>Bad debts & Provision：</strong>坏账直接冲销，以及 doubtful debts provision 的增加/减少如何处理。</li>
+        <li><strong>Closing inventory：</strong>期末存货影响 COGS——别忘了 lower of cost and NRV。</li>
+        <li><strong>非经常性项目：</strong>IFRS下禁止使用"extraordinary items"（IAS 1.87），但US GAAP允许在特定条件下列示。</li>
+      </ul>
+      <div class="note-danger">⚠️ <strong>常见丢分点：</strong>忘记调整 prepayment/accrual、把 capital expenditure 当作 revenue expenditure、inventory 计价错误。</div>
+    `
+  },
+  {
+    id: 4,
+    category: "Income Statement",
+    title: "OCI 与 Statement of Comprehensive Income",
+    tags: ["income statement", "OCI", "comprehensive income"],
+    content: `
+      <p>IFRS下，完整的业绩报表包括两部分：</p>
+      <table class="kb-table">
+        <tr><th>部分</th><th>内容</th></tr>
+        <tr><td><strong>Profit or Loss (P&L)</strong></td><td>净利润（已实现的收入费用）</td></tr>
+        <tr><td><strong>Other Comprehensive Income (OCI)</strong></td><td>未实现的利得/损失，如：revaluation surplus, actuarial gains/losses, FX translation differences, FVTOCI financial assets 的公允价值变动</td></tr>
+        <tr><td><strong>= Total Comprehensive Income</strong></td><td>P&L + OCI</td></tr>
+      </table>
+      <p>公司可以呈现<strong>单一报表</strong>（Statement of Comprehensive Income）或<strong>两张报表</strong>（Income Statement + Statement of Comprehensive Income）。</p>
+      <div class="note-highlight">💡 OCI项目不会被recycle到P&L（除了一些例外，如foreign operation disposal时FX translation differences会重分类）。</div>
+    `
+  },
+
+  // ──────────── BALANCE SHEET ────────────
+  {
+    id: 5,
+    category: "Balance Sheet",
+    title: "资产负债表基本结构",
+    tags: ["balance sheet", "SOFP", "结构", "资产", "负债"],
+    content: `
+      <p>IFRS下称为<strong>Statement of Financial Position (SOFP)</strong>。基本等式：</p>
+      <p style="text-align:center;font-size:1.1rem;font-weight:700;margin:12px 0;color:var(--accent);">Assets = Liabilities + Equity</p>
+      <table class="kb-table">
+        <tr><th>分类</th><th>内容</th></tr>
+        <tr><td><strong>Non-current Assets</strong></td><td>PPE, Intangible assets, Goodwill, Investments, Deferred tax assets</td></tr>
+        <tr><td><strong>Current Assets</strong></td><td>Inventories, Trade receivables, Prepayments, Cash & cash equivalents</td></tr>
+        <tr><td><strong>Equity</strong></td><td>Share capital, Share premium, Retained earnings, Other reserves</td></tr>
+        <tr><td><strong>Non-current Liabilities</strong></td><td>Long-term borrowings, Deferred tax liabilities, Provisions</td></tr>
+        <tr><td><strong>Current Liabilities</strong></td><td>Trade payables, Accruals, Short-term borrowings, Tax payable</td></tr>
+      </table>
+      <div class="note-highlight">💡 IFRS下资产负债表没有固定格式，但 IAS 1.60 要求区分 current/non-current（除非按流动性列示更合适，如银行）。</div>
+    `
+  },
+  {
+    id: 6,
+    category: "Balance Sheet",
+    title: "Current vs Non-current 判断标准",
+    tags: ["balance sheet", "current", "non-current", "分类"],
+    content: `
+      <p>根据 IAS 1.66-76，一项资产属于 <strong>Current</strong>，如果满足以下任一条件：</p>
+      <ul>
+        <li>预期在正常经营周期内实现/出售/消耗</li>
+        <li>主要为交易目的而持有</li>
+        <li>预期在报告日后12个月内实现</li>
+        <li>是现金或现金等价物（除非在12个月内受限制）</li>
+      </ul>
+      <p>负债属于 <strong>Current</strong>，如果：</p>
+      <ul>
+        <li>预期在正常经营周期内结算</li>
+        <li>主要为交易目的而持有</li>
+        <li>预期在报告日后12个月内到期</li>
+        <li>没有无条件延迟结算至少12个月的权利</li>
+      </ul>
+      <div class="note-danger">⚠️ <strong>注意：</strong>如果长期负债在12个月内到期但公司有refinancing agreement，在特定条件下仍可分类为non-current。</div>
+    `
+  },
+
+  // ──────────── CASH FLOW ────────────
+  {
+    id: 7,
+    category: "Cash Flow",
+    title: "现金流量表三大分类 (IAS 7)",
+    tags: ["cash flow", "IAS 7", "operating", "investing", "financing"],
+    content: `
+      <table class="kb-table">
+        <tr><th>分类</th><th>英文</th><th>典型项目</th></tr>
+        <tr><td>经营活动</td><td>Operating Activities</td><td>收到客户现金、支付供应商、员工工资、税款、利息（可选择）</td></tr>
+        <tr><td>投资活动</td><td>Investing Activities</td><td>购买/出售PPE、无形资产、股权投资、贷款给其他方</td></tr>
+        <tr><td>融资活动</td><td>Financing Activities</td><td>发行/回购股票、借款/偿还借款、支付股利</td></tr>
+      </table>
+      <div class="note-highlight">💡 <strong>利息和股利：</strong>IFRS允许选择分类——利息paid/received可放在operating或financing；股利paid可放在operating或financing；股利received可放在operating或investing。一旦选定，必须一致应用。</div>
+      <div class="note-danger">⚠️ US GAAP要求利息paid/received和股利received放在Operating，股利paid放在Financing，不可选。</div>
+    `
+  },
+  {
+    id: 8,
+    category: "Cash Flow",
+    title: "间接法编制经营活动现金流",
+    tags: ["cash flow", "indirect method", "operating"],
+    content: `
+      <p>间接法从净利润出发，调整非现金项目：</p>
+      <table class="kb-table">
+        <tr><th>步骤</th><th>调整项</th></tr>
+        <tr><td>起点</td><td><strong>Profit Before Tax</strong> (or Net Income)</td></tr>
+        <tr><td>加回</td><td>Depreciation, Amortisation, Impairment losses</td></tr>
+        <tr><td>加回</td><td>Loss on disposal of PPE / 减去 Gain on disposal</td></tr>
+        <tr><td>加回</td><td>Finance costs (interest expense)</td></tr>
+        <tr><td>减去</td><td>Investment income / Interest income</td></tr>
+        <tr><td>调整</td><td>Working capital changes：± Inventories, ± Receivables, ± Payables</td></tr>
+        <tr><td>减去</td><td>Tax paid</td></tr>
+        <tr><td><strong>=</strong></td><td><strong>Net cash from operating activities</strong></td></tr>
+      </table>
+      <div class="note-highlight">💡 口诀：<strong>非现金费用加回、非现金收入减掉、营运资金反方向调整</strong>（资产增加=现金减少，负债增加=现金增加）。</div>
+    `
+  },
+
+  // ──────────── IFRS vs GAAP ────────────
+  {
+    id: 9,
+    category: "IFRS vs GAAP",
+    title: "IFRS vs US GAAP 核心差异一览",
+    tags: ["IFRS", "GAAP", "区别", "对比"],
+    content: `
+      <table class="kb-table">
+        <tr><th>项目</th><th>IFRS</th><th>US GAAP</th></tr>
+        <tr><td>Inventory valuation</td><td>禁止LIFO</td><td>允许LIFO</td></tr>
+        <tr><td>Inventory reversal</td><td>允许减值回转</td><td>禁止回转</td></tr>
+        <tr><td>PPE revaluation</td><td>允许revaluation model</td><td>仅cost model</td></tr>
+        <tr><td>Development costs</td><td>满足条件则资本化</td><td>一般费用化（除software）</td></tr>
+        <tr><td>Extraordinary items</td><td>禁止</td><td>允许但罕见</td></tr>
+        <tr><td>Interest paid (CF)</td><td>Operating 或 Financing</td><td>Operating</td></tr>
+        <tr><td>Dividends paid (CF)</td><td>Operating 或 Financing</td><td>Financing</td></tr>
+        <tr><td>Leases</td><td>单一model（IFRS 16）</td><td>区分operating/finance</td></tr>
+        <tr><td>准则性质</td><td>Principles-based</td><td>Rules-based</td></tr>
+      </table>
+      <div class="note-highlight">💡 OBU课程重点关注IFRS，但了解IFRS vs GAAP差异是考试高频考点。</div>
+    `
+  },
+  {
+    id: 10,
+    category: "IFRS vs GAAP",
+    title: "IFRS Conceptual Framework",
+    tags: ["IFRS", "conceptual framework", "概念框架"],
+    content: `
+      <p>IFRS概念框架（2018修订版）包含：</p>
+      <ul>
+        <li><strong>目标：</strong>为现有和潜在投资者、贷款人及其他债权人提供决策有用的财务信息</li>
+        <li><strong>Qualitative Characteristics（质量特征）：</strong>
+          <ul>
+            <li>Fundamental（基本）：Relevance, Faithful Representation</li>
+            <li>Enhancing（增强）：Comparability, Verifiability, Timeliness, Understandability</li>
+          </ul>
+        </li>
+        <li><strong>Elements：</strong>Assets, Liabilities, Equity, Income, Expenses</li>
+        <li><strong>Recognition criteria：</strong>满足元素定义 + 提供有用信息</li>
+        <li><strong>Measurement bases：</strong>Historical cost 和 Current value (fair value, VIU, FCF)</li>
+      </ul>
+    `
+  },
+
+  // ──────────── RATIOS ────────────
+  {
+    id: 11,
+    category: "Financial Ratios",
+    title: "核心财务比率公式大全",
+    tags: ["ratio", "公式", "分析", "计算"],
+    content: `
+      <table class="kb-table">
+        <tr><th>类别</th><th>比率</th><th>公式</th></tr>
+        <tr><td>盈利能力</td><td>Gross Profit Margin</td><td>Gross Profit ÷ Revenue × 100%</td></tr>
+        <tr><td>盈利能力</td><td>Operating Profit Margin</td><td>Operating Profit ÷ Revenue × 100%</td></tr>
+        <tr><td>盈利能力</td><td>Net Profit Margin</td><td>Net Profit ÷ Revenue × 100%</td></tr>
+        <tr><td>盈利能力</td><td>ROCE</td><td>Operating Profit ÷ (Total Assets − Current Liabilities) × 100%</td></tr>
+        <tr><td>盈利能力</td><td>ROE</td><td>Net Income ÷ Equity × 100%</td></tr>
+        <tr><td>流动性</td><td>Current Ratio</td><td>Current Assets ÷ Current Liabilities</td></tr>
+        <tr><td>流动性</td><td>Quick Ratio (Acid Test)</td><td>(Current Assets − Inventory) ÷ Current Liabilities</td></tr>
+        <tr><td>效率</td><td>Inventory Turnover</td><td>COGS ÷ Average Inventory (倍)</td></tr>
+        <tr><td>效率</td><td>Receivables Collection Period</td><td>Trade Receivables ÷ Credit Sales × 365 (天)</td></tr>
+        <tr><td>效率</td><td>Payables Payment Period</td><td>Trade Payables ÷ Credit Purchases × 365 (天)</td></tr>
+        <tr><td>杠杆</td><td>Gearing (Debt/Equity)</td><td>Long-term Debt ÷ Equity × 100%</td></tr>
+        <tr><td>杠杆</td><td>Interest Cover</td><td>Operating Profit ÷ Finance Costs (倍)</td></tr>
+        <tr><td>投资</td><td>EPS</td><td>(Net Income − Pref Dividend) ÷ Weighted Avg Shares</td></tr>
+        <tr><td>投资</td><td>P/E Ratio</td><td>Market Price per Share ÷ EPS</td></tr>
+      </table>
+    `
+  },
+  {
+    id: 12,
+    category: "Financial Ratios",
+    title: "比率分析注意事项",
+    tags: ["ratio", "分析", "注意事项"],
+    content: `
+      <ul>
+        <li><strong>单看一个ratio没意义——</strong>需要横向（同行业）和纵向（历史趋势）对比。</li>
+        <li><strong>不同会计准则影响可比性——</strong>比如IFRS vs GAAP下inventory计算可能不同，ratio会有偏差。</li>
+        <li><strong>会计政策差异——</strong>折旧方法、inventory计价方法的选择会影响利润和资产价值。</li>
+        <li><strong>Window dressing——</strong>管理层可能在年末刻意美化报表（如推迟采购来减少payables）。</li>
+        <li><strong>季节性波动——</strong>年度报表可能掩盖季节性高峰/低谷。</li>
+        <li><strong>ROCE注意：</strong>分子用Operating Profit（不是Net Profit），分母用Capital Employed（Total Assets − Current Liabilities 或 Equity + Long-term Debt）。</li>
+      </ul>
+    `
+  },
+
+  // ──────────── IAS / IFRS ────────────
+  {
+    id: 13,
+    category: "IAS & IFRS Key Standards",
+    title: "核心会计准则速查",
+    tags: ["IAS", "IFRS", "准则", "standards"],
+    content: `
+      <table class="kb-table">
+        <tr><th>准则</th><th>主题</th><th>关键点</th></tr>
+        <tr><td>IAS 1</td><td>财务报表列报</td><td>格式、current/non-current、OCI</td></tr>
+        <tr><td>IAS 2</td><td>存货</td><td>Lower of cost & NRV, FIFO/WAC, 禁止LIFO</td></tr>
+        <tr><td>IAS 7</td><td>现金流量表</td><td>三类活动，直接法/间接法</td></tr>
+        <tr><td>IAS 8</td><td>会计政策/估计变更/差错</td><td>Retrospective vs Prospective</td></tr>
+        <tr><td>IAS 10</td><td>报告期后事项</td><td>Adjusting vs Non-adjusting events</td></tr>
+        <tr><td>IAS 16</td><td>不动产、厂房和设备</td><td>Cost model / Revaluation model</td></tr>
+        <tr><td>IAS 36</td><td>资产减值</td><td>Recoverable amount = higher of FV less costs & VIU</td></tr>
+        <tr><td>IAS 37</td><td>准备、或有负债和资产</td><td>Provision vs Contingent liability</td></tr>
+        <tr><td>IAS 38</td><td>无形资产</td><td>Research（费用化）vs Development（资本化）</td></tr>
+        <tr><td>IFRS 15</td><td>客户合同收入</td><td>5-step model</td></tr>
+        <tr><td>IFRS 16</td><td>租赁</td><td>单一lessee model, right-of-use asset</td></tr>
+      </table>
+      <div class="note-highlight">💡 OBU考试中，IAS 2、IAS 16、IAS 36、IAS 37、IFRS 15 是最常考的准则。</div>
+    `
+  },
+  {
+    id: 14,
+    category: "IAS & IFRS Key Standards",
+    title: "IFRS 15 — 收入确认五步法",
+    tags: ["IFRS 15", "revenue", "收入"],
+    content: `
+      <p><strong>5-step model：</strong></p>
+      <ol>
+        <li><strong>Identify the contract(s)</strong> — 合同需有商业实质、双方批准、可识别权利和付款条件</li>
+        <li><strong>Identify performance obligations</strong> — 区分distinct goods/services</li>
+        <li><strong>Determine transaction price</strong> — 考虑variable consideration, financing component等</li>
+        <li><strong>Allocate transaction price</strong> — 按standalone selling price比例分配</li>
+        <li><strong>Recognise revenue</strong> — 当performance obligation满足时（over time 或 at a point in time）</li>
+      </ol>
+      <div class="note-highlight">💡 关键判断：performance obligation是over time还是point in time？如果客户同时接收和消耗利益、或创建/增强客户控制的资产、或无替代用途且有收款权 → over time。</div>
+    `
+  },
+
+  // ──────────── CONSOLIDATION ────────────
+  {
+    id: 15,
+    category: "Consolidation",
+    title: "合并报表核心概念",
+    tags: ["consolidation", "合并", "goodwill", "NCI"],
+    content: `
+      <p>根据<strong>IFRS 10</strong>，当母公司拥有对子公司的<strong>控制权 (control)</strong>时，需要合并报表。控制权三要素：</p>
+      <ul>
+        <li><strong>Power</strong> — 有能力主导被投资方的相关活动</li>
+        <li><strong>Exposure to variable returns</strong> — 面临被投资方可变回报的风险</li>
+        <li><strong>Link</strong> — 能够利用权力影响回报金额</li>
+      </ul>
+      <p><strong>Goodwill计算：</strong></p>
+      <p style="text-align:center;font-weight:700;margin:8px 0;">Consideration + NCI − Fair Value of Net Assets = Goodwill</p>
+      <p><strong>NCI计量方法（IFRS 3允许选择）：</strong></p>
+      <ul>
+        <li><strong>Fair value method</strong>（full goodwill）</li>
+        <li><strong>Proportionate share of net assets</strong>（partial goodwill）</li>
+      </ul>
+      <div class="note-danger">⚠️ 合并时注意：消除内部交易、未实现利润 (PURP)、内部应收应付、内部股利。</div>
+    `
+  },
+
+  // ──────────── ETHICS ────────────
+  {
+    id: 16,
+    category: "Ethics & Governance",
+    title: "会计职业道德基本原则",
+    tags: ["ethics", "道德", "IESBA"],
+    content: `
+      <p>IESBA Code of Ethics 五大基本原则：</p>
+      <table class="kb-table">
+        <tr><th>原则</th><th>英文</th><th>说明</th></tr>
+        <tr><td>诚信</td><td>Integrity</td><td>诚实、公正，不参与误导性报告</td></tr>
+        <tr><td>客观</td><td>Objectivity</td><td>不受偏见、利益冲突或他人不当影响</td></tr>
+        <tr><td>专业胜任与应有谨慎</td><td>Professional Competence & Due Care</td><td>持续学习、保持专业水平</td></tr>
+        <tr><td>保密</td><td>Confidentiality</td><td>不泄露客户信息，除非有法定或专业义务</td></tr>
+        <tr><td>专业行为</td><td>Professional Behaviour</td><td>遵守法规，不损害行业声誉</td></tr>
+      </table>
+      <p><strong>Threats（威胁）分类：</strong>Self-interest, Self-review, Advocacy, Familiarity, Intimidation</p>
+      <p><strong>Safeguards（防护措施）：</strong>专业监管、事务所内部质量控制、独立复核等。</p>
+    `
+  },
+
+  // ──────────── MORE ────────────
+  {
+    id: 17,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 2 — 存货 (Inventories)",
+    tags: ["IAS 2", "inventory", "存货", "LIFO", "NRV"],
+    content: `
+      <p><strong>计量：Lower of Cost and NRV（成本与可变现净值孰低）</strong></p>
+      <p><strong>允许的成本方法：</strong>FIFO（先进先出）、Weighted Average Cost（加权平均）</p>
+      <p><strong>禁止：LIFO</strong>（IFRS禁止，US GAAP允许）</p>
+      <p><strong>NRV =</strong> Estimated selling price − Estimated costs to completion − Estimated costs to sell</p>
+      <p><strong>减值回转：</strong>IFRS允许当NRV恢复时将之前的write-down回转（上限为原始成本）</p>
+      <div class="note-danger">⚠️ 常见错误：用selling price而不是NRV；忘记从selling price中减去completion cost和selling cost。</div>
+    `
+  },
+  {
+    id: 18,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 16 — 不动产、厂房和设备 (PPE)",
+    tags: ["IAS 16", "PPE", "折旧", "revaluation"],
+    content: `
+      <p><strong>初始计量：</strong>Cost（购买价 + 直接相关费用 + 拆除恢复成本）</p>
+      <p><strong>后续计量模型（二选一）：</strong></p>
+      <ul>
+        <li><strong>Cost model：</strong>Cost − Accumulated Depreciation − Impairment</li>
+        <li><strong>Revaluation model：</strong>Fair Value − Subsequent Depreciation − Impairment（需定期重估）</li>
+      </ul>
+      <p><strong>折旧：</strong>在useful life内系统分配depreciable amount（Cost − Residual value）</p>
+      <p><strong>Revaluation surplus：</strong>进入OCI，在equity中累积。如果之前有revaluation decrease进入P&L，则surplus先冲回P&L。</p>
+      <div class="note-highlight">💡 如果选择revaluation model，同一类别的所有资产都要重估，不能只挑个别资产。</div>
+    `
+  },
+  {
+    id: 19,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 36 — 资产减值 (Impairment)",
+    tags: ["IAS 36", "impairment", "减值", "recoverable amount"],
+    content: `
+      <p><strong>减值触发：</strong>每个报告日评估是否有indication of impairment。商誉和indefinite-life intangibles必须每年测试。</p>
+      <p><strong>Recoverable Amount = higher of：</strong></p>
+      <ul>
+        <li><strong>Fair Value less Costs of Disposal (FVLCD)</strong></li>
+        <li><strong>Value in Use (VIU)</strong> — 未来现金流的现值</li>
+      </ul>
+      <p><strong>Impairment Loss =</strong> Carrying Amount − Recoverable Amount（如果CA > RA）</p>
+      <p><strong>CGU（现金产出单元）：</strong>如果单个资产无法独立产生现金流，则按CGU测试。</p>
+      <div class="note-danger">⚠️ 商誉减值一旦确认<strong>不可回转</strong>！其他资产的减值在条件恢复时可以回转（上限为原账面价值）。</div>
+    `
+  },
+  {
+    id: 20,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 37 — 准备与或有事项",
+    tags: ["IAS 37", "provision", "contingent", "准备"],
+    content: `
+      <p><strong>Provision确认条件（三者全部满足）：</strong></p>
+      <ol>
+        <li>Present obligation（现时义务）— legal 或 constructive</li>
+        <li>Probable outflow of economic benefits（>50%可能性）</li>
+        <li>Reliable estimate（能可靠估计）</li>
+      </ol>
+      <p><strong>Contingent Liability（或有负债）：</strong>不满足provision条件——不确认，在notes中披露（除非outflow可能性极低）。</p>
+      <p><strong>Contingent Asset（或有资产）：</strong>不确认，当virtually certain时才确认。Probable时在notes披露。</p>
+      <div class="note-highlight">💡 Provision按最佳估计金额计量，如果时间价值重大则需要折现。Provision只能用于其原始目的。</div>
+    `
+  }
+];
+
+// ─── Build UI ───
+const kbList = document.getElementById('kbList');
+const tabsContainer = document.getElementById('tabsContainer');
+const searchInput = document.getElementById('searchInput');
+const noResult = document.getElementById('noResult');
+const statTotal = document.getElementById('statTotal');
+const statShowing = document.getElementById('statShowing');
+
+// Get unique categories
+const categories = [...new Set(knowledgeBase.map(k => k.category))];
+
+// Build tabs
+tabsContainer.innerHTML = `<span class="tab active" data-cat="all">全部</span>` +
+  categories.map(c => `<span class="tab" data-cat="${c}">${c}</span>`).join('');
+
+// Build cards
+function renderCards(filtered) {
+  kbList.innerHTML = '';
+  if (filtered.length === 0) {
+    noResult.classList.add('show');
+    statShowing.textContent = '显示 0 个';
+  } else {
+    noResult.classList.remove('show');
+    statShowing.textContent = `显示 ${filtered.length} 个`;
+  }
+  filtered.forEach(k => {
+    const card = document.createElement('div');
+    card.className = 'kb-card';
+    card.setAttribute('data-category', k.category);
+    card.setAttribute('data-id', k.id);
+    card.innerHTML = `
+      <div class="card-header">
+        <div>
+          <div class="card-title">${highlightMatch(k.title)}</div>
+          <div class="card-tags">${k.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}</div>
+        </div>
+      </div>
+      <div class="card-content">${k.content}</div>
+    `;
+    kbList.appendChild(card);
+  });
+}
+
+function highlightMatch(text) {
+  const q = searchInput.value.trim();
+  if (!q || q.length < 2) return text;
+  const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${escaped})`, 'gi');
+  return text.replace(regex, '<mark>$1</mark>');
+}
+
+function getFiltered() {
+  const q = searchInput.value.trim().toLowerCase();
+  const activeCat = document.querySelector('.tab.active')?.dataset.cat || 'all';
+  return knowledgeBase.filter(k => {
+    const matchCat = activeCat === 'all' || k.category === activeCat;
+    if (!q || q.length < 2) return matchCat;
+    const matchQ = k.title.toLowerCase().includes(q) ||
+      k.tags.some(t => t.toLowerCase().includes(q)) ||
+      k.content.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+}
+
+function updateAll() {
+  renderCards(getFiltered());
+}
+
+// Events
+searchInput.addEventListener('input', updateAll);
+
+tabsContainer.addEventListener('click', e => {
+  if (e.target.classList.contains('tab')) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    e.target.classList.add('active');
+    updateAll();
+  }
+});
+
+// Init
+statTotal.textContent = `共 ${knowledgeBase.length} 个知识点`;
+updateAll();
+
+// Back to top
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  backTop.classList.toggle('visible', window.scrollY > 400);
+});
+backTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+// Keyboard shortcut: Ctrl+K or / to focus search
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement !== searchInput)) {
+    e.preventDefault();
+    searchInput.focus();
+    searchInput.select();
+  }
+});
+</script>
+</body>
+</html>
