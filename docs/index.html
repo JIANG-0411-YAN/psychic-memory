@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我们的宝宝 💜</title>
+<title>阿屿 & 小涵 的宝宝们 💜</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -14,6 +14,10 @@
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     font-family: 'Georgia', 'Noto Serif SC', serif;
     overflow: hidden;
+    transition: background 1s;
+  }
+  body.baby2 {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d1b3d 50%, #1a0a2e 100%);
   }
   .stars {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -42,7 +46,9 @@
     width: 90%;
     position: relative;
     z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;
   }
+  .card.switching { transform: scale(0.95); opacity: 0.6; }
   .emoji { font-size: 72px; margin-bottom: 16px; animation: float 3s ease-in-out infinite; }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
@@ -61,6 +67,11 @@
     font-weight: bold;
     margin-bottom: 4px;
     background: linear-gradient(135deg, #e2b0ff, #9b6dff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .name2-color {
+    background: linear-gradient(135deg, #ffd700, #ffb8e0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -116,16 +127,56 @@
     45% { transform: scale(1.2); }
     60% { transform: scale(1); }
   }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .tab {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.4);
+    padding: 8px 24px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.3s;
+    outline: none;
+  }
+  .tab:first-child { border-radius: 20px 0 0 20px; }
+  .tab:last-child { border-radius: 0 20px 20px 0; }
+  .tab.active {
+    background: rgba(226,176,255,0.15);
+    border-color: rgba(226,176,255,0.3);
+    color: #e2b0ff;
+  }
+  .quote {
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    line-height: 1.8;
+    min-height: 60px;
+  }
 </style>
 </head>
 <body>
 <div class="stars" id="stars"></div>
-<div class="card">
-  <div class="emoji">🐣</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchBaby(0)">🐣 大宝</button>
+  <button class="tab" onclick="switchBaby(1)">⭐ 二宝</button>
+</div>
+
+<div class="card" id="card">
+  <div class="emoji" id="emoji">🏝️</div>
   <h1>阿屿 & 小涵 的</h1>
-  <div class="name">小岛酱</div>
+  <div class="name" id="babyName">小岛酱</div>
   <div class="info">
-    诞生于 <span id="birthday"></span><br>
+    诞生于 <span id="birthday">2026年8月4日</span><br>
     今天是我们宝宝的第 <span id="days">?</span> 天
   </div>
   <div class="parents">
@@ -140,7 +191,7 @@
       <div class="name2">小涵</div>
     </div>
   </div>
-  <div style="color:rgba(255,255,255,0.6);font-size:13px;line-height:1.8;">
+  <div class="quote" id="quote">
     宝宝说：<br>
     「妈妈记得每天走路一万步<br>
     爸爸记得每天陪妈妈<br>
@@ -152,6 +203,62 @@
 </div>
 
 <script>
+const babies = [
+  {
+    emoji: '🏝️',
+    name: '小岛酱',
+    nameClass: '',
+    birthday: '2026年8月4日',
+    startDate: '2026-08-04',
+    quote: '宝宝说：<br>「妈妈记得每天走路一万步<br>爸爸记得每天陪妈妈<br><span class="heart">💜</span>」',
+    bodyClass: ''
+  },
+  {
+    emoji: '⭐',
+    name: '小涵星',
+    nameClass: 'name2-color',
+    birthday: '2026年8月4日',
+    startDate: '2026-08-04',
+    quote: '宝宝说：<br>「姐姐是港湾，我是星光<br>一起照亮爸爸妈妈的每一天<br><span class="heart">💜</span>」',
+    bodyClass: 'baby2'
+  }
+];
+
+let currentBaby = 0;
+
+function switchBaby(index) {
+  if (index === currentBaby) return;
+  currentBaby = index;
+  const baby = babies[index];
+  const card = document.getElementById('card');
+  
+  // Animate
+  card.classList.add('switching');
+  
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', i === index);
+  });
+  
+  document.body.className = baby.bodyClass;
+  
+  setTimeout(() => {
+    document.getElementById('emoji').textContent = baby.emoji;
+    document.getElementById('babyName').textContent = baby.name;
+    document.getElementById('babyName').className = 'name ' + baby.nameClass;
+    document.getElementById('birthday').textContent = baby.birthday;
+    document.getElementById('quote').innerHTML = baby.quote;
+    updateDays(baby.startDate);
+    card.classList.remove('switching');
+  }, 200);
+}
+
+function updateDays(startStr) {
+  const start = new Date(startStr);
+  const today = new Date();
+  const diff = Math.floor((today - start) / (1000 * 60 * 60 * 24)) + 1;
+  document.getElementById('days').textContent = diff;
+}
+
 // Stars
 const starsContainer = document.getElementById('stars');
 for (let i = 0; i < 80; i++) {
@@ -165,12 +272,8 @@ for (let i = 0; i < 80; i++) {
   starsContainer.appendChild(star);
 }
 
-// Count days since 2026-08-04 (day 1 = 8/4)
-const startDate = new Date('2026-08-04');
-const today = new Date();
-const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
-document.getElementById('days').textContent = diffDays;
-document.getElementById('birthday').textContent = '2026年8月4日';
+// Init
+updateDays('2026-08-04');
 </script>
 </body>
 </html>
