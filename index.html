@@ -634,6 +634,477 @@ const knowledgeBase = [
       <p><strong>Contingent Asset（或有资产）：</strong>不确认，当virtually certain时才确认。Probable时在notes披露。</p>
       <div class="note-highlight">💡 Provision按最佳估计金额计量，如果时间价值重大则需要折现。Provision只能用于其原始目的。</div>
     `
+  },
+  {
+    id: 21,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 12 — 所得税 (Deferred Tax)",
+    tags: ["IAS 12", "deferred tax", "所得税", "temporary difference"],
+    content: `
+      <p><strong>核心概念：</strong>当期税（Current tax）+ 递延税（Deferred tax）= 利润表上的Tax Expense。</p>
+      <p><strong>Temporary Difference（暂时性差异）vs Permanent Difference（永久性差异）：</strong></p>
+      <ul>
+        <li><strong>Taxable Temporary Difference → Deferred Tax Liability (DTL)：</strong>会计利润 > 应税利润，现在少交税，未来多交</li>
+        <li><strong>Deductible Temporary Difference → Deferred Tax Asset (DTA)：</strong>会计利润 < 应税利润，现在多交税，未来少交</li>
+      </ul>
+      <table class="kb-table">
+        <tr><th>来源</th><th>类型</th><th>产生</th></tr>
+        <tr><td>折旧加速（税务折旧 > 会计折旧）</td><td>DTL</td><td>CA > TB of asset</td></tr>
+        <tr><td>预提费用（会计已确认，税务未认可）</td><td>DTA</td><td>CA > TB of liability</td></tr>
+        <tr><td>未实现利润（库存内部交易）</td><td>DTA</td><td>CA < TB of asset</td></tr>
+        <tr><td>重估增值</td><td>DTL</td><td>CA > TB</td></tr>
+        <tr><td>税务亏损结转</td><td>DTA</td><td>未来可抵扣</td></tr>
+      </table>
+      <p><strong>计算步骤：</strong></p>
+      <ol>
+        <li>确定资产/负债的Carrying Amount (CA) 和 Tax Base (TB)</li>
+        <li>计算Temporary Difference = CA − TB</li>
+        <li>乘以适用税率 = Deferred Tax</li>
+        <li>与期初余额比较，差额计入P/L或OCI</li>
+      </ol>
+      <div class="note-highlight">⚠️ <strong>考试陷阱：</strong>DTA确认需要probable future taxable profit。重估增值产生的DTL计入OCI而非P/L。税率变动时需重新计量递延税。</div>
+    `
+  },
+  {
+    id: 22,
+    category: "IAS & IFRS Key Standards",
+    title: "IFRS 16 — 租赁 (Leases)",
+    tags: ["IFRS 16", "lease", "租赁", "right-of-use"],
+    content: `
+      <p><strong>核心变革：</strong>IFRS 16取消了经营租赁分类（对承租人），几乎所有租赁都确认使用权资产（Right-of-Use Asset）和租赁负债（Lease Liability）。</p>
+      <p><strong>豁免（可以不确认）：</strong>短期租赁（≤12个月）和低价值资产租赁（<$5,000）。</p>
+      <p><strong>初始计量：</strong></p>
+      <ul>
+        <li><strong>Lease Liability =</strong> 租赁付款额的现值（PV of lease payments），用内含利率或增量借款利率折现</li>
+        <li><strong>RoU Asset =</strong> Lease Liability + 初始直接费用 + 复原义务 − 租赁激励</li>
+      </ul>
+      <p><strong>后续计量分录：</strong></p>
+      <table class="kb-table">
+        <tr><th>时点</th><th>Dr</th><th>Cr</th></tr>
+        <tr><td>初始确认</td><td>RoU Asset</td><td>Lease Liability (PV)</td></tr>
+        <tr><td>付租金</td><td>Lease Liability</td><td>Cash</td></tr>
+        <tr><td>利息费用</td><td>Finance Cost (P/L)</td><td>Lease Liability</td></tr>
+        <tr><td>折旧</td><td>Depreciation (P/L)</td><td>Accum. Depr. — RoU</td></tr>
+      </table>
+      <div class="note-highlight">⚠️ <strong>考试陷阱：</strong>RoU Asset折旧期 = min(租赁期, 使用寿命)。如果所有权会转移或存在购买选择权，按使用寿命折旧。Lease Liability用amortised cost法，利息费用随时间递减。</div>
+    `
+  },
+  {
+    id: 23,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 21 — 外币交易 (Foreign Exchange)",
+    tags: ["IAS 21", "FX", "外汇", "functional currency"],
+    content: `
+      <p><strong>Functional Currency（功能货币）：</strong>主体经营所处的主要经济环境的货币。Presentation Currency可以不同。</p>
+      <p><strong>外币交易处理：</strong></p>
+      <ol>
+        <li><strong>初始确认：</strong>按交易日即期汇率折算</li>
+        <li><strong>报告日：</strong>货币性项目按期末汇率重估，差额计入P/L</li>
+        <li><strong>非货币性项目：</strong>按历史成本计量的不重估；按公允价值计量的按公允价值确定日汇率</li>
+      </ol>
+      <p><strong>Monetary vs Non-monetary：</strong></p>
+      <table class="kb-table">
+        <tr><th>Monetary（货币性）</th><th>Non-monetary（非货币性）</th></tr>
+        <tr><td>Cash, Receivables, Payables</td><td>Inventory, PPE, Intangibles</td></tr>
+        <tr><td>Loans, Bonds</td><td>Prepayments, Deferred income</td></tr>
+        <tr><td>期末重估 → P/L</td><td>不重估（历史成本法）</td></tr>
+      </table>
+      <div class="note-highlight">💡 Exchange gain/loss计入P/L（通常作为Other income/expense）。但如果是对境外经营净投资的hedge，差额计入OCI。</div>
+    `
+  },
+  {
+    id: 24,
+    category: "IAS & IFRS Key Standards",
+    title: "IFRS 9 — 金融工具 (Financial Instruments)",
+    tags: ["IFRS 9", "financial instruments", "金融工具", " impairment"],
+    content: `
+      <p><strong>金融资产分类（基于Business Model + SPPI测试）：</strong></p>
+      <table class="kb-table">
+        <tr><th>分类</th><th>Business Model</th><th>计量方式</th></tr>
+        <tr><td>Amortised Cost (AC)</td><td>Hold to collect</td><td>摊余成本，利息计入P/L</td></tr>
+        <tr><td>FVOCI</td><td>Hold to collect + sell</td><td>公允价值，变动入OCI；利息和减值入P/L</td></tr>
+        <tr><td>FVTPL</td><td>Other / Trading</td><td>公允价值，变动全部入P/L</td></tr>
+      </table>
+      <p><strong>SPPI Test：</strong>合同现金流是否仅为本金和利息的支付（Solely Payments of Principal and Interest）。不通过 → 强制FVTPL。</p>
+      <p><strong>减值模型 — ECL (Expected Credit Loss)：</strong></p>
+      <ul>
+        <li><strong>Stage 1：</strong>初始确认后信用风险未显著增加 → 12-month ECL</li>
+        <li><strong>Stage 2：</strong>信用风险显著增加 → Lifetime ECL（利息按总额计算）</li>
+        <li><strong>Stage 3：</strong>已发生信用减值 → Lifetime ECL（利息按净额计算）</li>
+      </ul>
+      <div class="note-highlight">💡 IFRS 9取代了IAS 39，核心变化是减值从incurred loss变为expected loss模型。</div>
+    `
+  },
+  {
+    id: 25,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 38 — 无形资产 (Intangible Assets)",
+    tags: ["IAS 38", "intangible", "R&D", "无形资产", "研发"],
+    content: `
+      <p><strong>确认条件：</strong>可辨认（Identifiable）、可控制（Control）、未来经济利益（Future economic benefits）。</p>
+      <p><strong>Research vs Development：</strong></p>
+      <table class="kb-table">
+        <tr><th>阶段</th><th>处理</th><th>原因</th></tr>
+        <tr><td>Research（研究）</td><td>全部费用化 → P/L</td><td>无法证明未来经济利益</td></tr>
+        <tr><td>Development（开发）</td><td>满足6个条件后资本化</td><td>技术/商业可行性已证明</td></tr>
+      </table>
+      <p><strong>Development资本化6条件（PIRATE记忆法）：</strong></p>
+      <ol>
+        <li><strong>P</strong>robable future benefits</li>
+        <li><strong>I</strong>ntention to complete</li>
+        <li><strong>R</strong>esources adequate</li>
+        <li><strong>A</strong>bility to use/sell</li>
+        <li><strong>T</strong>echnical feasibility</li>
+        <li><strong>E</strong>xpenditure reliably measured</li>
+      </ol>
+      <div class="note-highlight">⚠️ <strong>考试陷阱：</strong>内部产生的品牌、刊头、客户名单等不得确认为无形资产。商誉（Goodwill）不在IAS 38范围，由IFRS 3规范。</div>
+    `
+  },
+  {
+    id: 26,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 8 — 会计政策、估计变更与差错更正",
+    tags: ["IAS 8", "accounting policy", "estimate", "error"],
+    content: `
+      <p><strong>三类变更的区别：</strong></p>
+      <table class="kb-table">
+        <tr><th>类型</th><th>处理方式</th><th>举例</th></tr>
+        <tr><td>会计政策变更<br>(Change in Policy)</td><td><strong>追溯调整 (Retrospective)</strong><br>调整期初留存收益</td><td>存货计价从FIFO改为AVCO<br>（需有准则要求或能提供更可靠信息）</td></tr>
+        <tr><td>会计估计变更<br>(Change in Estimate)</td><td><strong>未来适用 (Prospective)</strong><br>从变更当期开始</td><td>折旧年限/残值变更<br>坏账率调整</td></tr>
+        <tr><td>差错更正<br>(Prior Period Error)</td><td><strong>追溯重述 (Retrospective Restatement)</strong></td><td>漏记费用、收入确认错误</td></tr>
+      </table>
+      <div class="note-highlight">💡 政策变更 vs 估计变更：如果难以区分，按估计变更处理（Prospective）。这是IAS 8的practical expedient。</div>
+    `
+  },
+  {
+    id: 27,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 10 — 期后事项 (Events After Reporting Period)",
+    tags: ["IAS 10", "events after", "adjusting", "期后事项"],
+    content: `
+      <p><strong>Adjusting Events（调整事项）：</strong>为报告日已存在的情况提供证据 → 调整财务报表。</p>
+      <ul>
+        <li>报告日后客户破产，证实报告日应收账款已减值</li>
+        <li>报告日后诉讼结案，证实报告日已存在现时义务</li>
+        <li>报告日后存货售价低于成本，证实报告日存货已减值</li>
+      </ul>
+      <p><strong>Non-adjusting Events（非调整事项）：</strong>报告日后新发生的情况 → 不调整报表，但如重大则披露。</p>
+      <ul>
+        <li>报告日后发生火灾/洪水</li>
+        <li>报告日后宣布并购</li>
+        <li>报告日后股价大幅下跌</li>
+      </ul>
+      <p><strong>Going Concern例外：</strong>如果期后事项表明持续经营假设不再适用，必须从根本上改变会计基础。</p>
+      <div class="note-highlight">⚠️ <strong>考试陷阱：</strong>Dividends declared after reporting period → Non-adjusting，只在notes披露，不确认为负债。</div>
+    `
+  },
+  {
+    id: 28,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 23 — 借款费用 (Borrowing Costs)",
+    tags: ["IAS 23", "borrowing cost", "capitalisation", "借款费用"],
+    content: `
+      <p><strong>基准处理 vs 允许替代：</strong>IAS 23要求所有符合条件的借款费用必须资本化（不再允许费用化）。</p>
+      <p><strong>资本化条件（三者同时满足）：</strong></p>
+      <ol>
+        <li>资产支出已发生（expenditure incurred）</li>
+        <li>借款费用已发生（borrowing costs incurred）</li>
+        <li>为使资产达到预定用途的必要活动已开始（activities in progress）</li>
+      </ol>
+      <p><strong>暂停资本化：</strong>开发活动中断较长时间（非必要中断）时应暂停。</p>
+      <p><strong>停止资本化：</strong>资产达到预定可使用状态时。</p>
+      <p><strong>计算：</strong></p>
+      <ul>
+        <li>专项借款：实际借款费用 − 临时投资收益</li>
+        <li>一般借款：加权平均支出 × 资本化率（加权平均借款利率）</li>
+      </ul>
+      <div class="note-highlight">💡 Qualifying Asset = 需要相当长时间才能达到预定用途的资产（如在建工程、开发中的无形资产）。存货如果生产周期长也算。</div>
+    `
+  },
+  {
+    id: 29,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 33 — 每股收益 (Earnings Per Share)",
+    tags: ["IAS 33", "EPS", "每股收益", "diluted"],
+    content: `
+      <p><strong>Basic EPS =</strong> (Profit after tax − Preference dividends) / Weighted average number of ordinary shares</p>
+      <p><strong>Weighted Average Shares计算要点：</strong></p>
+      <ul>
+        <li>新发行股份按时间加权（如7月1日发行，权重6/12）</li>
+        <li>红股（Bonus issue）视同期初已发行，追溯调整比较期间</li>
+        <li>配股（Rights issue）含bonus element，需计算bonus factor</li>
+      </ul>
+      <p><strong>Diluted EPS：</strong>考虑所有稀释性潜在普通股的影响——可转债、股票期权、认股权证。</p>
+      <ul>
+        <li>可转债：分子加回税后利息，分母加转换股份</li>
+        <li>期权/权证：用Treasury Share Method（假定行权收入按均价回购股份）</li>
+      </ul>
+      <div class="note-highlight">⚠️ <strong>考试陷阱：</strong>反稀释（Anti-dilutive）的潜在普通股不计入稀释EPS。只有Diluted EPS < Basic EPS时才披露稀释EPS。</div>
+    `
+  },
+  {
+    id: 30,
+    category: "Consolidation",
+    title: "合并报表 — Goodwill & NCI 详细计算",
+    tags: ["consolidation", "goodwill", "NCI", "合并", "商誉"],
+    content: `
+      <p><strong>Goodwill计算（IFRS 3）：</strong></p>
+      <table class="kb-table">
+        <tr><th>项目</th><th>金额</th></tr>
+        <tr><td>Consideration transferred（对价）</td><td>XXX</td></tr>
+        <tr><td>+ NCI at acquisition（NCI份额）</td><td>XXX</td></tr>
+        <tr><td>+ Fair value of previously held interest</td><td>XXX</td></tr>
+        <tr><td>− Net assets at fair value acquired</td><td>(XXX)</td></tr>
+        <tr><td><strong>= Goodwill</strong></td><td><strong>XXX</strong></td></tr>
+      </table>
+      <p><strong>NCI两种计量方式（IFRS 3允许选择）：</strong></p>
+      <ul>
+        <li><strong>Method 1 — Proportionate share（比例份额法）：</strong>NCI = NCI% × FV of net assets</li>
+        <li><strong>Method 2 — Fair value / Full goodwill（公允价值法）：</strong>NCI = NCI持股的公允价值（可能需要估值）</li>
+      </ul>
+      <p><strong>合并后NCI变动：</strong></p>
+      <p>期末NCI = 期初NCI + NCI% × (子公司本期利润 − 内部交易未实现利润调整) − NCI% × 子公司股利</p>
+      <div class="note-highlight">⚠️ <strong>考试陷阱：</strong>母公司进一步收购子公司股份（不丧失控制权）→ 按权益交易处理，差额计入Equity，不产生新Goodwill。部分处置但保留控制权同理。</div>
+    `
+  },
+  {
+    id: 31,
+    category: "Consolidation",
+    title: "合并报表 — 内部交易抵消 (Intra-group Transactions)",
+    tags: ["consolidation", "intra-group", "PURP", "抵消"],
+    content: `
+      <p><strong>核心原则：</strong>合并报表反映集团对外的交易，内部交易全部抵消。</p>
+      <p><strong>常见抵消类型：</strong></p>
+      <table class="kb-table">
+        <tr><th>交易类型</th><th>抵消处理</th></tr>
+        <tr><td>内部应收应付</td><td>Dr Payable, Cr Receivable（全额抵消）</td></tr>
+        <tr><td>内部销售收入</td><td>Dr Revenue, Cr Cost of Sales</td></tr>
+        <tr><td>存货未实现利润<br>(PURP in Inventory)</td><td>Dr Cost of Sales (P/L) / Cr Inventory (SOFP)<br>需考虑NCI份额和税务影响</td></tr>
+        <tr><td>固定资产内部销售</td><td>消除卖方利润 + 调整折旧<br>Dr Retained Earnings, Cr PPE (net)</td></tr>
+        <tr><td>内部股利</td><td>Dr Dividend Income, Cr Dividend Paid</td></tr>
+      </table>
+      <p><strong>PURP (Provision for Unrealised Profit) 关键规则：</strong></p>
+      <ul>
+        <li>卖方是母公司 → 100%调整归母公司，NCI不受影响</li>
+        <li>卖方是子公司 → 按持股比例在Parent和NCI之间分配</li>
+      </ul>
+      <div class="note-highlight">💡 PURP调整始终是"递延"的——存货售出给第三方后才算实现。考虑Tax时需确认deferred tax on PURP。</div>
+    `
+  },
+  {
+    id: 32,
+    category: "Financial Ratios",
+    title: "比率分析 — 考试常见问答题型",
+    tags: ["ratios", "analysis", "exam", "interpretation"],
+    content: `
+      <p><strong>比率分析的逻辑框架（考试大题必备）：</strong></p>
+      <p><strong>1. Profitability（盈利能力）：</strong></p>
+      <ul>
+        <li>Gross Margin = GP / Revenue — 反映定价能力和成本控制</li>
+        <li>Operating Margin = Operating Profit / Revenue — 反映经营效率</li>
+        <li>ROCE = Operating Profit / (Total Assets − Current Liabilities) — 资本回报率</li>
+        <li>ROE = PAT / Equity — 股东回报</li>
+      </ul>
+      <p><strong>2. Liquidity（流动性）：</strong></p>
+      <ul>
+        <li>Current Ratio = CA / CL（理想值 ≥ 1.5~2）</li>
+        <li>Quick Ratio = (CA − Inventory) / CL（理想值 ≥ 1）</li>
+        <li>太低 → 流动性风险；太高 → 资金利用效率低</li>
+      </ul>
+      <p><strong>3. Efficiency（效率）：</strong></p>
+      <ul>
+        <li>Inventory Days = Inventory / COGS × 365</li>
+        <li>Receivable Days = Receivables / Revenue × 365</li>
+        <li>Payable Days = Payables / COGS × 365</li>
+        <li>Asset Turnover = Revenue / Total Assets</li>
+      </ul>
+      <p><strong>4. Gearing（杠杆）：</strong></p>
+      <ul>
+        <li>Gearing = Debt / (Debt + Equity) 或 Debt / Equity</li>
+        <li>Interest Cover = Operating Profit / Finance Cost</li>
+      </ul>
+      <div class="note-highlight">⚠️ <strong>答题技巧：</strong>不要只列数字，要解释"为什么变了"——是经营原因还是会计政策变更？横向对比行业，纵向对比去年。指出limitations（历史成本、window dressing等）。</div>
+    `
+  },
+  {
+    id: 33,
+    category: "Balance Sheet",
+    title: "折旧方法详解与计算 (Depreciation Methods)",
+    tags: ["depreciation", "straight-line", "reducing balance", "折旧"],
+    content: `
+      <p><strong>Straight-Line（直线法）：</strong>(Cost − Residual Value) / Useful Life</p>
+      <p>每年折旧额相等，适合均匀消耗的资产（如建筑物）。</p>
+      <p><strong>Reducing Balance / Diminishing Balance（余额递减法）：</strong>Carrying Amount × Depreciation Rate (%)</p>
+      <p>早期折旧多、后期少，适合技术更新快的资产（如IT设备）。</p>
+      <p><strong>Units of Production（工作量法）：</strong>(Cost − RV) / Total Estimated Units × Actual Units</p>
+      <p>适合使用量不均衡的资产（如矿场、飞机发动机）。</p>
+      <p><strong>折旧变更处理（IAS 8 + IAS 16）：</strong></p>
+      <ul>
+        <li>残值和使用寿命变更 → 会计估计变更（Prospective）</li>
+        <li>折旧方法变更 → 会计估计变更（Prospective），因为反映了预期消耗模式的变化</li>
+      </ul>
+      <table class="kb-table">
+        <tr><th>情景</th><th>分录</th></tr>
+        <tr><td>计提折旧</td><td>Dr Depreciation Expense (P/L) / Cr Accumulated Depreciation (SOFP)</td></tr>
+        <tr><td>处置资产</td><td>Dr Cash / Dr Acc. Depr. / Cr Asset Cost / Dr/Cr Gain or Loss (P/L)</td></tr>
+      </table>
+      <div class="note-highlight">💡 IAS 16要求至少每年review折旧方法和残值。土地通常不折旧（无限寿命），但采掘业除外。</div>
+    `
+  },
+  {
+    id: 34,
+    category: "Balance Sheet",
+    title: "坏账与坏账准备 (Bad Debts & Allowance)",
+    tags: ["bad debts", "allowance", "receivables", "坏账"],
+    content: `
+      <p><strong>Bad Debts（坏账/已确认坏账）：</strong>确定无法收回的应收账款。</p>
+      <p>Dr Bad Debt Expense (P/L) / Cr Trade Receivables (SOFP)</p>
+      <p><strong>Allowance for Doubtful Debts（坏账准备/计提）：</strong>估计可能无法收回的金额，不直接冲销。</p>
+      <p>Dr Bad Debt Expense (P/L) / Cr Allowance for Receivables (SOFP)</p>
+      <p><strong>后续调整：</strong></p>
+      <ul>
+        <li>坏账准备增加（期末 > 期初）：补提差额 → Dr Expense, Cr Allowance</li>
+        <li>坏账准备减少（期末 < 期初）：冲回差额 → Dr Allowance, Cr Income</li>
+        <li>具体账款确认无法收回：Dr Allowance, Cr Trade Receivables（不经过P/L）</li>
+      </ul>
+      <p><strong>SOFP列报：</strong>Trade Receivables (Gross) − Allowance = Net Receivables</p>
+      <div class="note-highlight">⚠️ <strong>考试陷阱：</strong>区分具体坏账冲销（write-off）和一般坏账准备（general allowance）。Write-off是已知坏账，Allowance是估计。两者的Movement都影响P/L。</div>
+    `
+  },
+  {
+    id: 35,
+    category: "Balance Sheet",
+    title: "存货计价方法 — FIFO vs AVCO",
+    tags: ["inventory", "FIFO", "AVCO", "IAS 2", "存货"],
+    content: `
+      <p><strong>IAS 2允许的方法：</strong>FIFO（先进先出）和Weighted Average Cost（加权平均法）。LIFO在IFRS下禁止。</p>
+      <table class="kb-table">
+        <tr><th></th><th>FIFO</th><th>AVCO</th></tr>
+        <tr><td>原理</td><td>最早购入的先售出</td><td>所有存货按加权平均成本</td></tr>
+        <tr><td>期末存货</td><td>接近当前市价（最新成本）</td><td>平均成本</td></tr>
+        <tr><td>COGS</td><td>较低（通胀时）</td><td>中等</td></tr>
+        <tr><td>利润</td><td>较高（通胀时）</td><td>中等</td></tr>
+        <tr><td>税务</td><td>更多税（高利润）</td><td>较少税</td></tr>
+      </table>
+      <p><strong>AVCO计算：</strong>每次进货后重新计算平均成本 = 总成本 / 总数量。出货时按当前平均成本计价。</p>
+      <p><strong>NRV test（IAS 2核心）：</strong>Inventory = Lower of Cost and NRV（可变现净值）。NRV = 估计售价 − 完工成本 − 销售费用。</p>
+      <div class="note-highlight">💡 LIFO禁止原因：LIFO导致期末存货反映过时的历史成本，不符合IAS 2对存货计量的要求。但US GAAP仍允许LIFO。</div>
+    `
+  },
+  {
+    id: 36,
+    category: "IAS & IFRS Key Standards",
+    title: "IFRS 3 — 企业合并 (Business Combinations)",
+    tags: ["IFRS 3", "business combination", "acquisition method", "企业合并"],
+    content: `
+      <p><strong>Acquisition Method（购买法）四步骤：</strong></p>
+      <ol>
+        <li><strong>Identify the acquirer</strong> — 确定购买方（控制方）</li>
+        <li><strong>Determine the acquisition date</strong> — 取得控制权之日</li>
+        <li><strong>Recognise and measure identifiable assets & liabilities</strong> — 按公允价值计量</li>
+        <li><strong>Recognise goodwill or bargain purchase gain</strong> — 商誉或廉价购买收益</li>
+      </ol>
+      <p><strong>Contingent Consideration（或有对价）：</strong>按收购日公允价值确认。后续变动一般计入P/L。</p>
+      <p><strong>Bargain Purchase（廉价购买/负商誉）：</strong>当对价 + NCI < FV of net assets时，差额立即确认gain → P/L。</p>
+      <p><strong>Measurement Period：</strong>收购日后12个月内可调整 provisional amounts（临时金额），超过12个月只能更正错误。</p>
+      <div class="note-highlight">⚠️ <strong>考试陷阱：</strong>收购相关成本（如律师费、尽职调查费）→ 费用化，不计入对价。发行股份的费用 → 抵减share premium。发行债务的费用 → 调整债务初始计量。</div>
+    `
+  },
+  {
+    id: 37,
+    category: "Ethics & Governance",
+    title: "IAS 24 — 关联方披露 (Related Party Disclosures)",
+    tags: ["IAS 24", "related party", "关联方", "disclosure"],
+    content: `
+      <p><strong>关联方定义：</strong>一方有能力控制、共同控制或对另一方施加重大影响。</p>
+      <p><strong>典型关联方：</strong></p>
+      <ul>
+        <li>母公司、子公司、兄弟公司</li>
+        <li>联营企业（Associates）、合营企业（Joint Ventures）</li>
+        <li>关键管理人员（Key Management Personnel — KMP）及其近亲属</li>
+        <li>受KMP控制/重大影响的企业</li>
+      </ul>
+      <p><strong>必须披露（无论是否存在交易）：</strong>母子公司关系、最终控制方名称。</p>
+      <p><strong>存在交易时披露：</strong>交易性质、金额、未结余额、坏账准备、本期费用。</p>
+      <p><strong>KMP薪酬披露（IAS 24.17）：</strong>短期薪酬、离职后福利、其他长期福利、终止福利、股份支付。</p>
+      <div class="note-highlight">💡 政府相关实体有部分豁免。但两个实体仅因共享董事不构成关联方，需要有控制/重大影响关系。</div>
+    `
+  },
+  {
+    id: 38,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 40 — 投资性房地产 (Investment Property)",
+    tags: ["IAS 40", "investment property", "投资性房地产", "fair value"],
+    content: `
+      <p><strong>定义：</strong>为赚取租金或资本增值（或两者）而持有的房地产，而非用于生产、供货、管理或自用。</p>
+      <p><strong>计量模式二选一（不可随意切换）：</strong></p>
+      <table class="kb-table">
+        <tr><th>模式</th><th>计量</th><th>折旧</th><th>FV变动</th></tr>
+        <tr><td>Cost Model</td><td>Cost − Acc. Depr. − Impairment</td><td>计提</td><td>不适用</td></tr>
+        <tr><td>Fair Value Model</td><td>每期重估至FV</td><td>不计提</td><td>计入P/L</td></tr>
+      </table>
+      <p><strong>转换规则：</strong></p>
+      <ul>
+        <li>自用 → 投资性房地产（Cost model）：按IAS 16的CA转换</li>
+        <li>自用 → 投资性房地产（FV model）：重估差额按IAS 16处理（进Revaluation Surplus）</li>
+        <li>投资性房地产 → 自用：以转换日FV作为 deemed cost</li>
+      </ul>
+      <div class="note-highlight">⚠️ FV model没有折旧！这是一个高频考试陷阱。另外，在建/开发中的投资性房地产也属IAS 40范围。</div>
+    `
+  },
+  {
+    id: 39,
+    category: "Cash Flow",
+    title: "现金流量表 — 间接法详细编制步骤",
+    tags: ["cash flow", "indirect method", "编制", "T-account"],
+    content: `
+      <p><strong>间接法编制步骤（Operating Activities）：</strong></p>
+      <table class="kb-table">
+        <tr><th>Step</th><th>内容</th><th>调整方向</th></tr>
+        <tr><td>1</td><td>Profit Before Tax (PBT)</td><td>起点</td></tr>
+        <tr><td>2</td><td>+ Depreciation / Amortisation</td><td>加回非现金费用</td></tr>
+        <tr><td>3</td><td>+ Impairment loss</td><td>加回非现金费用</td></tr>
+        <tr><td>4</td><td>− Gain / + Loss on disposal</td><td>剔除投资活动影响</td></tr>
+        <tr><td>5</td><td>+ Finance cost / − Finance income</td><td>移至融资/投资活动</td></tr>
+        <tr><td>6</td><td>± Δ Inventory</td><td>增加 → 减；减少 → 加</td></tr>
+        <tr><td>7</td><td>± Δ Receivables</td><td>增加 → 减；减少 → 加</td></tr>
+        <tr><td>8</td><td>± Δ Payables</td><td>增加 → 加；减少 → 减</td></tr>
+        <tr><td>9</td><td>− Interest paid / − Tax paid</td><td>实际支付</td></tr>
+      </table>
+      <p><strong>实用的T-account法：</strong></p>
+      <ul>
+        <li>PPE T-account → 反推本期购置/处置的现金</li>
+        <li>Tax Payable T-account → 反推实际支付的税款</li>
+        <li>Retained Earnings T-account → 反推股利支付</li>
+      </ul>
+      <div class="note-highlight">💡 Interest paid可归类为Operating或Financing（IFRS选择权）。Dividend paid可归类为Operating或Financing。但一旦选定必须一致应用。</div>
+    `
+  },
+  {
+    id: 40,
+    category: "IAS & IFRS Key Standards",
+    title: "IAS 36 减值 — 详细计算与CGU",
+    tags: ["IAS 36", "impairment", "CGU", "recoverable amount"],
+    content: `
+      <p><strong>减值触发指标（Indicators of Impairment）：</strong></p>
+      <ul>
+        <li><strong>外部：</strong>市价大幅下跌、技术/市场/法律环境不利变化、利率上升、市值 < 账面净资产</li>
+        <li><strong>内部：</strong>资产陈旧/损坏、资产使用方式不利变化、内部报告显示资产经济绩效低于预期</li>
+      </ul>
+      <p><strong>Recoverable Amount = Higher of:</strong></p>
+      <ul>
+        <li><strong>Fair Value Less Costs to Sell (FVLCS)：</strong>市场参与者之间有序交易的价格 − 处置成本</li>
+        <li><strong>Value in Use (VIU)：</strong>未来现金流的现值（用税前折现率）</li>
+      </ul>
+      <p><strong>CGU (Cash Generating Unit)：</strong>能独立产生现金流的最小资产组。当单个资产无法确定Recoverable Amount时使用。</p>
+      <p><strong>减值损失分配顺序（CGU内）：</strong></p>
+      <ol>
+        <li>先冲减Goodwill（全部）</li>
+        <li>剩余按pro-rata分配至其他资产（不低于 individual RA 或零）</li>
+      </ol>
+      <p><strong>减值转回：</strong>Goodwill减值禁止转回。其他资产在条件变化时可转回（除Goodwill外），但不超过原账面价值（若无减值）。</p>
+      <div class="note-highlight">⚠️ <strong>考试陷阱：</strong>VIU不能包含扩张性资本支出（未来升级），只能包含维持现有产能的支出。折现率是pre-tax的。</div>
+    `
   }
 ];
 
