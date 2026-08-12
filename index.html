@@ -992,6 +992,42 @@ const knowledgeBase = [
     `
   },
   {
+    id: 41,
+    category: "Balance Sheet",
+    title: "股东权益 — Stockholders' Equity 结构与列报",
+    tags: ["equity", "stock", "shareholders", "股东权益", "common stock", "preferred stock"],
+    content: `
+      <p><strong>Stockholders' Equity 是资产负债表右侧核心组成部分，反映股东对企业的剩余权益。</strong></p>
+      <p><strong>标准列报格式：</strong></p>
+      <table class="kb-table">
+        <tr><th colspan="2">Stockholders' Equity</th></tr>
+        <tr><td>Preferred Stock (6%, $100 par, 10,000 shares authorized, 5,000 issued & outstanding)</td><td>$500,000</td></tr>
+        <tr><td>Common Stock ($1 par, 100,000 shares authorized, 50,000 issued, 48,000 outstanding)</td><td>$50,000</td></tr>
+        <tr><td>Additional Paid-in Capital (APIC)</td><td>$200,000</td></tr>
+        <tr><td>Retained Earnings</td><td>$350,000</td></tr>
+        <tr><td>Accumulated Other Comprehensive Income (AOCI)</td><td>$10,000</td></tr>
+        <tr><td>Less: Treasury Stock (2,000 shares at cost)</td><td>($30,000)</td></tr>
+        <tr><td><strong>Total Stockholders' Equity</strong></td><td><strong>$1,080,000</strong></td></tr>
+      </table>
+      <p><strong>各科目详解：</strong></p>
+      <ul>
+        <li><strong>Preferred Stock（优先股）：</strong>按 par value × 发行数量计量。优先股通常有固定股息率，清算时优先于普通股。</li>
+        <li><strong>Common Stock（普通股）：</strong>按 par value × 发行数量计量。Par value 通常极低（如$0.01或$1），不代表市场价值。</li>
+        <li><strong>APIC（资本公积/股本溢价）：</strong>发行价格超出 par value 的差额部分。例如普通股发行价$5，par $1，APIC = $4 × 股数。</li>
+        <li><strong>Retained Earnings（留存收益）：</strong>累计净利润 − 已分配股利。期末RE = 期初RE + Net Income − Dividends。</li>
+        <li><strong>AOCI（累计其他综合收益）：</strong>绕过P/L直接进Equity的项目，如revaluation surplus、外币折算差额、某些金融工具FV变动。</li>
+        <li><strong>Treasury Stock（库存股）：</strong>公司回购自身股票，按成本法记录，是Equity的<strong>减项</strong>。不计入流通股数。</li>
+      </ul>
+      <p><strong>关键勾稽关系：</strong></p>
+      <ul>
+        <li>期末 Retained Earnings = 期初RE + Net Income − Dividends Declared</li>
+        <li>SHE = Contributed Capital (Common + Preferred + APIC) + Earned Capital (RE + AOCI) − Treasury Stock</li>
+        <li>Balance Sheet 勾稽：Total Assets = Total Liabilities + Total SHE ✓</li>
+      </ul>
+      <div class="note-highlight">⚠️ <strong>考试陷阱：</strong>Common Stock 按 par value 记，不是市场价！Treasury Stock 是 equity 的 contra account（减项），不影响损益。Dividends declared 减少 RE，但 dividends 本身不是 P/L 项目。</div>
+    `
+  },
+  {
     id: 36,
     category: "IAS & IFRS Key Standards",
     title: "IFRS 3 — 企业合并 (Business Combinations)",
