@@ -1141,6 +1141,36 @@ const knowledgeBase = [
       <p><strong>减值转回：</strong>Goodwill减值禁止转回。其他资产在条件变化时可转回（除Goodwill外），但不超过原账面价值（若无减值）。</p>
       <div class="note-highlight">⚠️ <strong>考试陷阱：</strong>VIU不能包含扩张性资本支出（未来升级），只能包含维持现有产能的支出。折现率是pre-tax的。</div>
     `
+  },
+  {
+    id: 41,
+    category: "Balance Sheet",
+    title: "Stockholders' Equity 股东权益 — 格式与构成",
+    tags: ["stockholders' equity", "股东权益", "balance sheet", "common stock", "preferred stock", "格式"],
+    content: `
+      <p>Stockholders' Equity（股东权益）是资产负债表的最后一部分，反映股东对公司的剩余索取权。以下是<strong>标准格式</strong>：</p>
+      <table class="kb-table">
+        <tr><th>Stockholders' Equity</th><th>Amount</th></tr>
+        <tr><td>Preferred Stock (6%, $100 par, 10,000 shares authorized, 5,000 issued & outstanding)</td><td>$500,000</td></tr>
+        <tr><td>Common Stock ($1 par, 100,000 shares authorized, 50,000 issued, 48,000 outstanding)</td><td>$50,000</td></tr>
+        <tr><td>Additional Paid-in Capital (APIC)</td><td>$200,000</td></tr>
+        <tr><td>Retained Earnings</td><td>$350,000</td></tr>
+        <tr><td>Accumulated Other Comprehensive Income (AOCI)</td><td>$10,000</td></tr>
+        <tr><td>Less: Treasury Stock (2,000 shares at cost)</td><td style="color:var(--danger)">($30,000)</td></tr>
+        <tr style="border-top:2px solid var(--text); font-weight:700;"><td><strong>Total Stockholders' Equity</strong></td><td><strong>$1,080,000</strong></td></tr>
+      </table>
+      <p><strong>各科目说明：</strong></p>
+      <ul>
+        <li><strong>Preferred Stock（优先股）：</strong>按 <em>par value × 发行股数</em> 记录，不是市场价。优先股有固定股利，通常无投票权。</li>
+        <li><strong>Common Stock（普通股）：</strong>同样按 par value 记录。面值通常很低（甚至$0.01），不代表实际价值。</li>
+        <li><strong>Additional Paid-in Capital (APIC)：</strong>发行价格超出par value的部分。例如：$10发行，par=$1，APIC=$9/share。</li>
+        <li><strong>Retained Earnings（留存收益）：</strong>公司累计净利润减去已分配股利。公式：<br><code>Ending RE = Beginning RE + Net Income − Dividends</code></li>
+        <li><strong>AOCI（累计其他综合收益）：</strong>绕过利润表直接进OCI的项目累计，如外币折算调整、可供出售证券未实现损益、养老金调整等。</li>
+        <li><strong>Treasury Stock（库存股）：</strong>公司回购的自身股票，<strong>是权益的减项</strong>。用成本法记录（按回购价格），括号表示负数。</li>
+      </ul>
+      <div class="note-highlight">💡 <strong>记忆口诀：</strong>Par value → Common/Pref Stock；超过par → APIC；赚的钱 → RE；回购 → Treasury Stock（减项）；其他乱七八糟的 → AOCI</div>
+      <div class="note-danger">⚠️ <strong>常见错误：</strong>① 用市场价而不是par value记录股票；② Treasury Stock忘记放括号/减项；③ 混淆AOCI和Retained Earnings；④ 忘记披露authorized vs issued vs outstanding股数。</div>
+    `
   }
 ];
 
