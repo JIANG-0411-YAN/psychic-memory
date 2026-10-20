@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ESG 简介 · 幻灯片</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  :root{--dark:#1F3B3A;--acc:#3E8E7E;--gray:#5A6B69;--light:#9BB3AF;--card:#F2F6F5}
+  html,body{height:100%;overflow:hidden;background:#0c1615;
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+  #stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;
+    transform-origin:center center;background:#fff;box-shadow:0 20px 80px rgba(0,0,0,.55);overflow:hidden}
+  .slide{position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .35s ease;pointer-events:none}
+  .slide.on{opacity:1;pointer-events:auto}
+  .topbar{position:absolute;left:0;right:0;top:0;height:14px;background:var(--acc)}
+  .botbar{position:absolute;left:0;right:0;bottom:0;height:14px;background:var(--acc)}
+
+  /* 封面 */
+  .cover{display:flex;flex-direction:column;justify-content:center;padding:0 96px}
+  .cover .accentline{position:absolute;left:96px;top:200px;width:7px;height:150px;background:var(--acc)}
+  .cover h1{font-size:118px;letter-spacing:3px;line-height:1;color:var(--dark);margin-left:34px}
+  .cover h2{font-size:54px;color:var(--dark);margin:22px 0 0 34px;line-height:1.2}
+  .cover .sub{font-size:20px;letter-spacing:2px;color:var(--acc);margin:34px 0 0 34px}
+  .cover .rule{width:110px;height:3px;background:var(--light);margin:34px 0 18px 34px}
+  .cover .desc{font-size:18px;color:var(--gray);margin-left:34px;line-height:1.7}
+  .cover .foot{position:absolute;left:130px;bottom:52px;font-size:15px;color:var(--light)}
+
+  /* 内容页 */
+  .page{padding:70px 90px 60px}
+  .head{padding-left:22px;border-left:7px solid var(--acc)}
+  .head h3{font-size:42px;color:var(--dark);line-height:1.15;letter-spacing:1px}
+  .head p{font-size:17px;color:var(--gray);margin-top:12px}
+
+  .cards{display:flex;gap:26px;margin-top:46px}
+  .card{flex:1;background:var(--card);border-radius:18px;padding:30px 30px 26px}
+  .card .letter{font-size:44px;font-weight:800;color:var(--acc);line-height:1}
+  .card .name{font-size:19px;font-weight:700;color:var(--dark);margin-top:10px}
+  .card ul{margin-top:18px;list-style:none}
+  .card li{font-size:16px;color:var(--gray);line-height:1.55;margin-bottom:11px;padding-left:16px;position:relative}
+  .card li::before{content:"·";position:absolute;left:0;color:var(--light);font-weight:800}
+  .tail{position:absolute;left:90px;bottom:46px;font-size:15px;color:var(--light)}
+
+  .rows{margin-top:34px}
+  .row{display:flex;gap:28px;align-items:flex-start;padding:16px 0}
+  .row .num{font-size:30px;font-weight:800;color:var(--light);line-height:1;min-width:52px}
+  .row h4{font-size:26px;color:var(--acc);font-weight:700;min-width:190px;line-height:1.25}
+  .row p{font-size:17px;color:var(--gray);line-height:1.65;flex:1;padding-top:4px}
+  .quote{background:var(--card);border-radius:16px;padding:24px 30px;margin-top:22px;
+    font-size:19px;font-weight:700;color:var(--dark);line-height:1.6}
+
+  /* 控件 */
+  #nav{position:fixed;right:22px;bottom:18px;display:flex;align-items:center;gap:10px;z-index:9}
+  #nav button{width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;
+    background:rgba(255,255,255,.14);color:#fff;font-size:17px;line-height:1;backdrop-filter:blur(4px)}
+  #nav button:active{background:rgba(255,255,255,.3)}
+  #dots{color:rgba(255,255,255,.7);font-size:13px;letter-spacing:1px;margin-right:6px}
+  .hint{position:fixed;left:22px;bottom:22px;color:rgba(255,255,255,.42);font-size:12px;letter-spacing:.5px}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <section class="slide on">
+    <div class="topbar"></div>
+    <div class="cover">
+      <div class="accentline"></div>
+      <h1>ESG</h1>
+      <h2>企业不只看利润</h2>
+      <div class="sub">Environmental　·　Social　·　Governance</div>
+      <div class="rule"></div>
+      <div class="desc">环境、社会、治理 —— 一套衡量企业长期价值的语言</div>
+      <div class="foot">阿屿 × 小涵　2026.10</div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="page">
+      <div class="head">
+        <h3>ESG 的三大支柱</h3>
+        <p>三个维度，对应三类不同性质的长期风险</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="letter">E</div>
+          <div class="name">Environment 环境</div>
+          <ul><li>碳排放与气候</li><li>能源与水资源</li><li>污染与废弃物</li><li>生物多样性</li></ul>
+        </div>
+        <div class="card">
+          <div class="letter">S</div>
+          <div class="name">Social 社会</div>
+          <ul><li>员工权益与安全</li><li>供应链劳工</li><li>产品与数据安全</li><li>社区关系</li></ul>
+        </div>
+        <div class="card">
+          <div class="letter">G</div>
+          <div class="name">Governance 治理</div>
+          <ul><li>董事会独立性</li><li>反腐败与合规</li><li>信息披露透明度</li><li>高管薪酬</li></ul>
+        </div>
+      </div>
+      <div class="tail">三者不是并列的清单，而是一个闭环：治理决定前两者能不能真正落地。</div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="botbar"></div>
+    <div class="page">
+      <div class="head"><h3>为什么现在绕不过去</h3></div>
+      <div class="rows">
+        <div class="row">
+          <div class="num">01</div><h4>规则变了</h4>
+          <p>ISSB 发布 IFRS S1 / S2，把可持续信息往财报体系里拉；欧盟 CSRD 要求审计与鉴证。</p>
+        </div>
+        <div class="row">
+          <div class="num">02</div><h4>钱跟着走</h4>
+          <p>ESG 基金、评级机构、银行信贷都在用这套指标给企业定价和定成本。</p>
+        </div>
+        <div class="row">
+          <div class="num">03</div><h4>风险变真了</h4>
+          <p>气候转型、供应链断链、声誉事件，都能直接打到现金流和资产负债表上。</p>
+        </div>
+      </div>
+      <div class="quote">一句话：ESG 不是道德标签，是把长期风险提前写进报表和估值的那一栏。</div>
+    </div>
+  </section>
+
+</div>
+
+<div id="nav">
+  <div id="dots">1 / 3</div>
+  <button id="prev" aria-label="上一页">‹</button>
+  <button id="next" aria-label="下一页">›</button>
+</div>
+<div class="hint">左右滑动 / 方向键翻页</div>
+
+<script>
+  const stage = document.getElementById('stage');
+  const slides = [...document.querySelectorAll('.slide')];
+  const dots = document.getElementById('dots');
+  let i = 0;
+
+  function fit(){
+    const s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    stage.style.transform = `translate(-50%,-50%) scale(${s})`;
+  }
+  function go(n){
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s,k) => s.classList.toggle('on', k === i));
+    dots.textContent = (i + 1) + ' / ' + slides.length;
+  }
+
+  document.getElementById('next').onclick = e => { e.stopPropagation(); go(i + 1); };
+  document.getElementById('prev').onclick = e => { e.stopPropagation(); go(i - 1); };
+  addEventListener('resize', fit);
+  addEventListener('keydown', e => {
+    if (['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)) go(i + 1);
+    if (['ArrowLeft','ArrowUp','PageUp'].includes(e.key)) go(i - 1);
+  });
+
+  // 点击左右半边 / 左右滑动
+  let x0 = null;
+  document.addEventListener('touchstart', e => x0 = e.touches[0].clientX, {passive:true});
+  document.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(dx < 0 ? i + 1 : i - 1);
+    x0 = null;
+  }, {passive:true});
+  document.addEventListener('click', e => {
+    if (e.target.closest('#nav')) return;
+    go(e.clientX > window.innerWidth / 2 ? i + 1 : i - 1);
+  });
+
+  fit();
+</script>
+</body>
+</html>
