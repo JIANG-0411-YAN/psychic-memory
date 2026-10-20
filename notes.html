@@ -88,6 +88,8 @@
   .tag.公式{background:#e9f0fb;color:#2f5fa8}
   .tag.易错{background:var(--warn-soft);color:var(--warn)}
   .tag.考点{background:#f0ecfa;color:#6a4bb5}
+  .tag.案例{background:#e6f2f2;color:#2a6f70}
+  .tag.例题{background:#fdf0e2;color:#a5642a}
   .tag.框架{background:var(--ok-soft);color:var(--ok)}
   body.dark .tag.公式{background:#1e2b3d;color:#7fa8e0}
   body.dark .tag.考点{background:#2a2338;color:#b09bea}
@@ -158,630 +160,841 @@
 
 <script>
 const DATA = [
-{id:'pt',name:'Personal Tax',desc:'英国个人所得税 · 计算题为主，税基/税率/减免三层结构',chapters:[
-{t:'① 税制地图与居民身份',pts:[
- {t:'英国税种地图：谁在什么时候交什么税',tag:'框架',b:`<ul>
-<li><b>Income Tax</b>：按<u>年度</u>征（6 Apr – 5 Apr），累进</li>
-<li><b>NICs</b>：按<u>发薪期</u>征，用于社保，和 IT 分开算</li>
-<li><b>CGT</b>：按<u>处置事件</u>征（卖资产才交）</li>
-<li><b>IHT</b>：按<u>转移事件</u>征（生前赠与 / 死亡遗产）</li>
-<li><b>VAT</b>：按<u>交易</u>征，企业代收代缴，不是企业的成本</li>
-<li><b>Corporation Tax</b>：公司利润，和 Personal Tax 是两条线</li></ul>
-<div class="tip">答题先判断税种，再看是「年度」还是「事件」——很多分是判题型拿的。</div>`},
- {t:'Residence：法定居民测试 SRT',tag:'考点',b:`<ul>
-<li><b>Automatic overseas test</b>：上一税年非居民 + 本年到英国 &lt;46 天 → 非居民</li>
-<li><b>Automatic UK test</b>：本年到英国 ≥183 天 → 居民；或全年在英国工作；或有唯一住所且住满 91 天</li>
-<li><b>Sufficient ties test</b>：都不满足时，看 ties（家庭/住宿/工作/90天/英国）数量 + 在英天数</li></ul>
-<div class="warn">住在英国 ≠ 税务居民；居民 ≠ domicile（住所）。三类身份组合决定是否可用 remittance basis。</div>`},
- {t:'Domicile 与 remittance basis',tag:'考点',b:`<ul>
-<li>英国 domicile：全球收入全球征税</li>
-<li>Non-dom：可选择 remittance basis，<b>只对汇入英国的境外收入征税</b></li>
-<li>代价：失去 personal allowance 和 CGT AEA（除非 unremitted income &lt; £2,000）</li>
-<li>Remittance basis charge：住满 7/9/12/14 年中若干年，年费 £30k / £60k</li>
-<li>Deemed domicile：在英国住满 15 个税年中的 15 年</li></ul>`},
- {t:'Personal Allowance 及其削减',tag:'公式',b:`<ul>
-<li>基础 £12,570（冻结至 2028）</li>
-<li>收入超过 <span class="k">£100,000</span> 后，每多 £2 减 £1 → 到 £125,140 全没</li>
-<li>Marriage allowance：可转移 £1,260（受让方需为 basic rate）</li>
-<li>Blind person's allowance 另计</li></ul>
-<div class="warn">£100k–£125,140 之间实际边际税率 60%，是经典考点。</div>`}
+{id:'pt',name:'Personal Tax',desc:'CH50027 · 已按 Week 1–3 课件对齐 · 2 小时笔试占 100%',chapters:[
+{t:'① Week 1｜英国税制 & Self Assessment（考点密集）',pts:[
+ {t:'税种分类：direct / indirect，capital / revenue',tag:'考点',b:`<table><tr><th>税种</th><th>直接/间接</th><th>资本/收益</th></tr>
+<tr><td>Income Tax</td><td>Direct</td><td>Revenue</td></tr>
+<tr><td>NIC</td><td>Direct</td><td>Revenue</td></tr>
+<tr><td>CGT</td><td>Direct</td><td>Capital</td></tr>
+<tr><td>IHT</td><td>Direct</td><td>Capital</td></tr>
+<tr><td>Corporation Tax</td><td>Direct</td><td>Revenue（但对 chargeable gains 征的是资本性）</td></tr>
+<tr><td>VAT</td><td>Indirect</td><td><b>Neither</b>（对交易征，不是对所得/资产）</td></tr></table>
+<div class="tip">课件 Homework 2 的答案就是：VAT = neither，IHT = capital，NIC = revenue。</div>`},
+ {t:'税年与课程地图',tag:'框架',b:`<ul>
+<li>Tax year 2025/26 = <b>6 April 2025 – 5 April 2026</b></li>
+<li>考试：<b>2 小时笔试，占 100%</b></li>
+<li>教材：Melville, <i>Taxation</i>, Finance Act 2025</li></ul>
+<table><tr><th>周</th><th>内容</th><th>章节</th></tr>
+<tr><td>1</td><td>税制总览 / Self assessment</td><td>Ch.1</td></tr>
+<tr><td>2</td><td>NSI / SI / DI / PA</td><td>Ch.2–4, 6</td></tr>
+<tr><td>3</td><td>Income tax liability 计算</td><td>Ch.2–4, 6</td></tr>
+<tr><td>4–8</td><td>Employment income</td><td>Ch.7, 8</td></tr>
+<tr><td>7</td><td>Mid-term review</td><td>—</td></tr>
+<tr><td>9</td><td>Self-employment</td><td>Ch.9</td></tr>
+<tr><td>10</td><td>Basis period</td><td>Ch.10</td></tr>
+<tr><td>11</td><td>NIC</td><td>Ch.16</td></tr>
+<tr><td>12–13</td><td>复习 + 考试</td><td>—</td></tr></table>`},
+ {t:'申报截止日期（notice + 3 个月）',tag:'公式',b:`<ul>
+<li>HMRC 发 notice to file → 纳税人须在 <b>notice 日 + 3 个月</b>内交纸质表</li>
+<li>法定最后期限：纸质 <b>31 Oct 2026</b>；线上 <b>31 Jan 2027</b></li>
+<li>实际截止日 = <b>min（notice+3M，法定日期）</b> 中较晚者适用</li></ul>
+<table><tr><th>Notice 发出日</th><th>+3M</th><th>纸质截止</th><th>线上截止</th></tr>
+<tr><td>6 Apr 2026</td><td>5 Jul 2026</td><td>31 Oct 2026</td><td>31 Jan 2027</td></tr>
+<tr><td>10 Aug 2026</td><td>9 Nov 2026</td><td><b>9 Nov 2026</b></td><td>31 Jan 2027</td></tr>
+<tr><td>12 Dec 2026</td><td>11 Mar 2027</td><td><b>11 Mar 2027</b></td><td><b>11 Mar 2027</b></td></tr></table>
+<div class="warn">notice 太晚发出时，+3 个月会晚于 31 Oct —— 这时纸质和线上都是 notice+3M，别死记 31 Oct。</div>`},
+ {t:'缴税时间表：POA 与 balancing payment',tag:'公式',b:`<table><tr><th>款项</th><th>日期</th><th>金额</th></tr>
+<tr><td>1st POA（税年内）</td><td>31 Jan 2026</td><td>½ ×（24/25 income tax payable + 24/25 Class 4 NIC）</td></tr>
+<tr><td>2nd POA</td><td>31 Jul 2026</td><td>同上，½</td></tr>
+<tr><td>Balancing payment</td><td>31 Jan 2027</td><td>25/26 IT payable + Class 4 − 两笔 POA</td></tr>
+<tr><td>CGT</td><td>31 Jan 2027</td><td>单独全额，<b>不参与 POA</b></td></tr></table>
+<div class="warn">两个坑：① POA 的基数是<b>自评应缴的 IT + Class 4</b>，要扣掉 PAYE 已扣；② <b>CGT 不算进 POA 基数</b>，只在 balancing payment 时补。</div>`},
+ {t:'例题：Mike 的 POA',tag:'例题',b:`<p>24/25：IT 总计 £9,200（含 PAYE £3,200），Class 4 £1,900，CGT £4,800。</p>
+<b>1st &amp; 2nd POA</b> = ½ ×（9,200 − 3,200 + 1,900）= ½ × 7,900 = <b>£3,950</b>
+<div class="tip">CGT 4,800 完全不进这个式子。看到 CGT 就划掉。</div>`},
+ {t:'例题：Janice 在 31/1/2027 要交多少',tag:'例题',b:`<p>25/26：IT 14,000（已扣 2,000）、Class 4 2,500、CGT 1,700。24/25 自评应缴 13,000（已在前两年各付 6,500）。</p>
+<b>Balancing payment（31/1/2027）</b> = 14,000 − 2,000 + 2,500 + 1,700 − 13,000 = <b>£3,200</b><br>
+<b>+ 26/27 的 1st POA</b> = ½ ×（12,000 + 2,500）= <b>£7,250</b><br>
+<b>31/1/2027 合计支付 £10,450</b>
+<div class="warn">这一天同时发生三件事：补上年差额 + 交今年第一笔 POA（+ 若适用，CGT）。题目问"total amount to be paid on 31 Jan"，三项要加全。</div>`},
+ {t:'修改、查询（enquiry）与记录保存',tag:'考点',b:`<ul>
+<li>纳税人自行修改：申报截止后 <b>12 个月</b>内</li>
+<li>HMRC 修改申报：实际提交日 + <b>9 个月</b></li>
+<li>Enquiry 窗口：按期申报 → 提交日 + 12 个月；逾期 → 实际提交日之后的那个 <b>quarter day + 12 个月</b>（quarter days：31 Jan / 30 Apr / 31 Jul / 31 Oct）</li>
+<li>可发起 enquiry 的理由：怀疑少报、扣除不当、掌握其他信息、随机抽查</li>
+<li>记录保存：<b>经营</b>者保存至 31 Jan 2032（2025/26）；<b>非经营</b>者保存至 <b>31 Jan 2028</b>；未保存罚最高 £3,000</li></ul>`},
+ {t:'错误申报的罚则（按行为分级）',tag:'公式',b:`<table><tr><th>行为</th><th>最高（不披露）</th><th>主动披露最低</th><th>被动披露最低</th></tr>
+<tr><td>Deliberate &amp; concealed 故意并隐瞒</td><td>100%</td><td>30%</td><td>50%</td></tr>
+<tr><td>Deliberate not concealed 故意未隐瞒</td><td>70%</td><td>20%</td><td>35%</td></tr>
+<tr><td>Careless 疏忽</td><td>30%</td><td>0%</td><td>15%</td></tr></table>
+<p>罚金 = 比例 × <b>未缴税款</b>。</p>
+<div class="tip">主动披露永远比被查出来轻 —— 这是道德题的送分点。</div>`},
+ {t:'避税 vs 逃税 vs 单纯填错',tag:'考点',b:`<ul>
+<li><b>Tax avoidance</b>：合法安排事务以减轻税负（立法允许的规划）</li>
+<li><b>Tax evasion</b>：违法少缴（隐瞒收入、造假）→ 罚则按故意等级</li>
+<li><b>Careless error</b>：无心之失，<b>既不是 avoidance 也不是 evasion</b>，可在 12 个月内修改，一般不罚</li></ul>
+<div class="tip">课件那题：Jackie（5,000 填成 500）＝ 疏忽错误；Michelle（故意只报 5,000）＝ 逃税，最高 70%（若隐瞒则 100%）。</div>`}
 ]},
-{t:'② Income Tax 五步法（核心计算）',pts:[
- {t:'五步计算框架（背下来）',tag:'公式',b:`<ol style="padding-left:18px">
-<li>汇总 <b>Total income</b>：employment / trading / property / savings / dividends</li>
-<li>减 <b>Reliefs</b>：pension contributions（gross）、gift aid（gross）、trading losses、interest paid</li>
-<li>减 <b>Personal allowance</b>（考虑 taper）</li>
-<li>按<b>顺序</b>征税：非储蓄收入 → 储蓄收入 → 股息</li>
-<li>套税率、算 tax liability，减已扣税款（PAYE / tax deducted）</li></ol>
-<div class="tip">英格兰/威尔士/北爱：20% / 40% / 45%，band 为 £0–37,700 / £37,701–125,140 / 之上。苏格兰有独立税率表，题目会说明。</div>`},
- {t:'Savings 与 Dividend 的"叠放"规则',tag:'易错',b:`<ul>
-<li>储蓄收入享有 <b>Personal Savings Allowance</b>：basic £1,000、higher £500、additional £0</li>
-<li>股息有 <b>Dividend allowance £500</b>——注意它是"<span class="k">0% 档</span>"，<b>仍然占用 band</b>，不是免税额度</li>
-<li>股息税率：8.75% / 33.75% / 39.35%</li>
-<li>顺序永远是 非储蓄 → 储蓄 → 股息，从低到高填 band</li></ul>
-<div class="warn">最常见错误：把 dividend allowance 当成"不用申报"。它照样吃 band，把后面的股息推到更高税率。</div>`},
- {t:'Gift Aid 与 Pension 的 gross up',tag:'公式',b:`<ul>
-<li>Gift aid：实际捐款 × <b>100/80</b> = gross contribution，从 total income 中扣除（extend basic rate band）</li>
-<li>Pension（relief at source）：个人净付 × <b>100/80</b> = gross，同样 extend band</li>
-<li>净工资扣除型（occupational, net pay）不需要 gross up</li></ul>
-<div class="tip">做题：先 gross up → 扩大 basic/higher band → 再算税。别搞反顺序。</div>`},
- {t:'Trading losses 的使用顺序',tag:'考点',b:`<ul>
-<li>同一贸易 <b>carry forward</b>（同贸易、同类型收入）</li>
-<li><b>Carry back</b> 12 个月（新贸易前 4 年可选择 early trade relief）</li>
-<li>当年 <b>sideways relief</b>：抵总所得（有 cap，需 4 年内）</li>
-<li>Terminal loss：最后 12 个月可 carry back 3 年</li></ul>
-<div class="warn">Loss relief 用掉的额度会影响 personal allowance taper 判断——先算净收入再定 PA。</div>`}
-]},
-{t:'③ Employment Income 与福利',pts:[
- {t:'Employment income 的范围',tag:'框架',b:`<ul>
-<li>工资、奖金、佣金、小费、代金券、实物福利</li>
-<li><b>Receipts basis</b>：按"有权取得"的时点，不是实收时点</li>
-<li>应税：<b>wholly, exclusively and necessarily</b> 才可扣</li>
-<li>通勤（ordinary commuting）不可扣；临时工作地点可</li>
-<li>Mileage：自有车 45p/英里（前 10,000 英里），之后 25p</li>
-<li>Professional subscription 可扣</li></ul>`},
- {t:'公司车 / 油 / 贷款福利',tag:'公式',b:`<ul>
-<li><b>Company car</b>：list price × CO2-based %（0g 极低 %，越高排放 % 越高，上限 37%），减去员工自付</li>
-<li><b>Fuel benefit</b>：固定基数 × 同一 %</li>
-<li><b>Beneficial loan</b>：官方利率 − 实际利率，× 贷款额；&lt;£10,000 且为 qualifying 贷款则豁免</li>
-<li><b>Living accommodation</b>：annual value + （成本 &gt; £75,000 部分的 official rate）</li>
-<li>雇主交 Class 1A NICs（税率看当年）</li></ul>`},
- {t:'Termination payments',tag:'易错',b:`<ul>
-<li><b>前 £30,000 免征</b>所得税（NICs 另有规则）</li>
-<li>但 <b>PILON（代通知金）</b>、未休假工资、已赚未付的工资<b>全额应税</b>，不占用 30,000</li>
-<li>伤残/死亡赔偿另有豁免</li></ul>
-<div class="warn">题目给"遣散费 £45,000 + 3 个月代通知金 £9,000"，只对 45,000 用 30,000 免税额。</div>`},
- {t:'PAYE 与申报',tag:'考点',b:`<ul>
-<li>雇主按 <b>RTI</b> 实时申报，代扣 IT 和 Class 1 NICs</li>
-<li>福利走 <b>P11D</b>，员工在 self assessment 中申报</li>
-<li>Self assessment 截止：纸质 31 Oct，线上 31 Jan</li>
-<li>Payments on account：1/31 和 7/31 各付 50%（上年税额 &gt; £1,000 且未扣净时）</li></ul>`}
-]},
-{t:'④ NICs（国民保险）',pts:[
- {t:'Class 1 雇员：8% / 2%',tag:'公式',b:`<ul>
-<li><b>8%</b>：Primary Threshold £12,570 至 Upper Earnings Limit £50,270 之间</li>
-<li><b>2%</b>：超过 £50,270 的部分</li>
-<li>雇主 Class 1：15%（2025/26 起），Secondary Threshold £5,000</li></ul>
-<div class="warn">NICs 是<b>按发薪期</b>算再累计的，不是简单"年收入套年阈值"。月薪题要用月阈值 ×12。</div>`},
- {t:'Class 2 / Class 4 自雇',tag:'考点',b:`<ul>
-<li>Class 2 自 2024/25 起实质取消（小利润不再强制，可自愿缴纳以保权益）</li>
-<li>Class 4：利润 £12,570–£50,270 部分 <b>6%</b>，超过部分 <b>2%</b></li>
-<li>Class 3 voluntary：补缴记录用</li></ul>
-<div class="tip">自雇的税负 = Income Tax + Class 4，不要漏 Class 4。</div>`},
- {t:'Employment vs Self-employment 判定',tag:'考点',b:`<ul>
-<li>控制（control）、能否派替工（substitution）、风险自负、提供自己的工具、是否"自成一门生意"</li>
-<li>MoJ 的<b>雇佣状态测试</b>和 IR35（off-payroll working）</li>
-<li>判错性质 → 补税 + 罚金</li></ul>`}
-]},
-{t:'⑤ Trading Income 与资本减免',pts:[
- {t:'Adjusted trading profit',tag:'公式',b:`<ul>
-<li>会计利润 → 调增：折旧、资本性支出、业主私用、<b>英国客户招待费</b>、罚款、非经营性支出</li>
-<li>调减：账面折旧换成 capital allowances、免税收入</li>
-<li>Basis period：2024/25 起 <b>tax year basis</b>（按税年归属利润），过渡期有 spreading</li>
-<li>Cash basis 门槛已放宽（小企业可用收付实现制）</li></ul>`},
- {t:'Capital Allowances',tag:'考点',b:`<table><tr><th>类型</th><th>比例 / 条件</th></tr>
-<tr><td>AIA</td><td>£1m，多数厂房设备 100% 一次性</td></tr>
-<tr><td>Main pool WDA</td><td>18% 余值递减</td></tr>
-<tr><td>Special rate pool</td><td>6%（integral features、长寿命资产）</td></tr>
-<tr><td>小池</td><td>余值 ≤ £1,000 直接全额扣除</td></tr>
-<tr><td>汽车</td><td>0g 100% FYA；≤50g 18%；&gt;50g 6%</td></tr></table>
-<div class="warn">出售时低于 tax WDV → balancing allowance；高于 → balancing charge（计入利润）。</div>`},
- {t:'Pension 与 reliefs 上限',tag:'公式',b:`<ul>
-<li>Annual allowance £60,000，高收入 taper 最低降至 £10,000</li>
-<li>可 carry forward 前 3 年未用额度</li>
-<li>非纳税人可存 £3,600 gross</li>
-<li>已取养老金 → <b>MPAA £10,000</b></li></ul>`},
- {t:'Property income',tag:'考点',b:`<ul>
-<li>Property allowance £1,000（与实扣二选一）</li>
-<li>Rent-a-room £7,500</li>
-<li>住宅按揭利息<b>不能</b>全额扣，只能按 20% 给 tax reducer</li>
-<li>Furnished holiday lettings 有特殊待遇（注意规则近年有变）</li></ul>`}
-]},
-{t:'⑥ CGT 资本利得税',pts:[
- {t:'计算步骤',tag:'公式',b:`<ul>
-<li>处置收入 − 可扣除成本（购入价 + 交易费用 + 改良支出）</li>
-<li>减当年损失、往年结转损失</li>
-<li>减 <b>Annual Exempt Amount £3,000</b></li>
-<li>乘税率：<b>18% / 24%</b>（住宅类与 carried interest 另有规则）</li></ul>
-<div class="warn">AEA 是<b>每人每年</b>，不是每个资产；夫妻间可转让资产以各用一份。</div>`},
- {t:'Shares 匹配规则',tag:'易错',b:`<ul>
-<li>① 同日买入</li>
-<li>② 之后 <b>30 天</b>内买入（bed & breakfasting 被堵）</li>
-<li>③ 其余进 <b>share pool</b>（加权平均成本）</li></ul>
-<div class="tip">顺序错了答案必错，这题几乎每卷都有。</div>`},
- {t:'主要减免',tag:'考点',b:`<ul>
-<li><b>PPR</b>：主要居所减免（+ 最后 9 个月视同居住）</li>
-<li><b>BADR</b>：10%，终身额度 £1m（卖企业/股份）</li>
-<li>Gift relief / holdover、rollover relief（替换商业资产）</li>
-<li>Incorporation relief（转成公司股份）</li>
-<li>Chattels：≤£6,000 免征；wasting assets 免征</li></ul>`},
- {t:'申报与缴纳',tag:'考点',b:`<ul>
-<li>英国住宅用地：成交后 <b>60 天</b>内申报并缴税（单独申报，不等年度申报）</li>
-<li>其他资产：走 self assessment，31 Jan 缴</li>
-<li>Non-resident 卖英国住宅同样适用</li></ul>`}
-]},
-{t:'⑦ IHT 遗产税',pts:[
- {t:'核心逻辑：三种转移',tag:'框架',b:`<ul>
-<li><b>PET</b>（potentially exempt transfer）：给个人/信托的生前赠与，7 年内死亡才征税</li>
-<li><b>LCT</b>（chargeable lifetime transfer）：给信托，立即可税（税率 20% 生前）</li>
-<li><b>Death estate</b>：死亡时的全部遗产</li></ul>
-<div class="tip">关键：所有生前转移按"<b>7 年累积</b>"，算某一笔时要把前 7 年的加进来吃 NRB。</div>`},
- {t:'NRB / RNRB',tag:'公式',b:`<ul>
-<li>Nil rate band <b>£325,000</b></li>
-<li>Residence NRB <b>£175,000</b>（留给直系后代的自住房）</li>
-<li><b>Taper</b>：遗产超过 <b>£2m</b>，每超 £2 减 £1 RNRB</li>
-<li>配偶间可<b>转移未用额度</b>（NRB + RNRB 都能转）</li></ul>
-<div class="warn">£2m 的门槛把很多"有房家庭"排除在 RNRB 之外——先算总遗产再判。</div>`},
- {t:'税率与 taper relief',tag:'公式',b:`<ul>
-<li>标准 40%；若遗产的 <b>10% 以上</b>捐慈善 → <b>36%</b></li>
-<li>死亡前 3–7 年的赠与有 taper relief：</li></ul>
-<table><tr><th>赠与到死亡的时间</th><th>税额减免</th></tr>
-<tr><td>0–3 年</td><td>0%</td></tr><tr><td>3–4 年</td><td>20%</td></tr>
-<tr><td>4–5 年</td><td>40%</td></tr><tr><td>5–6 年</td><td>60%</td></tr>
-<tr><td>6–7 年</td><td>80%</td></tr></table>
-<div class="warn">Taper 减的是<b>税</b>，不是资产价值；PET 超过 7 年=完全免。</div>`},
- {t:'Business / Agricultural relief',tag:'考点',b:`<ul>
-<li>BPR：非上市股份/未上市企业权益 100%；上市股份（控股）50%</li>
-<li>AIM 股份 50%</li>
-<li>APR：农地/农用财产 100% 或 50%</li>
-<li>需满足 <b>2 年</b>持有期（有 replacement 规则）</li></ul>`}
-]},
-{t:'⑧ VAT 增值税',pts:[
- {t:'注册门槛与税率',tag:'公式',b:`<ul>
-<li>强制注册：滚动 12 个月应税营业额 &gt; <b>£90,000</b>（或预计 30 天内会超）</li>
-<li>自愿注销门槛 £88,000</li>
-<li>标准 20%，低税率 5%（家用燃料、儿童座椅等），零税率 0%（食品、书籍、童装）</li>
+{t:'② Week 2｜三类所得、Personal Allowance、Gift Aid / Pension',pts:[
+ {t:'应税所得的"三段式"结构（务必按这个格式答题）',tag:'公式',b:`<table><tr><th></th><th>NSI</th><th>SI</th><th>DI</th></tr>
+<tr><td>Trading income</td><td>X</td><td></td><td></td></tr>
+<tr><td>Employment income</td><td>X</td><td></td><td></td></tr>
+<tr><td>Property income</td><td>X</td><td></td><td></td></tr>
+<tr><td>Pension income</td><td>X</td><td></td><td></td></tr>
+<tr><td>Transition profit</td><td>X</td><td></td><td></td></tr>
+<tr><td>Savings（利息/gilts/债券）</td><td></td><td>X</td><td></td></tr>
+<tr><td>Dividends</td><td></td><td></td><td>X</td></tr>
+<tr><td><b>Total income</b></td><td>X</td><td>X</td><td>X</td></tr>
+<tr><td>Less qualifying interest paid</td><td>(X)</td><td>(X)</td><td>(X)</td></tr>
+<tr><td><b>Net income</b></td><td>X</td><td>X</td><td>X</td></tr>
+<tr><td>Less personal allowance</td><td>(X)</td><td>(X)</td><td>(X)</td></tr>
+<tr><td><b>Taxable income</b></td><td>X</td><td>X</td><td>X</td></tr></table>
+<div class="warn">PA 的抵减顺序：<b>先抵 NSI，再抵 SI，最后抵 DI</b>。这个顺序决定了后面 band 的分配，错了整题连坐。</div>`},
+ {t:'储蓄所得的范围与 Accrued Income Scheme',tag:'公式',b:`<ul>
+<li>银行利息、building society 利息、gilts（国债）、corporate bonds、NS&amp;I 利息</li>
+<li><b>Gilt 中途转让</b>时价款里含"应计利息"：</li></ul>
+<table><tr><th>主体</th><th>应税储蓄所得</th></tr>
+<tr><td>卖方</td><td>已收利息 + 应计利息（nominal × 利率 × n/12）</td></tr>
+<tr><td>买方</td><td>已收利息 − 卖方的应计利息</td></tr></table>
+<div class="tip">课件例题：nominal £120,000、2.5%，7/1 买入 12/1 卖出 → 应计 120,000×2.5%×<b>5/12</b> = £1,250（卖方）；买方 = 1,500 − 1,250 = £250。月份数按持有月数算，买卖当月不计。</div>`},
+ {t:'免税所得清单',tag:'考点',b:`<ul>
+<li>赌博、彩票、Premium Bond 奖金</li>
+<li>奖学金（scholarships）</li>
+<li>地方政府补助（local authority grant）</li>
+<li>法定遣散费（statutory redundancy pay）</li>
+<li>Child benefit</li>
+<li>NS&amp;I Savings Certificates 的利息；<b>ISA 内的利息、股息和资本利得全部免税</b></li></ul>
+<div class="warn">Statutory redundancy 免税，但<b>合同约定的额外遣散费</b>不免（前面 £30,000 那套规则）。</div>`},
+ {t:'ISA 额度与"取出来还能不能再存"',tag:'易错',b:`<ul>
+<li>年度总额 <b>£20,000</b>（cash ISA + stocks &amp; shares 合并计算）</li>
+<li>当年取出的钱<b>不会</b>恢复额度（不是循环额度）</li>
 </ul>
-<div class="warn"><b>Zero-rated 与 Exempt 都能不向客户收 VAT，但：</b>zero-rated 的进项税可退，exempt 的不可退。这是最高频陷阱。</div>`},
- {t:'计税与申报',tag:'公式',b:`<ul>
-<li>应缴 = output tax − input tax</li>
-<li>Invoice accounting（权责发生）vs Cash accounting（≤£1.35m 可用）</li>
-<li>Flat rate scheme：营业额 ≤£150,000，按行业固定比例 × 含税营业额</li>
-<li>通常按季度申报，<b>1 个月 + 7 天</b>内</li>
-<li>Making Tax Digital 强制电子申报</li></ul>`},
- {t:'特殊情形',tag:'考点',b:`<ul>
-<li>Place of supply：商品看发货地，服务看客户所在地（B2B 一般 reverse charge）</li>
-<li>Partial exemption：同时有应税和免税业务时的进项税分摊</li>
-<li>Bad debt relief（6 个月后）</li>
-<li>Penalty：按错误程度分 careless / deliberate，可披露减免</li></ul>`}
+<p>Example：存 10,000 后取 2,000 → 还能存 20,000 − (10,000 − 2,000) = <b>£12,000</b></p>
+<div class="warn">注意这里为什么减 8,000：额度看的是"净存入"，取出会减少已用额度。别把 £20,000 直接减 10,000。</div>`},
+ {t:'Qualifying interest paid（可扣除的利息）',tag:'考点',b:`<ul>
+<li>借款购买用于<u>合伙或雇佣</u>的厂房机器</li>
+<li>借款投资合伙企业</li>
+<li>借款购买 employee-controlled company 的股份</li>
+<li>借款投资合作社（co-operative）</li></ul>
+<div class="tip">自住房按揭利息不在其列（那是 tax reducer，不是扣除项）。</div>`},
+ {t:'Personal Allowance 与 ANI（核心）',tag:'公式',b:`<ul>
+<li>正常 PA = <b>£12,570</b></li>
+<li><b>ANI</b> = total net income − gross personal pension contributions − gross gift aid donations</li>
+<li>ANI &gt; £100,000 → PA 减少 ½ ×（ANI − 100,000）</li>
+<li>ANI ≥ <b>£125,140</b> → PA = 0</li></ul>
+<p>课件例：trading 102,000 + 利息 4,000 → ANI 106,000 → PA = 12,570 − ½×6,000 = <b>£9,570</b></p>
+<div class="warn">顺序：<b>先 gross up → 算 ANI → 定 PA → 再算 taxable income</b>。很多人先减 PA 再算 ANI，全错。</div>`},
+ {t:'Gift Aid 与个人养老金：gross up + 扩展税率带',tag:'公式',b:`<ul>
+<li>Net 支付 × <b>100/80</b> = gross（视为已扣 20% 基础税率）</li>
+<li>两件事同时发生：</li></ul>
+<p>① <b>ANI 扣减</b>：gross 金额从 net income 里扣除（可能救回 PA）<br>
+② <b>扩展税率带</b>：basic band 37,700 与 higher limit 125,140 <b>同时</b>加上 gross 金额</p>
+<table><tr><th></th><th>正常</th><th>gross 52,000 后</th></tr>
+<tr><td>Basic rate band</td><td>37,700</td><td>89,700</td></tr>
+<tr><td>Higher rate limit</td><td>125,140</td><td>177,140</td></tr></table>
+<div class="tip">捐款对慈善机构的价值：net 960 → 机构向 HMRC 取回 240，实得 1,200。对纳税人：higher rate 省 20%×1,200 = 240；additional 省 25%×1,200 = 300。</div>`},
+ {t:'例题：Daisy（PA 被 taper）',tag:'例题',b:`<p>Salary 6,000 + 利息 4,000 + 股息 96,000 → total 106,000</p>
+ANI = 106,000 → PA = 12,570 − ½×6,000 = <b>9,570</b><br>
+PA 抵减：NSI 6,000 全抵 → 剩 3,570 抵 SI → SI 剩 430；DI 不抵
+<table><tr><th></th><th>NSI</th><th>SI</th><th>DI</th></tr>
+<tr><td>Total</td><td>6,000</td><td>4,000</td><td>96,000</td></tr>
+<tr><td>Less PA</td><td>(6,000)</td><td>(3,570)</td><td>(0)</td></tr>
+<tr><td>Taxable</td><td>0</td><td><b>430</b></td><td><b>96,000</b></td></tr></table>`}
 ]},
-{t:'⑨ 合规、避税与道德',pts:[
- {t:'关键日期与罚则',tag:'考点',b:`<ul>
-<li>31 Oct：纸质申报；31 Jan：线上申报 + 缴税</li>
-<li>31 Jul：第二笔 payments on account</li>
-<li>逾期申报：£100 → 3 个月 £10/天 → 6 个月 5%或£300 → 12 个月再加</li>
-<li>记录保存：一般 5 年（有期限延长情形）</li>
-<li>Discovery assessment 可追溯 4 / 6 / 20 年</li></ul>`},
- {t:'Tax avoidance vs evasion',tag:'考点',b:`<ul>
-<li><b>Evasion</b>：违法（隐瞒、造假）→ 刑事</li>
-<li><b>Avoidance</b>：合法但违背立法意图 → GAAR 可反制</li>
-<li><b>Mitigation</b>：立法允许的规划（如 ISA、pension）</li>
-<li>DOTAS 披露规则、Promoters of tax avoidance schemes</li></ul>`},
- {t:'专业与道德',tag:'考点',b:`<ul>
-<li>PCRT：诚信、客观、专业胜任、保密、专业行为</li>
-<li>AML：客户尽调（CDD）、可疑活动报告（SAR）</li>
-<li>利益冲突 → 需独立、回避或取得同意</li>
-<li>不能替客户向 HMRC 提供误导性信息</li></ul>`}
+{t:'③ Week 3｜税额计算与三个 nil rate band（考试主战场）',pts:[
+ {t:'纳税人身份判定',tag:'框架',b:`<table><tr><th>身份</th><th>条件</th><th>PSA</th></tr>
+<tr><td>Basic rate taxpayer</td><td>total taxable income ≤ 37,700</td><td>£1,000</td></tr>
+<tr><td>Higher rate taxpayer</td><td>37,700 &lt; income ≤ 125,140</td><td>£500</td></tr>
+<tr><td>Additional rate taxpayer</td><td>&gt; 125,140</td><td>£0</td></tr></table>
+<div class="warn">身份按<b>全部应税所得</b>（含股息）判断，不是只看工资。发了大额股息的人很容易被推到 higher rate。</div>`},
+ {t:'2025/26 税率总表',tag:'公式',b:`<table><tr><th>Band</th><th>NSI</th><th>SI</th><th>DI</th></tr>
+<tr><td>Savings starting rate（£5,000）</td><td>—</td><td><b>0%</b></td><td>—</td></tr>
+<tr><td>Nil rate band</td><td>—</td><td>PSA 0%（1,000 / 500 / 0）</td><td>£500 全员 0%</td></tr>
+<tr><td>Basic（£37,700）</td><td>20%</td><td>20%</td><td>8.75%</td></tr>
+<tr><td>Higher（£125,140）</td><td>40%</td><td>40%</td><td>33.75%</td></tr>
+<tr><td>Additional</td><td>45%</td><td>45%</td><td>39.35%</td></tr></table>
+<div class="tip">三个 0% 都不免税，它们<b>占 band</b>——占完的地方后面要按更高税率交。这是 Week 3 全部的难点。</div>`},
+ {t:'Savings starting rate £5,000 怎么用',tag:'易错',b:`<ul>
+<li>只有 <b>NSI &lt; £5,000</b> 时才有额度，额度 = <b>5,000 − NSI</b></li>
+<li>用在储蓄所得最前面，0%</li>
+<li>顺序：starting rate → PSA → basic 20%</li></ul>
+<div class="warn">NSI = 2,000 时，starting rate 只剩 3,000；NSI = 6,000 时直接没有。别忘这一步，否则 savings 全按 20% 算。</div>`},
+ {t:'完整算税模板（照抄这个竖式）',tag:'公式',b:`<table><tr><th>项目</th><th>£</th></tr>
+<tr><td><b>NSI</b></td><td></td></tr>
+<tr><td>Basic band × 20%</td><td>X</td></tr>
+<tr><td>Higher band × 40%</td><td>X</td></tr>
+<tr><td>Additional × 45%</td><td>X</td></tr>
+<tr><td><b>SI</b></td><td></td></tr>
+<tr><td>Starting rate × 0%</td><td>0</td></tr>
+<tr><td>Nil rate band × 0%</td><td>0</td></tr>
+<tr><td>Basic × 20% / Higher × 40% / Additional × 45%</td><td>X</td></tr>
+<tr><td><b>DI</b></td><td></td></tr>
+<tr><td>Nil band × 0%</td><td>0</td></tr>
+<tr><td>Basic × 8.75% / Higher × 33.75% / Additional × 39.35%</td><td>X</td></tr>
+<tr><td><b>Total</b></td><td>X</td></tr>
+<tr><td>Less tax reducers（marriage allowance 等）</td><td>(X)</td></tr>
+<tr><td><b>Income tax liability</b></td><td>X</td></tr>
+<tr><td>Less PAYE / tax deducted</td><td>(X)</td></tr>
+<tr><td><b>Tax payable</b></td><td>X</td></tr></table>`},
+ {t:'例题 1：Polly（三档叠加，逐段拆）',tag:'例题',b:`<p>Taxable：NSI 2,000 / SI 10,000 / DI 40,000（PA 已扣）</p>
+<table><tr><th>段</th><th>计算</th><th>£</th></tr>
+<tr><td>NSI 2,000</td><td>2,000 × 20%</td><td>400</td></tr>
+<tr><td>SI 前 3,000</td><td>starting rate（5,000 − 2,000）× 0%</td><td>0</td></tr>
+<tr><td>SI 再 1,000</td><td>PSA × 0%（basic 身份）</td><td>0</td></tr>
+<tr><td>SI 剩 6,000</td><td>6,000 × 20%</td><td>1,200</td></tr>
+<tr><td>DI 前 500</td><td>nil band × 0%</td><td>0</td></tr>
+<tr><td>DI 25,200</td><td>basic band 剩余 × 8.75%</td><td>2,205</td></tr>
+<tr><td>DI 剩 14,300</td><td>× 33.75%</td><td>4,826.25</td></tr>
+<tr><td><b>合计</b></td><td></td><td><b>8,631.25</b></td></tr></table>
+<p>Band 校验：2,000 + 3,000 + 1,000 + 6,000 + 500 + 25,200 = <b>37,700</b> ✓</p>
+<div class="warn">课件这题给了两个答案（£8,731 和 £8,875），两个都漏了 £1,000 PSA（8,875 那版还漏了股息 £500 nil band）。按 HMRC 全规则应为 <b>£8,631.25</b>；考试时建议按老师的口径写，但课下问一句更稳。</div>`},
+ {t:'例题 3：May（PA taper + band 扩展双管齐下）',tag:'例题',b:`<p>Trading profit 159,000；net pension 32,000；net gift aid 9,600</p>
+<b>Gross up</b>：pension 32,000/0.8 = 40,000；gift aid 9,600/0.8 = 12,000；合计 52,000<br>
+<b>ANI</b> = 159,000 − 52,000 = 107,000 → PA = 12,570 − ½×7,000 = <b>9,070</b><br>
+<b>Taxable</b> = 159,000 − 9,070 = <b>149,930</b><br>
+<b>Band</b>：basic 37,700 + 52,000 = <b>89,700</b>；higher limit 125,140 + 52,000 = <b>177,140</b>
+<table><tr><td>89,700 × 20%</td><td>17,940</td></tr>
+<tr><td>(149,930 − 89,700) × 40%</td><td>24,092</td></tr>
+<tr><td><b>合计</b></td><td><b>42,032</b></td></tr></table>
+<div class="tip">一个 donation 干两件事：救 PA（提高 ANI 分母那一侧的扣除）+ 扩 band。两个都要写，缺一个就少 5 分。</div>`},
+ {t:'Marriage allowance（可转移 £1,260）',tag:'考点',b:`<ul>
+<li>配偶一方可把 <b>£1,260</b> 的 PA 转给另一方（受让方须为 basic rate）</li>
+<li>受让方获得 <b>tax reducer £252</b>（= 1,260 × 20%），直接减税额，不是减所得</li>
+<li>转让方 PA 变 11,310</li></ul>
+<p>课件例：David 交易所得 10,000，Victoria 工资 30,500</p>
+<table><tr><th></th><th>David</th><th>Victoria</th></tr>
+<tr><td>收入</td><td>10,000</td><td>30,500</td></tr>
+<tr><td>Less PA</td><td>(11,310)</td><td>(12,570)</td></tr>
+<tr><td>Taxable</td><td>Nil</td><td>17,930</td></tr>
+<tr><td>Tax</td><td>0</td><td>17,930 × 20% = 3,586</td></tr>
+<tr><td>Less reducer</td><td>—</td><td>(252)</td></tr>
+<tr><td><b>Liability</b></td><td>0</td><td><b>3,334</b></td></tr></table>
+<div class="warn">PA 不能把收入减成负数，多出的部分浪费（David 的 1,310 就白扔了）—— 所以转移对"低收入一方"更划算。</div>`}
+]},
+{t:'④ 作业解答（Week 1–3）',pts:[
+ {t:'Homework（Week 3）1：Alice',tag:'例题',b:`<p>Salary 46,500；savings 2,000；dividend 6,000；qualifying interest 300</p>
+<table><tr><th></th><th>NSI</th><th>SI</th><th>DI</th></tr>
+<tr><td>Income</td><td>46,500</td><td>2,000</td><td>6,000</td></tr>
+<tr><td>Less interest paid</td><td>(300)</td><td>—</td><td>—</td></tr>
+<tr><td>Net income</td><td>46,200</td><td>2,000</td><td>6,000</td></tr>
+<tr><td>Less PA 12,570</td><td>(12,570)</td><td>—</td><td>—</td></tr>
+<tr><td><b>Taxable</b></td><td><b>33,630</b></td><td><b>2,000</b></td><td><b>6,000</b></td></tr></table>
+ANI = 54,200 &lt; 100,000 → 全额 PA，无 restriction<br>
+<b>Tax</b>：NSI 33,630 × 20% = 6,726<br>
+SI：无 starting rate（NSI &gt; 5,000）→ PSA 1,000 × 0% + 1,000 × 20% = 200<br>
+DI：剩 band 2,070 → 500 × 0% + 1,570 × 8.75% = 137.38，余 3,930 × 33.75% = 1,326.38<br>
+<b>合计 ≈ £8,389.75</b>（约 £8,390）`},
+ {t:'Homework（Week 3）2：Ken',tag:'例题',b:`<p>Employment 111,400；gift aid gross 800</p>
+<b>(1) 2025/26</b><br>
+ANI = 111,400 − 800 = 110,600 → 超出 10,600 → PA = 12,570 − 5,300 = <b>7,270</b><br>
+Taxable = 111,400 − 7,270 = <b>104,130</b>；basic band 37,700 + 800 = <b>38,500</b><br>
+Tax = 38,500 × 20% = 7,700 + (104,130 − 38,500) × 40% = 26,252 → <b>£33,952</b>
+<hr>
+<b>(2) 再捐 gross 10,600（累计 gross 11,400）</b><br>
+ANI = 111,400 − 11,400 = <b>100,000</b> → 未超过 → PA 全额 <b>12,570</b><br>
+Taxable = 98,830；basic band = 37,700 + 11,400 = <b>49,100</b><br>
+Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
+<b>节省 £4,240</b>（= 10,600 × 40%，正好是 higher rate 的全额减免，因为他还在 higher band 内）`},
+ {t:'Week 1 作业：Mike / 税种分类 / 罚则',tag:'例题',b:`<ul>
+<li>POA = ½ ×（9,200 − 3,200 + 1,900）= <b>£3,950</b>（CGT 不算）</li>
+<li>税种分类：sole trader 利润 → IT + NIC（direct）；公司利润 → CT + NIC（direct）；卖古董桌 → CGT（direct）；采购原材料 → VAT（indirect）；公司卖厂房 → CT on chargeable gains（direct）；遗产 → IHT（direct）</li>
+<li>capital / revenue：VAT = neither、IHT = capital、NIC = revenue</li>
+<li>Jackie（误填）→ 非避税非逃税，12 个月内可改；Michelle（故意少报）→ 逃税，最高 70%（隐瞒则 100%）</li>
+<li>Amy：notice 25/4/2026 → 线上截止 <b>31/1/2027</b>；实际 1/3/2027 逾期提交 → enquiry 窗口至 <b>30/4/2028</b>（其后 quarter day + 12 个月）；非经营记录保存至 <b>31/1/2028</b></li></ul>`}
+]},
+{t:'⑤ Week 4–8｜Employment Income（课前预习，等课件）',pts:[
+ {t:'预习清单（Ch.7–8 会考的点）',tag:'框架',b:`<ul>
+<li>应税所得范围与 receipts basis</li>
+<li>可扣除费用：wholly, exclusively and necessarily；通勤不可扣；mileage 45p/25p</li>
+<li>福利：company car / fuel / beneficial loan / living accommodation</li>
+<li>Termination payments：前 £30,000 免，PILON 全额应税</li>
+<li>PAYE、P11D、Class 1A</li></ul>
+<div class="tip">等 Week 4 课件发我，我把这章按老师口径补全（含例题和作业）。</div>`}
+]},
+{t:'⑥ Week 9–10｜Self-employment & Basis period（预习）',pts:[
+ {t:'预习清单（Ch.9–10）',tag:'框架',b:`<ul>
+<li>Adjusted trading profit 的调增调减</li>
+<li>Capital allowances：AIA、WDA 18% / 6%、汽车</li>
+<li>Basis period reform：<b>tax year basis</b>（2024/25 起）+ 过渡期利润</li>
+<li>Trading losses 的使用顺序</li>
+<li>Class 4 NIC 与 POA 的联动</li></ul>`}
+]},
+{t:'⑦ Week 11｜NIC（预习）',pts:[
+ {t:'预习清单（Ch.16）',tag:'框架',b:`<ul>
+<li>Class 1 雇员 8% / 2%（PT 12,570、UEL 50,270）</li>
+<li>Class 1 雇主 15%（ST £5,000）</li>
+<li>Class 2 / Class 4 自雇：6% / 2%</li>
+<li>NIC 按<b>发薪期</b>计算，不是年度 —— 和 IT 的算法不同</li>
+<li>Class 1A 对福利征，随 P11D 申报</li></ul>`}
 ]}
-]},
-{id:'law',name:'Global Corporate Business Law',desc:'英国法为主 · 论述+案例，判例名要背准',chapters:[
-{t:'① 法律渊源与判例制度',pts:[
- {t:'法律渊源四层',tag:'框架',b:`<ul>
-<li><b>Common law</b>：判例累积形成的规则</li>
-<li><b>Equity</b>：弥补普通法僵化，救济为 injunction / specific performance / trust；原则：he who comes to equity must come with clean hands</li>
-<li><b>Statute</b>：成文法优先，可推翻判例</li>
-<li><b>Retained EU law / 国际公约</b>：如 CISG、Rome I</li></ul>`},
- {t:'遵循先例（stare decisis）',tag:'考点',b:`<ul>
-<li><b>Ratio decidendi</b>（判决理由）有约束力；<b>obiter dicta</b>（附带意见）只有说服力</li>
-<li>上议院/最高法院：1966 Practice Statement 后可背离自己</li>
-<li>上诉法院：原则上受自己约束，例外见 <b>Young v Bristol Aeroplane</b>（冲突、被推翻、明显错误）</li>
-<li>下级法院不受同级或上级他庭约束</li></ul>
-<div class="tip">答题格式：issue → rule（判例）→ application → conclusion（IRAC）。</div>`},
- {t:'成文法解释方法',tag:'考点',b:`<ul>
-<li><b>Literal</b> 字面 / <b>Golden</b> 黄金（荒谬时修正）/ <b>Mischief</b> 除弊 / <b>Purposive</b> 目的</li>
-<li>辅助规则：ejusdem generis（同类）、noscitur a sociis（上下文）、expressio unius（明示其一排除其他）</li>
-<li>外部辅助：Hansard（Pepper v Hart 限条件）、解释性备忘录</li></ul>`},
- {t:'法院层级与救济',tag:'框架',b:`<ul>
-<li>Supreme Court → Court of Appeal → High Court（King's Bench / Chancery / Family）→ Crown / County → Magistrates / Tribunal</li>
-<li>普通法救济：damages</li>
-<li>衡平救济：specific performance、injunction、rescission、rectification、account of profits</li>
-<li>司法审查（judicial review）：越权、程序不当、不合理、合法期待</li></ul>`}
-]},
-{t:'② 合同成立：Offer & Acceptance',pts:[
- {t:'Offer vs Invitation to Treat',tag:'考点',b:`<table><tr><th>情形</th><th>判例</th><th>结论</th></tr>
-<tr><td>橱窗陈列</td><td>Fisher v Bell</td><td>ITT</td></tr>
-<tr><td>报纸广告</td><td>Partridge v Crittenden</td><td>ITT</td></tr>
-<tr><td>单方悬赏广告</td><td>Carlill v Carbolic Smoke Ball</td><td>Offer（可构成单方合同）</td></tr>
-<tr><td>询价</td><td>Harvey v Facey</td><td>非 offer</td></tr>
-<tr><td>"may be prepared to sell"</td><td>Gibson v Manchester CC</td><td>ITT（缺确定性）</td></tr>
-<tr><td>自助机/公交</td><td>Thornton v Shoe Lane</td><td>机器发出 offer，投币为 acceptance</td></tr></table>`},
- {t:'要约的终止',tag:'考点',b:`<ul>
-<li><b>Revocation</b>：须在承诺前<b>送达</b>受要约人（<b>Dickinson v Dodds</b>）；但单方合同中一旦开始履行则不可撤回（Errington v Errington）</li>
-<li><b>Lapse</b>：明示期限或合理期间届满</li>
-<li><b>Rejection</b>：拒绝即消灭</li>
-<li><b>Counter-offer</b>：反要约消灭原要约（<b>Hyde v Wrench</b>）；但"请求补充信息"不等于反要约（Stevenson Jaques）</li>
-<li>死亡：要约人死亡，一般终止（除可履行的单方合同）</li></ul>`},
- {t:'Acceptance 的规则',tag:'易错',b:`<ul>
-<li>镜像规则：必须<b>无条件</b>接受全部条款（有改动=反要约）</li>
-<li>一般须<b>送达</b>要约人（<b>Entores</b> 电传案：即时通讯以收到为生效）</li>
-<li><b>Postal rule</b>：邮政承诺<b>投递即生效</b>（<b>Adams v Lindsell</b>），但仅限承诺，且要约人可排除</li>
-<li>沉默不构成承诺（<b>Felthouse v Bindley</b>）</li>
-<li>行为可构成承诺（Carlill、battle of the forms 中 last shot 规则）</li></ul>
-<div class="warn">Email / 网站点击：英国法倾向"收到生效"，但无定论，答题要说明不确定性。</div>`},
- {t:'Consideration 约因',tag:'公式',b:`<ul>
-<li>定义（Currie v Misa）：一方得到<b>利益</b>或另一方承受<b>损失</b></li>
-<li>须<b>有价值</b>但不必<b>相当</b>（Thomas v Thomas：£1 房租有效）</li>
-<li>不得是<b>过去的</b>约因（Re McArdle）</li>
-<li><b>既有义务</b>不构成约因：Stilk v Myrick（不额外付）；但超出原义务则可：Hartley v Ponsonby</li>
-<li>部分还债不构成对全额债务的清偿（<b>Foakes v Beer</b> / Pinnel's case），除非有对价（提前付、换物、第三方付款）</li>
-<li><b>Promissory estoppel</b>：High Trees 案，需明示承诺、依赖、不公平，只作抗辩不作诉因</li></ul>`},
- {t:'Intention & Capacity',tag:'考点',b:`<ul>
-<li>商业推定有意图（Edmonds v Lawson 反向推翻需明确证据）</li>
-<li>家庭/社交推定无意图：<b>Balfour v Balfour</b>（无）；<b>Merritt v Merritt</b>（分居后书面协议 → 有）</li>
-<li>未成年人：必需品（necessaries）与学徒合同可约束；其他可撤销</li>
-<li>精神失常 / 醉酒：知悉对方无能力则可撤销</li>
-<li>公司：ultra vires 已被 CA 2006 s.39 废除（对第三方保护）</li></ul>`}
-]},
-{t:'③ 合同条款与免责条款',pts:[
- {t:'Terms vs Representations',tag:'框架',b:`<ul>
-<li>判断因素：陈述时间间隔、是否书面、重要性、陈述方专业能力</li>
-<li>条款分类：<b>Condition</b>（违反可终止+索赔）、<b>Warranty</b>（只能索赔）、<b>Innominate</b>（看后果严重性，<b>Hong Kong Fir</b>）</li>
-<li>明示条款 / 默示条款（business efficacy：The Moorcock；statute：SGA 1979 ss.12–15；custom）</li>
-<li>Collateral contract / misrepresentation 可作例外，突破 parole evidence rule</li></ul>`},
- {t:'条款的并入（Incorporation）',tag:'考点',b:`<ul>
-<li><b>签署</b>：签字即受约束，不论是否读过（<b>L'Estrange v Graucob</b>），例外：欺诈、误解（non est factum）</li>
-<li><b>通知</b>：须在<b>缔约前或同时</b>合理提示（<b>Olley v Marlborough Court</b> 酒店房间免责无效；<b>Chapelton v Barry</b> 收据不足以并入）</li>
-<li><b>交易习惯</b>：<b>McCutcheon v David MacBrayne</b>，一贯且一致才可（British Crane 双方同行业可用）</li></ul>`},
- {t:'免责条款的控制：UCTA 1977',tag:'考点',b:`<ul>
-<li>s.2(1)：<b>不能</b>排除因过失造成的<b>死亡或人身伤害</b>责任</li>
-<li>s.2(2)：其他损失可排除，但须<b>合理</b>（reasonableness）</li>
-<li>s.3：标准条款下排除自身违约责任须合理</li>
-<li>s.6：货物买卖中<u>所有权与品质</u>的默示条款不可排除（消费者）/须合理（B2B）</li>
-<li>s.7：类似适用于服务</li>
-<li>合理性（Sch 2）：谈判地位、有无诱导、是否明知、定制程度、行业惯例</li></ul>
-<div class="warn">UCTA 只适用 <b>B2B</b>；对消费者用 <b>CRA 2015</b>：s.65 人身伤亡绝对不可排除，s.62 公平性测试，Sch 2 灰名单。</div>`},
- {t:'解释规则',tag:'考点',b:`<ul>
-<li>Contra proferentem：对起草方不利解释</li>
-<li><b>Canada Steamship</b> 三步：明示过失？广义措辞是否涵盖？若涵盖，该责任是否本可合法排除？</li>
-<li>主要义务 vs 次要义务（Photo Production v Securicor）</li>
-<li>四角规则已被 <b>Investors Compensation Scheme</b> 目的解释取代</li></ul>`}
-]},
-{t:'④ 无效因素与合同解除',pts:[
- {t:'Misrepresentation 三要件',tag:'考点',b:`<ul>
-<li>① 虚假的<b>事实</b>陈述（非意见/未来意图，Edgington v Fitzmaurice 例外）</li>
-<li>② 针对受述方并<b>诱导</b>其缔约（Attwood v Small 未依赖则无救济）</li>
-<li>③ 陈述方是<b>事实</b>陈述而非沉默（例外：最大诚信合同、半真半假、情况变化须更正）</li></ul>
-<table><tr><th>类型</th><th>救济</th></tr>
-<tr><td>Fraudulent（Derry v Peek）</td><td>撤销 + 侵权赔偿</td></tr>
-<tr><td>Negligent（MA 1967 s.2(1)）</td><td>撤销 + damages（推定过失）</td></tr>
-<tr><td>Innocent</td><td>撤销，法院可判 damages 代替（s.2(2)）</td></tr></table>
-<div class="warn">撤销权可能因<b>确认、第三人权利、无法恢复原状、时效</b>而丧失。</div>`},
- {t:'Mistake 错误',tag:'考点',b:`<ul>
-<li><b>Common mistake</b>：双方同错（res extincta 标的已灭失；res sua 标的已属自己；品质错误需根本性）</li>
-<li><b>Mutual</b>：各理解不同，客观解释可解决则不影响</li>
-<li><b>Unilateral</b>：一方知情（<b>Hartog v Colin & Shields</b> 价格单位笔误）</li>
-<li><b>Non est factum</b>：签署文件性质完全不同（极窄）</li>
-<li>衡平救济：rectification</li></ul>`},
- {t:'Duress / Undue Influence / 非法性',tag:'考点',b:`<ul>
-<li><b>Duress</b>：人身、货物、<b>经济胁迫</b>（DSND Subsea：缺乏实际选择、正当性、因果）</li>
-<li><b>Undue influence</b>：实际（actual）或推定（presumed，如律师-客户、父母-子女），可用独立建议抗辩</li>
-<li><b>Illegality</b>：违法合同不可执行；restraint of trade 须<b>合理</b>（范围、时间、地域、公共利益）</li>
-<li>后果：撤销、不可执行、恢复原状</li></ul>`},
- {t:'解除的四种方式',tag:'框架',b:`<ul>
-<li><b>Performance</b>：<b>entire obligations</b>（Cutter v Powell 未完成不给钱）；例外：可分割、substantial performance（Bolton v Mahadeva 反例）、接受部分履行、阻碍履行</li>
-<li><b>Agreement</b>：accord & satisfaction、variation（需对价）</li>
-<li><b>Breach</b>：违反 condition / 根本违约 → 可终止 + 索赔（repidiatory breach 可立即接受）</li>
-<li><b>Frustration</b>：<b>Davis Contractors</b>（非因过错、义务根本改变、不可预见）；<b>Taylor v Caldwell</b>；不可自致（The Sea Angel 多因素）</li></ul>`},
- {t:'Remedies 救济',tag:'公式',b:`<ul>
-<li><b>Expectation</b>：使原告处于"如约履行"的地位；<b>Reliance</b>：恢复到缔约前</li>
-<li><b>Remoteness</b>：<b>Hadley v Baxendale</b> 两分支（自然发生 / 缔约时已知的特殊情况）；The Achilleas 强调"责任承担"</li>
-<li><b>Mitigation</b>：原告须减损，<b>British Westinghouse</b> 获益可抵扣</li>
-<li><b>Liquidated damages</b> vs <b>Penalty</b>：<b>Cavendish v Makdessi</b>——是否保护合法利益且不相称</li>
-<li>衡平：specific performance（土地/独特物）、injunction、quantum meruit</li></ul>
-<div class="warn">非金钱损失（distress）原则不赔，例外：合同目的即为提供安宁/愉悦（Farley v Skinner）。</div>`}
-]},
-{t:'⑤ 代理法 Agency',pts:[
- {t:'代理的产生',tag:'考点',b:`<ul>
-<li><b>Express</b> 明示授权 / <b>Implied</b> 默示（职位、惯例）</li>
-<li><b>Ratification</b>：事后追认，须<b>知情且全盘</b>，且追认时本人须存在</li>
-<li><b>Necessity</b>：紧急、无法联系本人、善意、为本人利益</li>
-<li><b>Estoppel / apparent authority</b>：<b>Freeman & Lockyer</b>——本人<b>陈述</b>（holding out）+ 依赖 + 变动地位</li></ul>
-<div class="warn">Apparent authority 看"本人制造的表象"，不是代理人的自称；内部限制一般不约束善意第三人（Turquand 规则）。</div>`},
- {t:'代理人的义务与权利',tag:'考点',b:`<ul>
-<li>义务：遵从指示、亲自履行、谨慎、<b>不得获秘密利益</b>（须交出）、不得自我交易、保密、如实报账</li>
-<li>权利：报酬、费用补偿（indemnity）、留置权（lien）、lien on goods</li>
-<li>终止：完成、期限届满、撤销、死亡/破产、破产；<b>irrevocable agency</b>（与利益结合）</li>
-<li>未披露本人（undisclosed principal）：可介入，但受"主体默示条款"限制</li></ul>`}
-]},
-{t:'⑥ 商业组织形式与公司人格',pts:[
- {t:'四种形态对比',tag:'框架',b:`<table><tr><th></th><th>责任</th><th>法律地位</th><th>要点</th></tr>
-<tr><td>Sole trader</td><td>无限</td><td>非独立</td><td>注册简单，税按 IT</td></tr>
-<tr><td>Partnership（PA 1890）</td><td>无限连带</td><td>非独立</td><td>s.5 合伙人互为代理；s.24 默认条款（均分利润、一致同意）</td></tr>
-<tr><td>LLP（LLP Act 2000）</td><td>有限</td><td>独立人格</td><td>成员不承担管理责任，需登记</td></tr>
-<tr><td>Company（CA 2006）</td><td>有限</td><td>独立人格</td><td>ltd / plc（plc 最低 £50,000 股本，1/4 实缴）</td></tr></table>`},
- {t:'Salomon 原则及其后果',tag:'考点',b:`<ul>
-<li><b>Salomon v Salomon</b>：公司是与股东分离的独立法律人格</li>
-<li>后果：有限责任、公司财产独立、永久存续、可以自己名义起诉被诉、股东不是公司代理人</li>
-<li>例外——<b>揭开面纱</b>：<b>Prest v Petrodel</b>（evasion 原则，非 concealment）；Gilford Motor（规避禁令）；Daimler（战时敌侨）；欺诈/集团代理</li></ul>
-<div class="warn">Prest 后英国法立场：仅在"有人利用公司组织逃避既存法律义务"时揭开，标准很窄。</div>`},
- {t:'设立与章程',tag:'考点',b:`<ul>
-<li>Promoter 对公司的信托义务（不得秘密获利）</li>
-<li><b>Pre-incorporation contract</b>：公司成立前签的合同，<b>s.51</b> 由签署人个人负责（除非明示排除）</li>
-<li>文件：Memorandum、Articles（可用 Model Articles）、s.9 申请、注册处发证</li>
-<li><b>s.33</b>：章程构成公司与成员间的<b>法定合同</b>（但主要是成员与公司，不直接约束成员之间）</li></ul>`},
- {t:'股本与资本维持',tag:'公式',b:`<ul>
-<li>Share capital：nominal value + share premium</li>
-<li>配股：董事须有授权（s.550 私人公司自动授权），现有股东有<b>优先认购权</b>（s.561，可排除）</li>
-<li>分红只能用<b>可分配利润</b>（Part 23），资本不可分</li>
-<li>减资：法院确认程序 或 董事偿债能力声明（私人公司）</li>
-<li>股份回购：可分配利润或发行新股所得（s.692）</li>
-<li>Financial assistance 规则（私人公司已大幅放宽）</li></ul>`}
-]},
-{t:'⑦ 董事义务与责任',pts:[
- {t:'董事的类型与任免',tag:'考点',b:`<ul>
-<li><b>De jure</b>（正式任命）/ <b>De facto</b>（实际行使职能）/ <b>Shadow</b>（幕后指挥）</li>
-<li>任命：须至少 1 名自然人董事（16 岁以上）</li>
-<li><b>s.168</b>：股东可普通决议罢免，须 <b>28 天 special notice</b>；可附补偿（须批准）</li>
-<li>服务合同超 2 年须成员批准</li></ul>`},
- {t:'七项法定职责（ss.171–177）',tag:'考点',b:`<ul>
-<li><b>s.171</b> 在章程授权范围内行使权力（正当目的）</li>
-<li><b>s.172</b> 促进公司整体成功（考虑长期、员工、供应商、客户、社区、环境、声誉；<b>s.172(3)</b> 接近破产时须考虑<b>债权人</b>利益）</li>
-<li><b>s.173</b> 独立判断</li>
-<li><b>s.174</b> 合理谨慎、技能与勤勉（<b>双重客观标准</b>：一般知识 + 个人特殊专长）</li>
-<li><b>s.175</b> 避免利益冲突（可由独立董事授权）</li>
-<li><b>s.176</b> 不得接受第三方利益</li>
-<li><b>s.177</b> 就拟议交易申报利益（s.182 就已发生交易）</li></ul>
-<div class="warn">s.172 是主观+客观混合测试；s.174 是客观基准 + 主观提升。别混。</div>`},
- {t:'违反义务的后果',tag:'考点',b:`<ul>
-<li>Damages / 恢复原状（account of profits）/ 撤销交易 / injunction / 归还财产</li>
-<li><b>Ratification</b>（s.239）：由知情成员决议批准，但董事关联方的票不计入</li>
-<li>公司可购买 D&O 保险；indemnity 受限（s.232）</li>
-<li>利益冲突交易可能被撤销（除非批准）</li></ul>`},
- {t:'破产时的董事责任',tag:'考点',b:`<ul>
-<li><b>Wrongful trading（s.214 IA 1986）</b>：明知或应当知道无可避免破产仍继续交易 → 个人赔偿；抗辩：采取了一切合理步骤把损失降到最低</li>
-<li><b>Fraudulent trading（s.213）</b>：故意欺诈，需不诚实，可能刑责</li>
-<li>董事资格取消（CDDA 1986，2–15 年）</li></ul>
-<div class="tip">答 wrong trading 题：时间点（何时应当知道）+ 抗辩（是否采取措施）+ 后果（赔偿法院认为合适金额）。</div>`}
-]},
-{t:'⑧ 股东、治理与破产',pts:[
- {t:'决议与会议',tag:'公式',b:`<ul>
-<li><b>Ordinary resolution</b>：简单多数（&gt;50%）</li>
-<li><b>Special resolution</b>：<b>75%</b></li>
-<li>Written resolution（私人公司）：一般逐案通过，不需开会；不得用于罢免董事或审计师</li>
-<li>通知期：一般会议 14 天；plc AGM 21 天；短通知需达到相应比例同意</li>
-<li>plc 须每年开 AGM（间隔不超过 15 个月）</li></ul>`},
- {t:'少数股东救济',tag:'考点',b:`<ul>
-<li><b>s.260 derivative claim</b>：代表公司起诉董事（须法院许可，行为须经批准、善意等）</li>
-<li><b>s.994 unfair prejudice</b>：不公平损害，救济包括买断股份、监管公司</li>
-<li>Just and equitable winding up（s.122(1)(g)）</li>
-<li>个人权利被侵害可直诉（如 s.33 章程权利）</li></ul>`},
- {t:'公司治理（UK CGC）',tag:'考点',b:`<ul>
-<li>"<b>Comply or explain</b>"，非强制</li>
-<li>原则：董事会领导、职责分工（董事长/CEO 分离）、组成（至少半数独立非执行董事）、审计/风险/薪酬委员会、薪酬与业绩挂钩</li>
-<li>披露：Strategic Report、Directors' Report、Remuneration Report、Corporate Governance Statement</li>
-<li>ESG / s.172(1) 利益相关者报告 / 供应链尽职（Modern Slavery Act）</li></ul>`},
- {t:'破产程序与清偿顺序',tag:'公式',b:`<ul>
-<li>资不抵债测试：<b>现金流</b>（无法到期清偿）或 <b>资产负债表</b>（负债 &gt; 资产）s.123</li>
-<li>程序：CVL（债权人自愿清算）、MVL（成员自愿清算，需偿债声明）、强制清算、<b>Administration</b>（救助公司/goal 顺序）、CVA、LPA Receivership</li>
-<li>分配顺序：固定抵押 → 清算费用 → 优先债权人（员工工资、税）→ 浮动抵押（含 prescribed part）→ 无担保 → 股东</li>
-<li>可撤销交易：preference（s.239）、transaction at undervalue（s.238）</li></ul>`}
-]},
-{t:'⑨ 侵权、雇佣与知识产权（跨域）',pts:[
- {t:'Negligence 四要素',tag:'考点',b:`<ul>
-<li>Duty（<b>Donoghue v Stevenson</b> 邻人原则；<b>Caparo</b> 三要件：可预见、接近性、公平合理）</li>
-<li>Breach：合理人标准；专业标准 <b>Bolam</b>（同行认可做法）</li>
-<li>Causation：<b>but for</b> 测试；多因（material contribution）</li>
-<li>Remoteness：<b>Wagon Mound</b> 合理可预见</li>
-<li>抗辩：contributory negligence、volenti non fit injuria、illegality</li>
-<li>Vicarious liability：雇佣关系 + 与职务有密切联系（Catholic Church 案）</li></ul>`},
- {t:'雇佣法要点',tag:'考点',b:`<ul>
-<li>区分 contract of service vs for services（control / integration / economic reality）</li>
-<li><b>Wrongful dismissal</b>：违约（通知期）</li>
-<li><b>Unfair dismissal</b>：需 2 年服务；理由（能力、行为、冗余、法定、其他实质理由）+ 程序合理</li>
-<li>Redundancy：公平甄选、协商义务</li>
-<li>EqA 2010：9 项受保护特征，直接/间接歧视、骚扰、受害；需证明"不利待遇"和"相关原因"</li></ul>`},
- {t:'知识产权',tag:'框架',b:`<ul>
-<li><b>Patent</b>（1977）：新颖、创造性、工业应用，20 年，须申请</li>
-<li><b>Trade mark</b>（1994）：可识别来源，10 年可续，注册制</li>
-<li><b>Copyright</b>（CDPA 1988）：自动产生，文学/艺术/音乐/软件，作者死后 70 年</li>
-<li><b>Passing off</b>：商誉 + 虚假陈述 + 损害（Jif Lemon）</li>
-<li>Confidential information / 商业秘密</li></ul>`},
- {t:'答题模板（论述题稳拿分）',tag:'考点',b:`<ul>
-<li>① 定性问题（合同/侵权/公司法）→ ② 适用规则（判例名 + 一句话要点）→ ③ 套事实（对比正反两面）→ ④ 结论（可能结果 + 风险）</li>
-<li>论述题要"两面论证"：给对方最强论点，再说为什么我更强</li>
-<li>每个论点挂判例，案例名错 = 掉分；记不住全名就写 <b>Carlill</b>、<b>Prest</b> 这种简称</li></ul>`}
 ]}
+,
+{id:'law',name:'Global Corporate Business Law',desc:'GCBL · Week 1–3 已对齐（CISG 为主）· 考试就是「三步法 + 条文号」',chapters:[
+{t:'⓪ 先看这个：这门课的答题公式',pts:[
+ {t:'三步法（老师要的格式，照抄）',tag:'公式',b:`<p><b>Legal issue</b>: Whether ……?</p>
+<p><b>Step 1 — Explain the law</b><br>According to ______（条文 / 判例）……（把规则用自己的话讲清楚）</p>
+<p><b>Step 2 — Apply</b><br>In this case, ……（把事实一条条塞进规则里）</p>
+<p><b>Step 3 — Conclusion</b><br>Therefore, Yes / No ……</p>
+<div class="tip">模板的价值：三段论保证你永远不空白。哪怕不会，写"issue + 相关条文 + 事实套用"就有分。这门课不是考你背判例，是考你能不能用条文把事实切成块。</div>`},
+ {t:'三步法示范（用 Natural Gas 第 1 问）',tag:'案例',b:`<p><b>Issue</b>: Whether the buyer breached the contract by not obtaining the letter of credit?</p>
+<p><b>Step 1</b>: According to <b>Article 80 CISG</b>, a party may not rely on a failure of the other party to perform, to the extent that such failure was caused by the first party's act or omission.</p>
+<p><b>Step 2</b>: In this case, the buyer told the seller that its bank needed the place of loading before it could issue the letter of credit. The seller agreed to provide it but never did. The buyer's failure was therefore caused by the seller's own omission.</p>
+<p><b>Step 3</b>: Therefore, the buyer did <b>not</b> breach the contract, and the seller cannot rely on that failure.</p>`},
+ {t:'为什么整节课都在讲 Article 号',tag:'框架',b:`<ul>
+<li>CISG 是<b>条约</b>，条文号就是你的法条依据，写 <b>Art 14</b> 比写"the Convention says"值钱</li>
+<li>考试结构基本是：给事实 → 问是否构成 offer / 能否撤销 / 谁承担风险 → 你 cite 条文</li>
+<li>所以要背的不是数字，而是<b>四组核心</b>：14/15/16/18（成立）、25/49（根本违约与解除）、30/35/53（义务）、66/67（风险）、74/77/80（赔偿）</li></ul>
+<div class="warn">课件里有几处条文号写错，我标在后面的卡片里（例如"买方要求替代货物"是 <b>Art 46(2)</b>，不是 Art 29）。</div>`}
 ]},
-{id:'far',name:'Financial Accounting and Reporting',desc:'IFRS 准则 + 合并报表 + 分析，计算与论述并重',chapters:[
-{t:'① 概念框架与列报',pts:[
- {t:'Conceptual Framework 核心',tag:'框架',b:`<ul>
-<li>目标：向现有和潜在投资者、贷款人提供<b>决策有用</b>信息 + 评估管理层受托责任</li>
-<li>基本质量特征：<b>相关性</b>（预测价值、确认价值、重要性）与<b>如实反映</b>（完整、中立、无误）</li>
-<li>增强特征：可比性、可验证性、及时性、可理解性</li>
-<li>约束：成本 &lt; 收益</li>
-<li>要素：资产＝<b>控制</b> + 过去事项 + 未来经济利益；负债＝<b>现时义务</b> + 过去事项 + 资源流出</li></ul>
-<div class="warn">"控制"是资产定义的核心改动点，服务特许权、客户合同等要按控制判断。</div>`},
- {t:'基础假设与计量基础',tag:'考点',b:`<ul>
-<li>Going concern、accruals、materiality、prudence（谨慎但不偏斜）、substance over form</li>
-<li>计量基础：历史成本、现行成本、可变现价值、<b>公允价值</b>、使用价值</li>
-<li>OCI 的用途：把"未实现/未通过损益"的价值变动放到权益，避免噪音</li></ul>`},
- {t:'IAS 1 报表结构',tag:'考点',b:`<ul>
-<li>五张表：SOFP、SOPL &amp; OCI、SCE、现金流量表、附注</li>
-<li>流动资产判定：12 个月内变现/出售，或为交易持有</li>
-<li>OCI 项目：重估盈余、设定受益计划重计量、FVOCI 权益工具、现金流量套期、外币折算差额</li>
-<li>比较信息 1 期；"额外"报表需说明</li></ul>`},
- {t:'IAS 8 政策、估计与差错',tag:'易错',b:`<table><tr><th>项目</th><th>处理</th></tr>
-<tr><td>会计政策变更</td><td><b>追溯</b>：重述比较期，调整期初留存收益</td></tr>
-<tr><td>会计估计变更</td><td><b>未来适用</b>：当期及以后期间</td></tr>
-<tr><td>前期差错</td><td><b>追溯重述</b>；重大差错必须重述</td></tr></table>
-<div class="warn">区分关键：政策=计量基础变了（如存货 FIFO→加权平均）；估计=输入值变了（如残值、折旧年限、坏账率）。</div>`}
+{t:'① Week 1｜国际法基础：主体、渊源、三大流派',pts:[
+ {t:'国际法 vs 国内法、公法 vs 私法',tag:'考点',b:`<ul>
+<li><b>没有世界政府</b>：没有全球立法机关、没有统一执法机关 → 国际法是"平权、横向"的体系</li>
+<li><b>Public international law</b>：国家与国家之间（条约、习惯、战争法）</li>
+<li><b>Private international law</b>：私人之间的涉外争议，解决"用哪国法 / 哪国法院"（冲突法）</li>
+<li>国际法调整三类关系：State–State、State–Person、Person–Person（涉外）</li></ul>`},
+ {t:'谁能当国际法主体',tag:'考点',b:`<ul>
+<li><b>States</b>：三要素——<b>territory</b>（领土）、<b>population</b>（人口）、<b>effective government</b>（有效政府）</li>
+<li><b>IGOs</b>（政府间组织）：如联合国、WTO，有缔约、诉讼能力</li>
+<li><b>NGOs</b>：有影响力但一般不是完整主体</li>
+<li><b>Individuals</b>：有限主体（人权、投资仲裁；国家可为其国民行使外交保护）</li></ul>`},
+ {t:'三大流派：谁在决定国际法',tag:'考点',b:`<table><tr><th>流派</th><th>核心主张</th></tr>
+<tr><td><b>Cosmopolitans</b> 世界主义</td><td>存在普世人权，<b>国家同意与否不重要</b>（自然法）</td></tr>
+<tr><td><b>Positivists</b> 实证主义</td><td>国际法＝国家间的一系列"合同"，<b>同意（consent）</b>才产生约束</td></tr>
+<tr><td><b>Hobbesians</b> 霍布斯主义</td><td>国家只在<b>符合自身利益</b>时才缔约和遵守</td></tr></table>
+<div class="tip">ICJ 规约第 38(1) 条体现的是<b>实证主义</b>（条约＝国家明示同意）。这是 Week 1 作业的原题。</div>`},
+ {t:'国际法渊源：Article 38(1) of the ICJ Statute',tag:'公式',b:`<ol style="padding-left:18px">
+<li><b>(a) 条约 / 公约</b>——明示承认的规则</li>
+<li><b>(b) 习惯</b>——"general practice accepted as law"</li>
+<li><b>(c) 一般法律原则</b>（文明国家承认的）</li>
+<li><b>(d) 司法判决与公法学家学说</b>——<u>辅助</u>手段（受 Art 59 限制：判决只约束当事国）</li></ol>
+<div class="warn">第 (d) 项不是主要渊源，答题时别把它和条约并列。同理，<b>comity（礼让）不是法</b>，只是国家间的礼貌。</div>`},
+ {t:'Custom 的两要件（必考）',tag:'公式',b:`<ul>
+<li><b>Usus（行为要件）</b>：consistent and recurring action。<b>不需要</b>时间久远、<b>不需要</b>所有国家都遵守，但需"相当数量主要国家"长期一致地实践</li>
+<li><b>Opinio juris sive necessitatis（心理要件）</b>：国家认为<b>有义务</b>遵守，而非出于礼貌</li></ul>
+<div class="tip">作业判断题的关键：题目说"必须所有国家遵守 / 必须历史悠久" → 错。这是 usus 的常见陷阱。</div>`},
+ {t:'条约与公约的区别；Jus Cogens',tag:'考点',b:`<ul>
+<li><b>Treaty</b>：国家间<b>书面</b>、受国际法支配的协议（VCLT Art 2(1)(a)）→ 口头约定<b>不算</b>条约</li>
+<li><b>Convention</b>：由国际组织主持制定的多边条约</li>
+<li><b>Jus cogens</b>：强行法，<b>不容克减</b>（禁止种族灭绝、禁止侵略等）→ 偏<b>自然法</b>思路</li>
+<li>Pacta sunt servanda：条约生效后须<b>善意履行</b>（VCLT Art 26）</li></ul>`},
+ {t:'案例：Trail Smelter（美国 v 加拿大）',tag:'案例',b:`<p><b>Facts</b>：加拿大 BC 省的铅锌冶炼厂污染哥伦比亚河，河水流入美国华盛顿州。</p>
+<p><b>Issue</b>: Whether Canada can be enjoined from causing harm to a U.S. river?</p>
+<p><b>Rule</b>：一国有义务保护他国不受其管辖范围内个人行为的损害；当后果严重且有清楚有力的证据时，任何国家无权以这种方式使用其领土造成他国损害。</p>
+<p><b>Holding</b>：加拿大在国际法上对冶炼厂的行为负责，须停止污染。</p>
+<div class="tip">关键词：<b>negative servitudes / transboundary pollution</b>。这是"国家责任"的入门案例。</div>`}
 ]},
-{t:'② IFRS 15 收入',pts:[
- {t:'五步法（必背）',tag:'公式',b:`<ol style="padding-left:18px">
-<li>识别与客户的<b>合同</b>（5 条件：批准、权利义务清晰、支付条款、商业实质、对价很可能收回）</li>
-<li>识别<b>履约义务</b>（可明确区分：能单独受益 + 合同内可区分）</li>
-<li>确定<b>交易价格</b>（可变对价、融资成分、非现金对价、应付客户对价）</li>
-<li><b>分摊</b>至各履约义务（按单独售价的相对比例，可用调整市价法/成本加成/余值法）</li>
-<li>在履约义务满足时<b>确认收入</b>（时点 or 时段）</li></ol>`},
- {t:'时段确认的三条件（满足其一）',tag:'考点',b:`<ul>
-<li>① 客户在建造过程中<b>同时取得并消耗</b>利益</li>
-<li>② 建造/改良<b>创造或增强</b>客户控制的资产</li>
-<li>③ 不产生<b>可替代用途</b>，且企业有<b>可强制执行</b>的收款权</li></ul>
-<div class="warn">履约进度用 input（成本/工时）或 output（单位/里程碑）法，但<b>已收款 ≠ 进度</b>。预收款是合同负债，不是收入。</div>`},
- {t:'易错细节包',tag:'易错',b:`<ul>
-<li>可变对价：期望值法（多结果）或最可能金额法（二元），须做<b>限制性估计</b>（极可能不会重大转回）</li>
-<li>重大融资成分：交付与付款间隔 &gt;1 年要折现（实务可用 ≤1 年豁免）</li>
-<li>主要责任人 vs 代理人：<b>控制</b>商品→总额法，否则净额法</li>
-<li>质保：保证型（IAS 37 准备）vs 服务型（单独履约义务）</li>
-<li>合同取得成本（佣金）资本化并摊销，除非 ≤1 年</li></ul>`}
+{t:'② Week 1｜英国法：判例与立法',pts:[
+ {t:'判例约束力与层级',tag:'考点',b:`<ul>
+<li>上级法院判决约束下级；<b>Supreme Court</b> 可背离自己（1966 Practice Statement）</li>
+<li>只有 <b>ratio decidendi</b>（判决理由）有约束力；<b>obiter dicta</b>（附带意见）只有说服力</li>
+<li>Crown Court 受 High Court、Court of Appeal、Supreme Court 约束，<b>不受</b> County Court 约束</li>
+<li>上级法院<b>overrule</b> 下级判例：那个案子的<b>结果仍然有效</b>，只是规则今后不再适用（判断题爱考）</li></ul>`},
+ {t:'规避先例的五种方法',tag:'考点',b:`<ul>
+<li>① <b>Distinguish</b> 事实不同</li>
+<li>② 主张 <b>ratio 不清晰</b>（obscure）</li>
+<li>③ 原判决<b>遗漏了关键法律点</b></li>
+<li>④ 与某个<b>基本法律原则冲突</b>（或与后法冲突 → 成文法优先）</li>
+<li>⑤ 主张先例<b>过宽</b>（too wide）</li></ul>
+<div class="tip">Seminar 那道选择题：高等法院法官受上诉法院约束，但若 1975 年成文法已实质推翻该判例，可不受约束 → 选 "不符合 1975 年成文法"。</div>`},
+ {t:'判例法的优缺点（论文题必备）',tag:'考点',b:`<table><tr><th>优点</th><th>缺点</th></tr>
+<tr><td>确定性（certainty）、可预测</td><td>为避免不公而做不合逻辑的区分（illogical distinctions）</td></tr>
+<tr><td>清晰（clarity），ratio 可提炼一般原则</td><td>判决之间可能前后不一致</td></tr>
+<tr><td>灵活（flexibility），随情势变化</td><td>限制法官裁量</td></tr>
+<tr><td>细致（detail），能贴合具体事实</td><td>可能形成不公的先例</td></tr>
+<tr><td>实用（practicality），优于抽象立法</td><td>需大量检索，成本高</td></tr></table>`},
+ {t:'成文法与授权立法',tag:'考点',b:`<ul>
+<li>议会至上（Parliamentary sovereignty）：可制定或废除任何法律，法院必须执行</li>
+<li><b>Delegated legislation</b>：议会授权部长/机构制定细则（如安全条例）</li>
+<li>优点：民主回应性、可处理任何问题、条文精细、能快速应对新问题</li>
+<li>缺点：篇幅庞大、审议时间不足、大量占用议会时间、只能做一般规定</li></ul>`},
+ {t:'民法法系 vs 普通法法系',tag:'框架',b:`<table><tr><th></th><th>Civil Law</th><th>Common Law</th></tr>
+<tr><td>代表国家</td><td>法、德、中、日、多数非洲与南美</td><td>英、美、加、澳、印、新西兰</td></tr>
+<tr><td>法源</td><td><b>法典</b></td><td><b>判例</b>（stare decisis）</td></tr>
+<tr><td>推理</td><td>演绎（deductive）</td><td>归纳（inductive）</td></tr>
+<tr><td>法官角色</td><td>主动（inquisitorial），查证事实</td><td>被动（adversarial），主持对抗</td></tr>
+<tr><td>律师角色</td><td>基于法院查明的证据辩论</td><td>自行发问、取证、构建案情</td></tr></table>`},
+ {t:'为什么会计要学法律',tag:'考点',b:`<ul>
+<li>不合规 → 公司和个人承担损害赔偿或罚款</li>
+<li>审计与财务报表需要判断：或有负债、诉讼、合同义务（正好接 FAR 的 IAS 37）</li>
+<li>跨境交易要用 CISG / Incoterms 判断风险与收入确认时点</li></ul>`}
 ]},
-{t:'③ IFRS 16 租赁',pts:[
- {t:'承租人单一模型',tag:'公式',b:`<ul>
-<li>初始：<b>租赁负债</b>＝未来租金按租赁内含利率（不可知则增量借款利率）折现；<b>使用权资产</b>＝负债 + 预付租金 + 初始直接费用 + 复原成本</li>
-<li>后续：ROU 按直线法折旧（若所有权转移则按使用寿命）；负债按<b>实际利率法</b>计利息</li>
-<li>计入损益：折旧 + 利息（前高后低，总费用前重后轻）</li>
-<li>豁免：<b>短期（≤12 个月）</b>与<b>低价值</b>资产，可按直线法计入费用</li></ul>
-<div class="warn">租赁期包含"合理确定会行使"的续租/终止选择权——判断要说明理由。</div>`},
- {t:'重新计量与售后回租',tag:'考点',b:`<ul>
-<li>指数/比率变动、余值担保变动、租赁期变化、购买选择权评估变化 → 重新计量负债，调整 ROU</li>
-<li>租赁修改：非单独合同 → 按比例终止并重新计量</li>
-<li><b>Sale and leaseback</b>：先判断是否满足 IFRS 15 的销售；满足则只对<b>转移给买方</b>的权利确认利得，保留部分按比例不确认</li></ul>`},
- {t:'出租人分类',tag:'考点',b:`<ul>
-<li><b>Finance lease</b>：几乎所有风险报酬转移 → 确认应收款（净投资），确认融资收益</li>
-<li><b>Operating lease</b>：其他 → 租金按直线法确认收入；初始直接费用计入资产成本</li>
-<li>制造商/经销商出租人：按公允价值确认销售收入，成本为账面成本减去未担保余值现值</li></ul>`}
+{t:'③ Week 2｜CISG 是什么、什么时候适用',pts:[
+ {t:'CISG 一页概览',tag:'框架',b:`<ul>
+<li>全称《联合国国际货物销售合同公约》，<b>1988 年 1 月 1 日</b>生效，约 94 个国家</li>
+<li>中国：<b>是</b>缔约国（1988.1.1 起；香港自 <b>2022.12.1</b> 起适用）</li>
+<li><b>英国：不是</b>缔约国（少数未加入的主要国家之一）</li>
+<li>共 <b>101 条</b>，四部分：</li></ul>
+<table><tr><th>Part</th><th>条文</th><th>内容</th></tr>
+<tr><td>I</td><td>1–13</td><td>总则：适用范围、解释</td></tr>
+<tr><td>II</td><td>14–24</td><td>合同<b>成立</b></td></tr>
+<tr><td>III</td><td>25–88</td><td>买卖双方<b>权利义务</b>与救济</td></tr>
+<tr><td>IV</td><td>89–101</td><td>批准与生效</td></tr></table>`},
+ {t:'Art 1：适用范围（三条判断）',tag:'考点',b:`<ul>
+<li>① 货物销售合同（sale of goods）</li>
+<li>② 双方<b>营业地在不同国家</b>（place of business，不看国籍！）</li>
+<li>③ 两国均为缔约国；或冲突规范指向缔约国法</li>
+</ul>
+<div class="warn">国籍、当事人的民商身份都不影响。中国人在新西兰卖给中国人 → 营业地中新两国，CISG 适用。</div>`},
+ {t:'Art 10：多个营业地怎么办',tag:'考点',b:`<p>有多个营业地时，取<b>与合同及履行关系最密切</b>的那个。</p>
+<p>Asante 案里被告主张自己营业地在加拿大，法院依 Art 10 认定为加拿大 → 美加均为缔约国 → CISG 适用。</p>`},
+ {t:'Art 6：能不能"退出"CISG（opt out）',tag:'考点',b:`<ul>
+<li>当事人可以<b>排除</b>（exclude）CISG 或减损其效力</li>
+<li>排除必须<b>明确</b>（clear intent）——只写"适用加州法"<b>不够</b>，因为美国法本身包含 CISG（条约优先）</li>
+<li>Incoterms 属"贸易惯例"（usage），选 FOB/CIF 会改变 CISG 的默认规则（如风险转移）</li></ul>
+<div class="tip">CISG 是"默认适用、可以退出"（opt-out）模式，不是"必须明示选择才适用"（opt-in）。</div>`},
+ {t:'Art 4 / Art 7：管什么、怎么解释',tag:'考点',b:`<ul>
+<li><b>Art 4</b>：只管<b>合同成立</b>与买卖双方的<b>权利义务</b>。不管：合同效力、所有权转移、产品责任人身伤亡</li>
+<li><b>Art 7(1)</b>：解释要顾及<b>国际性质</b>、促进<b>统一适用</b>、遵守<b>善意</b>（good faith）</li>
+<li><b>Art 7(2)</b>：未明文解决的事项 → 依公约的<b>一般原则</b>（如减损义务、信息披露）→ 仍无则依冲突规范指向的国内法</li></ul>`},
+ {t:'Art 8 / Art 9：怎么解读当事人的话与做法',tag:'考点',b:`<ul>
+<li><b>Art 8(1)</b>：主观标准——按表意人<b>真实意图</b>，只要对方知道或不可能不知道</li>
+<li><b>Art 8(2)</b>：客观标准——若意图不明，按<b>同类的合理人</b>在当时情境下的理解</li>
+<li><b>Art 8(3)</b>：还要看全部相关情况：<b>谈判过程、双方既有习惯做法（practices）、贸易惯例（usages）、后续行为</b></li>
+<li><b>Art 9(1)</b>：双方<b>约定的惯例</b>和<b>彼此建立的惯常做法</b>有约束力</li>
+<li><b>Art 9(2)</b>：双方知道或应当知道的、国际贸中<b>广泛知晓并普遍遵守</b>的行业惯例，视为默示适用</li></ul>
+<div class="warn">Art 9(1)（双方自己的做法）优先于 Art 9(2)（行业惯例）—— Treibacher 案的全部胜负就在这一句。</div>`},
+ {t:'案例：Treibacher v Allegheny（"consignment" 之争）',tag:'案例',b:`<p><b>Facts</b>：奥地利卖方 Treibacher 连续 7 年向美国买方 TDY 供应 TaC 粉末，交货方式写作"consignment"（寄售）。买方后拒绝提货付款，主张"consignment"按行业惯例＝用多少付多少。</p>
+<p><b>Issue</b>: 该词应按<b>双方惯常做法</b>解释，还是按<b>行业惯例</b>解释？</p>
+<p><b>Rule</b>: Art 9(1) + Art 8(3)。双方在长期往来中对一词形成的<b>共同理解</b>，优先于与之冲突的行业惯例。</p>
+<p><b>Holding</b>：按双方做法解释——"consignment"意为<b>买卖已成立，只是发票延后到实际提货时开</b>。买方须付全部价款；卖方也已合理减损。</p>
+<div class="tip">答题关键词：course of dealings controls customary usage。</div>`},
+ {t:'CISG 排除的货物与交易',tag:'考点',b:`<ul>
+<li><b>按交易性质排除</b>：① 消费品（personal, family or household use）② 拍卖 ③ 强制执行/依法出售</li>
+<li><b>按货物种类排除</b>：① 股票、证券、票据、货币 ② 船舶、气垫船、飞机 ③ 电力</li></ul>`},
+ {t:'案例：Asante v PMC-Sierra（要不要 opt out）',tag:'案例',b:`<p><b>Facts</b>：加州买方 Asante 与（法院认定营业地在）加拿大的卖方 PMC 发生电子元件质量争议。双方订单条款分别写"适用买方地址所在州法（加州）"。</p>
+<p><b>Issues</b>：① 联邦法院有管辖权吗？② CISG 适用吗？③ 这种法律选择条款算不算排除 CISG？</p>
+<p><b>Holding</b>：<br>
+① 有——CISG 是美国批准的条约，涉条约的民事案件联邦法院有原始管辖权（28 U.S.C. §1331）<br>
+② 适用——双方营业地在美、加两个缔约国（Art 1、Art 10）<br>
+③ <b>不算排除</b>——没有"明确"排除的意思；选"加州法"实际上仍受条约优先（Supremacy Clause）约束<br>
+④ 因此 CISG 优先于加州州法，案件留在联邦法院</p>
+<div class="tip">这个案子是全课程最常被引用的"opt-out 标准"：<b>mere reference to a domestic law is not an opt-out</b>。</div>`}
 ]},
-{t:'④ PPE / 无形资产 / 减值',pts:[
- {t:'IAS 16 初始与后续计量',tag:'公式',b:`<ul>
-<li>成本＝购买价（扣除折扣）+ 进口税费 + <b>可直接归属</b>的运输安装调试 + 拆卸复原义务现值</li>
-<li>日常维修费用化；重大检查/更换部件资本化（component accounting）</li>
-<li>折旧：直线法、余额递减法、工作量法；残值和使用寿命至少每年复核</li>
-<li>重估模型：整类重估；增值→OCI（重估盈余），减值→损益（先冲减原盈余）；折旧按重估后金额</li>
-<li>IAS 23：符合条件的资产借款费用<b>资本化</b>（一般借款按资本化率）</li></ul>`},
- {t:'IAS 38 无形资产',tag:'考点',b:`<ul>
-<li><b>研究阶段一律费用化</b>；开发阶段满足全部条件才资本化</li>
-<li>记忆口诀 <b>PIRATE</b>：Probable benefits、Intention to complete、Resources adequate、Ability to use/sell、Technical feasibility、Expenditure measurable</li>
-<li>有限寿命→摊销（无残值，除非有承诺购买）；<b>无限寿命→不摊销，每年减值测试</b></li>
-<li>内部品牌、商誉、客户名单（自创）不可确认</li></ul>`},
- {t:'IAS 36 减值',tag:'公式',b:`<ul>
-<li>可收回金额 = <b>max（公允价值减处置费用，使用价值 VIU）</b></li>
-<li>VIU：未来现金流按<b>税前</b>折现率折现（反映特定风险）</li>
-<li>减值损失：先冲商誉，再按比例冲其他资产（不得低于各自可收回金额）</li>
-<li>CGU：能独立产生现金流入的最小资产组；总部资产按合理基础分摊</li>
-<li>商誉减值<b>不可转回</b>；其他资产减值转回上限＝假设未减值时的账面值</li></ul>
-<div class="warn">减值是账面值 vs 可收回金额；折旧是分摊成本。别把两者混成一个概念。</div>`},
- {t:'IAS 40 投资性房地产 / IFRS 5',tag:'考点',b:`<ul>
-<li>IAS 40：为赚取租金或资本增值而持有。成本模式或<b>公允价值模式</b>（公允价值变动进损益）。自用部分按 IAS 16，混合用途需可靠分摊</li>
-<li>IFRS 5：持有待售需"立即可售 + 高度可能 + 12 个月内完成"；<b>不折旧</b>，按账面值与公允价值减费用孰低计量</li>
-<li>终止经营：单列损益并重述比较期</li></ul>`}
+{t:'④ Week 3｜合同成立：Offer & Acceptance（Art 14–24）',pts:[
+ {t:'Art 14：什么才算 offer',tag:'公式',b:`<p>三个要件（缺一不可）：</p>
+<ol style="padding-left:18px">
+<li><b>Intent to be bound</b>：表明一经承诺即受约束的意思</li>
+<li><b>Sufficiently definite</b>：写明<b>货物</b>，并明示或默示地确定<b>数量与价格</b>（或规定确定方法）</li>
+<li><b>Addressed to one or more specific persons</b>：向特定人发出</li></ol>
+<p>Art 14(2)：<b>向公众</b>发出的（广告、目录）原则上只是 <b>invitation to make offers</b>，除非明确表示相反。</p>
+<div class="warn">报纸广告不是 offer——因为不是"特定人"。这是课件原题。</div>`},
+ {t:'价格没写＝不是 offer？',tag:'考点',b:`<p><b>Art 55</b>：合同已有效成立但未明示或默示确定价格时，视为当事人<b>默示参照</b>缔约时同类货物在相关贸易中<b>通常收取的价格</b>。</p>
+<div class="tip">所以"价格空白"不影响 offer 的成立——offer 仍然有效，只是价格按 Art 55 补齐。答题顺序：先 Art 14 判 definiteness，再 Art 55 补价格。</div>`},
+ {t:'Pro forma invoice 是不是 offer？（课件重点）',tag:'考点',b:`<ul>
+<li>国际贸易中的 <b>pro forma invoice</b>（形式发票）通常被认定为 <b>offer</b>，不是账单</li>
+<li>买方的 <b>purchase order</b> 则是 acceptance（或反要约，若改了条件）</li>
+<li>若发票上写"firm offer / 有效期至某日" → 可能构成 <b>Art 16(2)(a)</b> 的不可撤销要约</li></ul>
+<div class="warn">你发的两份 PDF 只有图片没有文字层，我读不到里面的具体条款。如果里面有"valid until"或"subject to our confirmation"这类字眼，性质会变——发我截图我再判。</div>`},
+ {t:'Art 15：生效与"撤回"（withdrawal）',tag:'公式',b:`<ul>
+<li>要约<b>送达</b>受要约人时才生效（receipt rule）</li>
+<li>在生效<b>之前</b>撤回：即使要约写明"不可撤销"，也可以撤回（因为还没生效）</li>
+<li>撤回通知须在要约<b>到达前或同时</b>到达</li></ul>
+<div class="warn">区分两个词：<b>withdrawal</b>（要约生效前的撤回）vs <b>revocation</b>（生效后的撤销）。中文都翻"撤回/撤销"，英文别混。</div>`},
+ {t:'Art 16：能不能撤销（revoke）',tag:'公式',b:`<ul>
+<li>原则上可以，但必须在受要约人<b>发出承诺之前</b>撤销通知到达</li>
+<li>例外（不可撤销）：<br>
+ ① 要约表明<b>固定期限</b>或其它方式表明不可撤销（<b>firm offer</b>）<br>
+ ② 受要约人<b>合理信赖</b>该要约为不可撤销并已据以行事</li></ul>
+<div class="tip">Quiz 2 的答案就在这两条：撤销通知在要约到达<b>之前</b>就到达了（1/5 电话留言 vs 1/7 收到信）→ 要约根本没生效 → <b>没有合同</b>。</div>`},
+ {t:'Art 18：承诺何时生效（receipt rule）',tag:'公式',b:`<ul>
+<li>承诺＝声明或行为，表示同意；<b>沉默或不作为本身不构成承诺</b></li>
+<li>承诺<b>到达</b>要约人时生效（英国法的 postal rule 在这里<b>不适用</b>！）</li>
+<li>时限：要约指定的期限内；未指定则"合理期间"；口头要约须<b>立即</b>承诺</li>
+<li><b>Art 18(3)</b>：若依要约、双方习惯或惯例，受要约人可<b>以行为</b>表示同意（如发货、付款）而无须通知，则承诺自<b>行为完成时</b>生效</li></ul>
+<div class="warn">Art 18(3) 是 Week 3 作业题的核心：卖方"发货"这个动作本身就是承诺，所以买方发货后不能再撤销要约。</div>`},
+ {t:'Art 17 / 19 / 22 / 23：承诺的变形与合同成立时点',tag:'考点',b:`<ul>
+<li><b>Art 17</b>：拒绝在<b>到达</b>要约人时生效（要约随之消灭）</li>
+<li><b>Art 19</b>：附有<b>实质性修改</b>的答复＝<b>反要约</b>。Art 19(3) 列举：价格、付款、质量、数量、交货地点时间、责任范围、争议解决 → 都算实质性</li>
+<li><b>Art 22</b>：承诺可以撤回，但撤回须在承诺生效前或同时到达（若同时发出拒绝与承诺，<b>先到者生效</b>）</li>
+<li><b>Art 23</b>：合同于<b>承诺生效时</b>成立</li></ul>
+<div class="tip">课件例子：A 报 800/台 3 天发货；B 还价 600 → 反要约（Art 19(3) 价格）；C 接受 800 但改成次日发货 → 也是反要约（交货时间）。</div>`}
 ]},
-{t:'⑤ 负债、准备与金融工具',pts:[
- {t:'IAS 37 准备三条件',tag:'公式',b:`<ul>
-<li>① 过去事项产生的<b>现时义务</b>（法定或推定）</li>
-<li>② 经济利益流出<b>很可能</b>（&gt;50%）</li>
-<li>③ 金额能<b>可靠估计</b></li>
-<li>计量：最佳估计；多项同类取期望值；长期需折现；<b>不确认未来经营亏损</b></li>
-<li><b>Onerous contract</b>：不可避免成本 &gt; 预期收益，按差额计提</li>
-<li>重组：须有详细正式计划 + 已产生有效预期（announcement）</li></ul>
-<div class="warn">Contingent liability 只披露不确认；contingent asset 仅在"基本确定"时确认（谨慎性原则）。</div>`},
- {t:'IAS 10 期后事项',tag:'考点',b:`<ul>
-<li><b>Adjusting</b>：报告日已存在的状况 → 调整报表（如诉讼判决、客户破产证明坏账）</li>
-<li><b>Non-adjusting</b>：报告日后新发生 → 仅披露（如火灾、并购、汇率剧变）</li>
-<li>持续经营不再适用 → 不能按 going concern 编制</li></ul>`},
- {t:'IFRS 9 金融资产分类',tag:'考点',b:`<ul>
-<li>业务模式 + 合同现金流特征（<b>SPPI</b> 测试）</li>
-<li>持有收息（Hold to collect）+ SPPI → <b>摊余成本</b></li>
-<li>收息+出售（Hold to collect &amp; sell）→ <b>FVOCI</b>（债）；权益工具可<u>不可撤销</u>选择 FVOCI（股利进损益）</li>
-<li>其他 → <b>FVTPL</b></li>
-<li>减值：<b>ECL 三阶段</b>——阶段 1（12 个月 ECL，利息按总额）、阶段 2（信用风险显著上升，全期 ECL，总额）、阶段 3（已减值，全期 ECL，利息按净额）</li>
-<li>应收账款可用简化矩阵（全期 ECL）</li></ul>`},
- {t:'股 vs 债的区分（IAS 32）',tag:'易错',b:`<ul>
-<li>固定金额交付现金的义务 → 负债；无交付义务 → 权益</li>
-<li><b>可转换债券</b>：拆分负债成分（折现）与权益成分（余值）</li>
-<li>优先股：视条款是否为"或有可清偿"</li>
-<li>库存股（treasury shares）冲减权益，不确认损益</li></ul>`}
+{t:'⑤ Week 3｜履行、违约与救济（Art 25–88）',pts:[
+ {t:'卖方的三大义务（Art 30）',tag:'考点',b:`<ol style="padding-left:18px">
+<li><b>交付货物</b>（Art 31 地点、Art 33 时间）</li>
+<li><b>移交单据</b>（Art 34）</li>
+<li>保证货物<b>符合合同</b>（conformity，Art 35）</li></ol>
+<p><b>Art 35</b>：数量、质量、规格符合；按合同方式包装；并须<b>适用于同一规格货物的通常用途</b>（除非买方在缔约时知道或不可能不知道该缺陷）。</p>
+<div class="warn">买方义务只有两条（<b>Art 53</b>）：<b>付款</b> + <b>收取货物</b>。别把"开信用证"当成绝对义务——Natural Gas 案里就因卖方不配合而不构成违约。</div>`},
+ {t:'Art 25：根本违约（fundamental breach）',tag:'公式',b:`<p>损害达到<b>实质性地剥夺</b>对方依合同本可期待的利益，<b>除非</b>违约方未预见且同类合理人在同样情况下也不会预见该结果。</p>
+<div class="tip">两个层次：① 客观：是否实质剥夺期待利益；② 主观：是否可预见。考"是否构成 fundamental breach"时，两句都要写。</div>
+<div class="warn">根本违约的后果不是自动解除——<b>还要依 Art 26 通知</b>。</div>`},
+ {t:'Art 49 / 26 / 81：买方解除合同的三件套',tag:'公式',b:`<ul>
+<li><b>Art 49</b>：买方可解除，若 ① 卖方<b>根本违约</b>；或 ② 买方给了 <b>Nachfrist notice</b>（额外合理期限）而卖方仍不履行</li>
+<li><b>Art 26</b>：解除须<b>通知</b>对方，通知发出即生效（declaration of avoidance）</li>
+<li><b>Art 81</b>：解除后双方<b>免除</b>履行义务，已交付的须<b>返还</b>；但损害赔偿请求权<b>保留</b></li></ul>
+<div class="tip">Natural Gas 案：买方只是起诉索赔，<b>从未通知解除</b> → 法院认定合同未被解除 → 按 Art 74 算损失，而不是按解除后的返还算。</div>`},
+ {t:'Art 74 / 77 / 80：赔偿的三道闸门',tag:'公式',b:`<ul>
+<li><b>Art 74</b>：赔偿＝损失（<b>含利润损失</b>），但<b>不得超过</b>违约方在缔约时<b>已预见或应当预见</b>的损失</li>
+<li><b>Art 77</b>：受损方须采取<b>合理措施减损</b>，否则可扣减；<b>举证责任在违约方</b></li>
+<li><b>Art 80</b>：一方<b>自己</b>的行为或疏忽导致对方不履行，则不得主张对方违约</li></ul>
+<div class="warn">利润损失（lost profit）要成立，前提是违约方<b>知道或应当知道</b>这个转售/预期用途——Natural Gas 里正是因卖方知道转售才判赔。</div>`},
+ {t:'救济清单：买方 vs 卖方',tag:'考点',b:`<table><tr><th>买方（Art 46, 49, 50）</th><th>卖方（Art 62, 63, 64, 65）</th></tr>
+<tr><td>要求实际履行（交付替代物 <b>Art 46(2)</b> / 修理 Art 46(3)）</td><td>要求买方付款、收取货物</td></tr>
+<tr><td>解除合同（Art 49）</td><td>解除合同（Art 64，镜像）</td></tr>
+<tr><td><b>减价</b>（Art 50，price reduction）</td><td>补足规格（missing specifications, Art 65）</td></tr>
+<tr><td>拒收提前交付/超量交付</td><td>要求对方履行其他义务</td></tr></table>
+<div class="warn">课件误写"Art 29 可要求替代货物"，正确是 <b>Art 46(2)</b>（Art 29 讲的是合同修改）。减价是 CISG 独有的买方救济，英美法没有——这是 CISG vs UCC 对比表的考点。</div>`}
 ]},
-{t:'⑥ 所得税、EPS 与其他准则',pts:[
- {t:'IAS 12 递延所得税',tag:'公式',b:`<ul>
-<li>暂时性差异＝资产/负债<b>账面值</b>与<b>计税基础</b>之差</li>
-<li>应纳税暂时性差异 → <b>DTL</b>；可抵扣暂时性差异 → <b>DTA</b>（须很可能有未来应税利润）</li>
-<li>税率用<b>预期转回时</b>适用的税率；<b>不折现</b></li>
-<li>DTA 可确认的依据：存在足够的应税暂时性差异、税务筹划机会、亏损可结转</li>
-<li>不确认 DTL 的情形：商誉初始确认、非企业合并且不影响会计/应税利润的初始确认</li>
-<li>其他：亏损结转、重估、未分配利润的子公司投资（除非不拟分配）</li></ul>`},
- {t:'IAS 33 每股收益',tag:'公式',b:`<ul>
-<li>基本 EPS ＝（净利 − 优先股股利）÷ <b>加权平均普通股股数</b></li>
-<li>加权：按月份比例；<b>红股/拆股需追溯调整</b>全部可比期</li>
-<li>稀释：期权用<b>库藏股法</b>（行权价低于市价时）；可转债用"若转换法"（加回税后利息、加股份），仅在<b>反稀释</b>时排除</li>
-<li>列报：持续经营与总 EPS 分别披露</li></ul>`},
- {t:'IAS 21 外币折算',tag:'考点',b:`<ul>
-<li>功能货币：主要影响价格的经济环境</li>
-<li>交易日按即期汇率；期末货币性项目按<b>期末汇率</b>，差额进损益</li>
-<li>非货币性项目（历史成本）按交易日汇率，不重译</li>
-<li>报表折算：资产/负债用<b>期末汇率</b>，损益用<b>平均汇率</b>，差额进 <b>OCI</b></li>
-<li>恶性通胀：IAS 29 先重述</li></ul>`},
- {t:'IAS 7 现金流量表（间接法）',tag:'公式',b:`<ul>
-<li>起点：税前利润 → 加回折旧/摊销/减值/利息费用 → 减去非经营收益（处置利得）</li>
-<li><b>营运资本变动</b>：存货↑减、应收↑减、应付↑加</li>
-<li>口诀：<span class="k">资产增加＝现金减少（反着）；负债增加＝现金增加（顺着）</span></li>
-<li>Prepaid 增加 → 现金减少（资产↑）；Accrued 增加 → 现金增加（负债↑）</li>
-<li>利息与股利：可分列于经营/筹资/投资，但需一致</li>
-<li>税费与利息通常单列</li></ul>
-<div class="warn">你的老坑：Prepaid（先付款=资产）vs Accrued（先欠账=负债），方向别搞反。</div>`}
+{t:'⑥ Week 3｜风险转移（Art 66–69）+ Incoterms',pts:[
+ {t:'Art 66 / 67：风险什么时候过',tag:'公式',b:`<ul>
+<li><b>Art 66</b>：风险转移<b>之后</b>的灭失或损坏，<b>不免除</b>买方付款义务——除非损失是因<b>卖方的行为或疏忽</b>造成</li>
+<li><b>Art 67(1)</b>：涉及运输的，货物<b>交付给第一承运人</b>时风险转移给买方</li>
+<li><b>Art 68</b>：运输途中销售的货物，风险自<b>订立合同</b>时转移</li>
+<li><b>Art 69</b>：其他情况，买方<b>接收货物</b>时，或货物交其处置而其不接收时</li></ul>
+<div class="warn">关键判断：货在<b>风险转移前</b>就已不符合同 → 卖方责任（Art 35/36）；转移<b>后</b>才坏 → 买方仍要付钱（Art 66）。</div>`},
+ {t:'案例：Chicago Prime Packers v Northam（肉排案）',tag:'案例',b:`<p><b>Facts</b>：美国卖方 Chicago Prime 卖猪排给加拿大买方 Northam。货到后买方称"状况不良"拒付。</p>
+<p><b>Issue</b>: ① 若猪排在买方代理人收货时就已变质，谁承担？② 若收货后才变质，谁承担？③ 谁来证明变质发生在何时？</p>
+<p><b>Rule</b>: Art 35（相符义务）、Art 66、Art 67(1)（交给第一承运人时风险转移）。</p>
+<p><b>Holding</b>：① 转移前变质 → 卖方负责，买方可拒付；② 转移后变质 → 买方仍须付款；③ <b>CISG 未明确规定举证责任</b>，但美国法院按 UCC 思路要求<b>买方</b>证明货物在风险转移时即不符合同。本案买方举证失败 → 必须付款。</p>
+<div class="tip">这类题的答题结构：先定<b>风险转移时点</b>（Art 67(1)），再定<b>不符合同的时点</b>（谁举证），最后套 Art 66。</div>`},
+ {t:'Incoterms 与 CISG 的关系',tag:'考点',b:`<ul>
+<li>Incoterms 是<b>国际惯例</b>（usage），CISG 是<b>国际条约</b></li>
+<li>合同引入某个贸易术语（如 FOB）时，该术语作为<b>特别约定优先于 CISG 的一般规定</b></li>
+<li>对应关系：交货地点 CISG Art 31 / Incoterm A2；交货时间 Art 33 / A2；单据 Art 34 / A1、A6；风险 Art 66–70 / A3</li></ul>
+<p><b>FOB（Incoterms 2020）</b>：买方指定船舶并支付运费；卖方在<b>装运港把货物装上船</b>时完成交付，<b>风险自货物装上船时</b>转移给买方。</p>
+<div class="warn">作业最后一问：FOB 下风险在"装上船"而非"交给承运人"，此时 <b>Incoterms 优先</b>，不再适用 Art 67(1) 的"第一承运人"规则。</div>`},
+ {t:'案例：The Natural Gas Case（奥地利最高法院 1996）',tag:'案例',b:`<p><b>Facts</b>：买方为自身及第三方购气，卖方从美国发货。买方需开信用证，但银行要知道装货地；卖方答应提供却始终没给。后卖方称其美国供应商不愿出口到比利时。第三方另购气多花 $141,131，买方另损失利润 $15,000，遂起诉。</p>
+<p><b>五个争点与结论</b>：</p>
+<table><tr><th>Issue</th><th>结论</th><th>依据</th></tr>
+<tr><td>买方未开信用证是否违约</td><td>否</td><td><b>Art 80</b>：是卖方自己没提供装货地造成</td></tr>
+<tr><td>卖方是否违约</td><td>是</td><td><b>Art 30</b>：未交付货物、未提供单据</td></tr>
+<tr><td>合同是否被买方解除</td><td>否</td><td><b>Art 26</b>：买方从未通知解除</td></tr>
+<tr><td>买方能否索赔利润损失</td><td>能</td><td><b>Art 74</b>：卖方知道转售，属可预见损失</td></tr>
+<tr><td>买方是否未减损</td><td>否</td><td><b>Art 77</b>：举证责任在卖方，卖方未证明</td></tr></table>
+<div class="tip">这题就是老师 Week 3 作业第 2 题，答题时按 issue 逐条写 rule + application，别混成一段。</div>`}
 ]},
-{t:'⑦ 合并报表（重头戏）',pts:[
- {t:'控制三要素与合并范围',tag:'考点',b:`<ul>
-<li>IFRS 10 <b>控制</b>：① 对被投资方的<b>权力</b>（主导相关活动）② 可变回报的<b>敞口</b> ③ 用权力影响回报的能力</li>
-<li>实质性权力：需看是否为"主要责任人"（principal vs agent）</li>
-<li>豁免：投资性主体按 FVTPL 计量</li>
-<li>IFRS 11：共同控制（joint control）→ 合营（JV，权益法）或共同经营（按份额确认资产负债）</li></ul>`},
- {t:'Goodwill 计算（必考）',tag:'公式',b:`<ul>
-<li><b>Goodwill ＝ 对价 − 可辨认净资产公允价值</b></li>
-<li>含 NCI 时：Goodwill ＝ 对价 + NCI + 原持股公允价值 − 100% 可辨认净资产公允价值</li>
-<li><b>Full goodwill</b>（NCI 按公允价值）/ <b>Partial goodwill</b>（NCI 按应享净资产份额）——题目一般让你两种都算</li>
-<li>FV 调整：土地增值、存货增值（随出售实现）、固定资产增值（按剩余寿命折旧）、未入账无形资产、递延税影响</li>
-<li>负商誉（bargain purchase）→ 复核后直接计入<b>损益</b></li></ul>`},
- {t:'集团留存收益与 NCI',tag:'公式',b:`<ul>
-<li>P 的留存 + 应付 P 的份额 ×（S 购后留存 ± 购后 FV 调整）− 未实现利润份额</li>
-<li>NCI ＝ 初始计量 + 应享购后留存 + 应享 FV 调整 − 未实现利润</li>
-<li>收购前股利：冲减投资成本（或作为对价调整）</li>
-<li>购后股利：内部交易，抵消</li></ul>`},
- {t:'集团内部交易抵消',tag:'易错',b:`<ul>
-<li><b>存货</b>：未实现利润按<b>卖方</b>毛利 × 剩余比例，按<b>买方</b>持股比例分摊至 NCI</li>
-<li><b>PPE</b>：未实现利润需按使用中折旧<b>逐步实现</b>；方向：售出方有利润</li>
-<li><b>应收应付、内部借贷、内部股利</b>全额抵消</li>
-<li><b>Downstream</b>（母公司卖子公司）：全部归母公司股东；<b>Upstream</b>（子公司卖母公司）：按持股分摊</li></ul>
-<div class="warn">Upstream 与 downstream 的 PUP 分摊方向，是合并报表最常丢分的一处。</div>`},
- {t:'Associates / JV（IAS 28）',tag:'考点',b:`<ul>
-<li>显著影响推定 20%；存在董事会席位、参与决策、技术依赖等可低于 20%</li>
-<li>权益法：投资 ＝ 成本 + 购后利润份额 − 股利 − 减值</li>
-<li>内部交易未实现利润按<b>投资方持股</b>抵消（无论 up/down stream）</li>
-<li>被投资方亏损使投资减至零 → 停止确认（除有义务）</li></ul>`}
+{t:'⑦ 案例库（按考点速查）',pts:[
+ {t:'一张表记住所有案例',tag:'案例',b:`<table><tr><th>案例</th><th>考点</th><th>一句话</th></tr>
+<tr><td><b>Trail Smelter</b></td><td>国家责任、跨国污染</td><td>一国不得以造成他国严重损害的方式使用领土</td></tr>
+<tr><td><b>Asante v PMC-Sierra</b></td><td>Art 6 opt out、Art 10、联邦管辖</td><td>选"某州法"不构成排除 CISG，CISG 优先于州法</td></tr>
+<tr><td><b>Treibacher v Allegheny</b></td><td>Art 8(3)、9(1) vs 9(2)</td><td>双方惯常做法优先于行业惯例</td></tr>
+<tr><td><b>Chicago Prime v Northam</b></td><td>Art 35、66、67(1)</td><td>风险转移后由买方举证不符合同</td></tr>
+<tr><td><b>Natural Gas</b></td><td>Art 80、30、26、74、77</td><td>自己造成的对方不履行不能主张；解除须通知</td></tr>
+<tr><td><b>Sinochem v Krupp</b></td><td>根本违约 Art 25、opt out</td><td>合同写"按纽约法" ≠ 排除 CISG</td></tr>
+<tr><td><b>High Sea Treaty</b>（作业假设）</td><td>custom 的 usus</td><td>50 国长期一致实践即构成 usus，不必全体</td></tr></table>`},
+ {t:'Sinochem v Krupp（中石油案）怎么答',tag:'案例',b:`<p><b>争议</b>：合同写"按当时纽约法订立、管辖和解释"，卖方主张已排除 CISG；买方主张应适用 CISG。</p>
+<p><b>结论</b>：<b>买方对</b>。理由照搬 Asante：</p>
+<ol style="padding-left:18px">
+<li>两国均为缔约国（中新？——注意：中国、德国都是缔约国）</li>
+<li>未<b>明确</b>排除 CISG，仅提"纽约法"不等于 opt out</li>
+<li>美国法（纽约州法）本身受条约优先约束，CISG 间接适用 → 目的是<b>统一</b></li>
+</ol>
+<p>实体上：焦炭 HGI 指标 32 远低于合同标准，导致无法在国内市场销售、合同目的落空 → 可能构成 <b>Art 25 根本违约</b>。</p>`}
 ]},
-{t:'⑧ 报表分析与职业道德',pts:[
- {t:'比率体系',tag:'公式',b:`<table><tr><th>类别</th><th>核心比率</th></tr>
-<tr><td>盈利</td><td>毛利率、营业利润率、净利率、ROCE＝EBIT/（总资产−流动负债）</td></tr>
-<tr><td>效率</td><td>存货周转天数、应收天数、应付天数、资产周转率、现金循环周期</td></tr>
-<tr><td>流动性</td><td>流动比率、速动比率（剔存货）、现金比率</td></tr>
-<tr><td>杠杆</td><td>Debt/Equity、利息保障倍数（PBIT/利息）</td></tr>
-<tr><td>投资</td><td>EPS、P/E、股息率、股利支付率、每股净资产</td></tr></table>`},
- {t:'分析的局限（论述题）',tag:'考点',b:`<ul>
-<li>历史成本与通胀失真；会计政策差异削弱可比性</li>
-<li>期末粉饰（window dressing）、季节性与异常项目</li>
-<li>缺少非财务信息（品牌、人力、客户关系）</li>
-<li>比率本身孤立无意义：需与同业、往年、预算比</li>
-<li>合并报表掩盖分部差异</li></ul>`},
- {t:'职业伦理（IESBA）',tag:'考点',b:`<ul>
-<li>五项基本原则：<b>诚信</b>、<b>客观</b>、<b>专业胜任与应有关注</b>、<b>保密</b>、<b>专业行为</b></li>
-<li>五类威胁：自身利益、自我评价、倡导、密切关系、胁迫</li>
-<li>防范措施：独立复核、轮换、回避、披露、咨询</li>
-<li>典型情境：客户要求平滑利润、关联交易未披露、重大不确定性不披露、审计后接受聘用做 CFO</li></ul>`},
- {t:'常见舞弊手法（考试情境）',tag:'易错',b:`<ul>
-<li>提前确认收入 / 虚构销售 / 误导性退货条款</li>
-<li>研发支出不当资本化</li>
-<li>"cookie jar" 准备：多提少提准备平滑利润</li>
-<li>关联方交易未按 IAS 24 披露</li>
-<li>资产负债表外融资（未合并 SPE）</li></ul>`}
+{t:'⑧ 作业与 Quiz 答案（Week 1–3）',pts:[
+ {t:'Week 1 判断题（全解析）',tag:'考点',b:`<table><tr><th>题目</th><th>答案</th><th>为什么</th></tr>
+<tr><td>Comity 是各国必须遵守的正式实践</td><td><b>F</b></td><td>礼让不是法，只是善意礼节</td></tr>
+<tr><td>存在联合国等正式造法机构</td><td><b>F</b></td><td>世界上没有正式的造法机关</td></tr>
+<tr><td>条约不是 ICJ 适用的渊源</td><td><b>F</b></td><td>Art 38(1)(a) 第一项就是条约</td></tr>
+<tr><td>习惯法是 ICJ 适用的渊源</td><td><b>T</b></td><td>Art 38(1)(b)</td></tr>
+<tr><td>usus 须一致、悠久、所有国家遵守</td><td><b>F</b></td><td>不必悠久、不必全体，需相当数量主要国家</td></tr>
+<tr><td>Convention 是两国间的约束性协议</td><td><b>F</b></td><td>那是 treaty；convention 由国际组织主持</td></tr>
+<tr><td>口头协议可构成条约</td><td><b>F</b></td><td>VCLT Art 2(1)(a) 要求<b>书面</b></td></tr></table>
+<p>其余：Jus cogens 偏<b>自然法</b>；两大法系＝Romano-Germanic Civil Law + Anglo-American Common Law；并非所有国家间协议都是条约（须双方同意受国际法支配）；认为国家只按自身利益守法的流派＝<b>Hobbesians</b>。</p>`},
+ {t:'Week 2 作业答案',tag:'考点',b:`<ul>
+<li><b>101 条、四部分</b>（Part I: 1–13 总则；II: 14–24 成立；III: 25–88 权利义务；IV: 89–101 生效）</li>
+<li><b>Contracting States</b>：批准/加入公约的国家；可声明只在双方均为缔约国时适用（Art 95 保留）</li>
+<li><b>Asante 的 case point</b>：争点其实是<b>联邦管辖权</b>；因 CISG 是条约且优先于州法，故适用 CISG、留在联邦法院；"选加州法"不构成 opt out</li>
+<li><b>Good faith 的含义</b>：法院应参照外国判决，仅在明显可区分、明显错误或情势已变时才背离 → 促进统一适用</li>
+<li><b>CISG vs UCC 差异</b>：承诺生效——UCC 采<b>发出主义（dispatch）</b>，CISG 采<b>到达主义（receipt）</b>；<b>减价</b>是 CISG 独有救济（UCC 无）</li>
+<li><b>排除的六类</b>：消费品、拍卖、强制执行出售；证券/货币/票据、船舶/飞机/气垫船、电力</li></ul>`},
+ {t:'Week 3 作业 1：发货后还能撤销要约吗',tag:'例题',b:`<p><b>Facts</b>：买方发 offer："按你方惯常价格发 100 件，5 月 31 日前交货"；卖方 5/30 前发货；发货<b>次日</b>买方打电话撤销。</p>
+<b>买方论点</b>（三步法）：<br>
+① 法律：Art 16(1)，承诺<b>发出</b>前可撤销要约。<br>
+② 适用：我撤销时，你方尚未向我发出任何<b>承诺声明</b>。<br>
+③ 结论：撤销有效，无合同。
+<hr>
+<b>卖方论点（更强）</b>：<br>
+① 法律：<b>Art 18(3)</b>——依要约、双方习惯做法或惯例，受要约人可以<b>以行为</b>表示同意而无须通知，承诺自<b>行为完成时</b>生效。<br>
+② 适用：双方长期按同一模式交易（惯例）；买方要约本身要求"发货"，即默示允许以发货承诺；卖方在 5/30 前完成发货＝承诺完成，合同已成立。<br>
+③ 结论：<b>不能撤销</b>——Art 16(1) 只允许在承诺<b>发出前</b>撤销，而承诺已于发货时生效。
+<div class="tip">另外可加一句：价格写"your customary price"不影响要约的确定性，Art 55 可补价格。</div>`},
+ {t:'Quiz 1：目录寄给 50 万人算 offer 吗',tag:'例题',b:`<p><b>分析</b>：Art 14(1) 三要件。目录<b>逐个具名寄送</b>（符合"特定人"），列明货物与价格（符合确定性），但——</p>
+<ul>
+<li>是否存在 <b>intent to be bound</b>？向 500,000 人同时发出、可无限供货的目录，通常被认为只是 <b>invitation to make offers</b>（Art 14(2) 的精神：面向公众者仅为要约邀请）</li>
+<li>若认定"具名寄送＝向特定人"，则可能构成 offer，John 承诺即成立合同</li>
+</ul>
+<p><b>结论</b>：更可能<b>不是 offer</b>；John 的"承诺"只是一项<b>要约</b>，零售商可拒绝，无合同。</p>
+<div class="warn">这题的关键不是"具名"，而是"有没有受约束的意思"。答题时两种可能都写，再给出倾向性结论，比只下结论分高。</div>`},
+ {t:'Quiz 2：撤回通知先到，合同成立吗',tag:'例题',b:`<p><b>结论：没有合同。</b></p>
+<ol style="padding-left:18px">
+<li><b>Art 15(1)</b>：要约<b>到达</b>受要约人时才生效。1/7 信才到 → 1/7 前要约尚未生效</li>
+<li><b>Art 15(2)</b>：即使要约声明"不可撤销"，只要撤回通知在要约<b>到达前或同时</b>到达，仍可撤回。1/5 的语音留言已到达（留在营业地答录机）</li>
+<li>要约从未生效，1/7 的"承诺"无对象 → <b>Art 23</b> 无合同成立</li>
+</ol>
+<div class="warn">陷阱：看到"binding and irrevocable until Feb 1"就答"不可撤销"。Art 16(2) 的不可撤销<b>以要约已生效为前提</b>。</div>`},
+ {t:'Quiz 3：软件下载后不兼容，谁负责',tag:'例题',b:`<p><b>分析框架</b>：</p>
+<ol style="padding-left:18px">
+<li>CISG 是否适用？——"货物"是否包括<b>在线下载的软件</b>有争议；若视为货物且双方营业地在缔约国，则适用</li>
+<li><b>Art 35</b>：卖方须交付符合约定数量、质量、规格的货物，并<b>适用于通常用途</b>；但若买方缔约时知道或应当知道该限制，则卖方不负责</li>
+<li><b>Art 35(2)(b)</b>：特定用途的适合性，以买方<b>明示或默示告知</b>卖方为前提——本案买方从未告知自己的配置</li>
+<li><b>举证</b>：依 Chicago Prime 思路，<b>买方</b>须证明货物在风险转移时即不符合同</li>
+</ol>
+<p><b>结论</b>：倾向于<b>卖方正确</b>——未约定配置要求时，检查自身电脑兼容性是买方的责任；买方难以证明交付时即存在不符合同。</p>`},
+ {t:'Week 1 案例：High Sea Treaty（usus 之争）',tag:'例题',b:`<p><b>Issue</b>: Whether there is usus?</p>
+<p><b>Step 1</b>: 习惯法需 usus（一致且反复的行为，由相当数量主要国家长期实践）+ opinio juris（视为有法律义务）。</p>
+<p><b>Step 2</b>: 该多边条约已生效数年，约 50 国（含多数主要发达国家）长期不主张公海领土 → 数量与时间均足够；虽无国家"阻止"过 annexation，但 usus 可由<b>不作为</b>（non-involvement）构成。</p>
+<p><b>Step 3</b>: 存在 usus，X 国的主张不能成立，其占领行为应被宣告无效。</p>`}
+]}
+]}
+,
+{id:'far',name:'Financial Accounting and Reporting',desc:'CH50035 · Week 1–3 已对齐 · 论文 30% / 展示 20% / 期末 50%',chapters:[
+{t:'⓪ 先补 ITA：这门课的地基',pts:[
+ {t:'五要素与恒等式',tag:'框架',b:`<ul>
+<li><b>财务状况</b>：Assets = Liabilities + Equity</li>
+<li><b>经营成果</b>：Income − Expenses = Profit</li>
+<li>展开式（含 Drawing/Dividend）：<br><b>Assets + Expenses + Dividends = Liabilities + Equity + Income</b></li></ul>
+<div class="tip">左边全是"借记增加"的，右边全是"贷记增加"的。这一条记住，分录就不靠背。</div>`},
+ {t:'借贷规则（DEAD CLIC）',tag:'公式',b:`<table><tr><th>借方 Dr 增加</th><th>贷方 Cr 增加</th></tr>
+<tr><td>Dividends / Drawings</td><td>Liabilities</td></tr>
+<tr><td>Expenses</td><td>Income</td></tr>
+<tr><td>Assets</td><td>Capital / Equity</td></tr></table>
+<div class="warn">ITA 最常错的三处：① 费用与资产的边界（预付是资产）；② 累计折旧是资产减项，不是负债；③ 宣告股利先记负债（Dividend payable），付款时才动现金。</div>`},
+ {t:'期末调整五大类（ITA 的命门）',tag:'考点',b:`<table><tr><th>类型</th><th>判断</th><th>调整分录</th></tr>
+<tr><td>Accrual 应计费用</td><td>已发生未付</td><td>Dr 费用 / Cr 应付款</td></tr>
+<tr><td>Prepayment 预付</td><td>已付未用</td><td>先把付出记资产，用掉的部分 Dr 费用 / Cr 预付</td></tr>
+<tr><td>Accrued income 应计收入</td><td>已赚未收</td><td>Dr 应收 / Cr 收入</td></tr>
+<tr><td>Unearned income 预收</td><td>先收未赚</td><td>Dr 预收 / Cr 收入（实现部分）</td></tr>
+<tr><td>Depreciation 折旧</td><td>按期间分摊</td><td>Dr 折旧费用 / Cr 累计折旧</td></tr></table>
+<div class="tip">还有两个：Allowance for receivables（坏账准备，Dr 费用 / Cr 准备）与 Closing inventory（Dr 存货 / Cr 销售成本）。</div>`},
+ {t:'从试算表到三表的五步流程',tag:'公式',b:`<ol style="padding-left:18px">
+<li>抄 TB → 编<b>调整分录</b>（accrual / prepayment / dep / allowance / inventory）</li>
+<li>算 <b>COGS = 期初存货 + 采购 − 期末存货</b></li>
+<li>把费用按 <b>function</b> 分到 Cost of sales / Distribution / Administrative</li>
+<li>得 Profit before tax → 减税 → <b>Profit for the year</b> → 加 OCI = TCI</li>
+<li>SOFP：资产按 <b>账面净值</b>（成本 − 累计折旧 − 减值）；权益里的留存收益 = 期初 + 本年利润 − 股利</li></ol>
+<div class="warn">平衡检查：<b>总资产 = 总权益 + 总负债</b>。差一点点通常是漏了 allowance、税，或股利没扣留存收益。</div>`},
+ {t:'ITA 挂了，通常不是因为不会分录',tag:'考点',b:`<ul>
+<li>是<b>期末调整的方向</b>：预付与应计搞反（你之前就踩过 Prepaid / Accrued）</li>
+<li>是<b>折旧的"累计"</b>：费用进损益，累计折旧进资产负债表，两者不能混</li>
+<li>是<b>税费</b>：税是费用（P&L）也是负债（SOFP），不是从权益直接扣</li>
+<li>是<b>试算表不平衡时没有回查</b>：先查总额、再查单笔、最后一笔一笔推</li></ul>
+<div class="tip">FAR 比 ITA 多的不是"更难的分录"，是"同一个数字可以有两种合法算法，但只有一种符合 IFRS"。所以每道题先问：这条准则允许我怎么计量？</div>`}
+]},
+{t:'① Week 1｜Conceptual Framework（一切准则的上位法）',pts:[
+ {t:'财务报告的目标与使用者',tag:'考点',b:`<p>目标：提供对<b>现有和潜在投资者、贷款人及其他债权人</b>做"是否提供资源"决策有用的信息。</p>
+<ul>
+<li><b>主要使用者</b>：投资者、贷款人、债权人（资本提供者）</li>
+<li>次要：供应商、客户、员工、政府</li>
+<li>信息内容：经济资源与要求权（资产/负债/权益）、资源变动（收入/费用）、现金流的时点与不确定性</li></ul>
+<div class="warn">考论述题时，<b>先写"决策有用"</b>，再展开"预测未来现金流"。这是打分点。</div>`},
+ {t:'两大基本质量特征 + 四个增强特征',tag:'公式',b:`<ul>
+<li><b>Relevance 相关性</b>：预测价值、确认价值、重要性（materiality）</li>
+<li><b>Faithful representation 如实反映</b>：完整、中立、无重大错误</li>
+<li><b>增强</b>：可比性、可验证性、及时性、可理解性</li>
+<li>约束条件：<b>成本 &lt; 收益</b></li></ul>
+<div class="warn">相关性与如实反映有时冲突（例如公允价值更相关但更难核实）；<b>prudence（审慎）</b>是"中立"的一个侧面，不是独立特征，别混。</div>`},
+ {t:'五要素的新定义（2018 框架改动点）',tag:'考点',b:`<table><tr><th>要素</th><th>定义</th></tr>
+<tr><td><b>Asset</b></td><td>由过去事项产生的、由主体<b>控制</b>的、预期带来经济利益的现时经济资源</td></tr>
+<tr><td><b>Liability</b></td><td>由过去事项产生的、主体<b>转移经济资源</b>的现时义务</td></tr>
+<tr><td><b>Equity</b></td><td>资产扣除负债后的剩余权益</td></tr>
+<tr><td><b>Income</b></td><td>资产增加或负债减少，导致权益增加（非所有者投入）</td></tr>
+<tr><td><b>Expense</b></td><td>资产减少或负债增加，导致权益减少（非向所有者分配）</td></tr></table>
+<div class="tip">关键词从"预期流入"改成了"<b>控制 + 现时经济资源</b>"，所以"客户合同、使用权资产"这类能被确认为资产。</div>`},
+ {t:'确认、计量与资本保持',tag:'框架',b:`<ul>
+<li>确认条件：满足要素定义 + 相关性与如实反映（成本效益）</li>
+<li>计量基础：历史成本、公允价值、使用价值（VIU）、现行成本</li>
+<li><b>资本保持</b>：财务资本保持下，只有期末净资产超过期初（扣除所有者交易）才算利润</li>
+<li>基础假设：<b>going concern</b>（持续经营）</li></ul>`}
+]},
+{t:'② Week 1｜复式记账与分录（Madrid 8 题全解）',pts:[
+ {t:'做题三步：认科目 → 判要素 → 定借贷',tag:'公式',b:`<ol style="padding-left:18px">
+<li>这笔交易动了<b>哪两个（或以上）科目</b>？</li>
+<li>每个科目属于<b>资产/负债/权益/收入/费用</b>中的哪一类？</li>
+<li>按 DEAD CLIC 定 Dr / Cr，最后检查借贷相等</li></ol>
+<div class="tip">考卷常要求同时写出"要素类型 + 增减方向"，这是白送的分，别只写分录。</div>`},
+ {t:'Madrid Q1 ①–④',tag:'例题',b:`<table><tr><th>交易</th><th>Dr</th><th>Cr</th><th>要素 / 方向</th></tr>
+<tr><td>①赊购办公用品 £450</td><td>Office supplies 450</td><td>Accounts payable 450</td><td>费用↑ / 负债↑</td></tr>
+<tr><td>②7/1 付 5 年仓库保险 £10,000</td><td>Prepaid insurance 10,000</td><td>Cash 10,000</td><td>资产↑ / 资产↓</td></tr>
+<tr><td>②期末摊销 6 个月</td><td>Insurance expense 1,000</td><td>Prepaid insurance 1,000</td><td>费用↑ / 资产↓</td></tr>
+<tr><td>③赊购服装存货 £38,000</td><td>Inventory 38,000</td><td>Accounts payable 38,000</td><td>资产↑ / 负债↑</td></tr>
+<tr><td>④卖掉一半，赊销 £27,000</td><td>COGS 19,000</td><td>Inventory 19,000</td><td>费用↑ / 资产↓</td></tr>
+<tr><td>④（收入侧）</td><td>Receivables 27,000</td><td>Sales 27,000</td><td>资产↑ / 收入↑</td></tr></table>
+<div class="warn">④必须写两笔（永续盘存制）：一笔确认收入，一笔结转成本。<b>只写收入那一笔是 ITA 常见的失分点。</b></div>`},
+ {t:'Madrid Q1 ⑤–⑧',tag:'例题',b:`<table><tr><th>交易</th><th>Dr</th><th>Cr</th><th>说明</th></tr>
+<tr><td>⑤1/1 购车 £30,000（付现 6,000 + 贷款 24,000）</td><td>Motor vehicle 30,000</td><td>Cash 6,000；Bank loan 24,000</td><td>一借两贷</td></tr>
+<tr><td>⑥直线法折旧，5 年、残值 5,000</td><td>Depreciation expense 5,000</td><td>Accumulated depreciation 5,000</td><td>(30,000−5,000)/5</td></tr>
+<tr><td>⑦发行 10,000 股，面值 £2，发行价 £3.5</td><td>Cash 35,000</td><td>Share capital 20,000；Share premium 15,000</td><td>面值进股本，溢价进资本公积</td></tr>
+<tr><td>⑧宣告股利 20p × 220 万股 = £440,000</td><td>Retained earnings 440,000</td><td>Dividend payable 440,000</td><td>宣告日</td></tr>
+<tr><td>⑧23/4 支付</td><td>Dividend payable 440,000</td><td>Cash 440,000</td><td>支付日</td></tr></table>
+<div class="tip">宣告与支付<b>分两个时点</b>：宣告产生负债，支付才动现金。这是"权责发生制"最直观的一题。</div>`}
+]},
+{t:'③ Week 1｜期末调整（Internet Consulting 全解）',pts:[
+ {t:'九条调整分录（照着抄）',tag:'例题',b:`<table><tr><th>项目</th><th>Dr</th><th>Cr</th><th>金额</th></tr>
+<tr><td>①12 月租金（3 个月预付 6,300，每月 2,100）</td><td>Rent expense</td><td>Prepaid office rent</td><td>2,100</td></tr>
+<tr><td>②12 月到期的订阅费</td><td>Dues &amp; subscriptions expense</td><td>Prepaid dues</td><td>50</td></tr>
+<tr><td>③结存办公用品 450（账面 600）</td><td>Supplies expense</td><td>Supplies</td><td>150</td></tr>
+<tr><td>④设备折旧（36,000 ÷ 60 个月）</td><td>Depreciation expense</td><td>Accum. dep.</td><td>600</td></tr>
+<tr><td>⑤应计利息</td><td>Interest expense</td><td>Interest payable</td><td>100</td></tr>
+<tr><td>⑥已提供服务、预收款 2,850 转为收入</td><td>Unearned consulting fees</td><td>Consulting fees earned</td><td>2,850</td></tr>
+<tr><td>⑦已提供未开票 11,000</td><td>Fees receivable</td><td>Consulting fees earned</td><td>11,000</td></tr>
+<tr><td>⑧应计工资</td><td>Salaries expense</td><td>Salaries payable</td><td>1,700</td></tr>
+<tr><td>⑨本年税 56,000，已确认 51,000 → 补 5,000</td><td>Income taxes expense</td><td>Income taxes payable</td><td>5,000</td></tr></table>
+<div class="warn">③ 是"用品"类：结存 450 是<b>资产</b>，只把用掉的 150 计费用。取"账面 − 结存"。<br>⑨ 只补差额 5,000，不是补 56,000 —— 税前 11 个月已经确认过了。</div>`},
+ {t:'调整后余额（考卷 b 问）',tag:'例题',b:`<table><tr><th>科目</th><th>调整后</th></tr>
+<tr><td>Consulting fees earned</td><td>257,180 + 2,850 + 11,000 = <b>271,030</b></td></tr>
+<tr><td>Dues &amp; subscriptions expense</td><td>560 + 50 = <b>610</b></td></tr>
+<tr><td>Salaries expense</td><td>88,820 + 1,700 = <b>90,520</b></td></tr>
+<tr><td>Telephone expense</td><td><b>2,550</b>（不调整）</td></tr>
+<tr><td>Rent expense</td><td>22,000 + 2,100 = <b>24,100</b></td></tr>
+<tr><td>Miscellaneous expenses</td><td><b>4,200</b></td></tr>
+<tr><td>Interest expense</td><td><b>100</b>（新设科目）</td></tr>
+<tr><td>Supplies expense</td><td>1,600 + 150 = <b>1,750</b></td></tr>
+<tr><td>Depreciation expense</td><td>6,600 + 600 = <b>7,200</b></td></tr>
+<tr><td>Income taxes expense</td><td>51,000 + 5,000 = <b>56,000</b></td></tr></table>`},
+ {t:'净利计算（c 问）',tag:'例题',b:`<p><b>收入</b> 271,030</p>
+<p><b>费用合计</b>：工资 90,520 + 电话 2,550 + 租金 24,100 + 税 56,000 + 订阅 610 + 用品 1,750 + 折旧 7,200 + 杂项 4,200 + 利息 100 = <b>187,030</b></p>
+<p><b>净利 = 271,030 − 187,030 = £84,000</b></p>
+<div class="tip">净利是整数，说明调整全对 —— 考试里这也是个自查信号：算出来是奇怪的小数，通常有一项调整方向错了。</div>`}
+]},
+{t:'④ Week 2｜IAS 1 财务报表列报',pts:[
+ {t:'完整一套报表的五件套',tag:'框架',b:`<ol style="padding-left:18px">
+<li>Statement of financial position（SOFP）</li>
+<li>Statement of profit or loss and other comprehensive income（可合并或分两张）</li>
+<li>Statement of changes in equity（SCE）</li>
+<li>Statement of cash flows（下学期）</li>
+<li>Notes：会计政策 + 说明</li></ol>
+<div class="tip">加上<b>比较信息</b>（至少上一期）才是"complete set"。</div>`},
+ {t:'流动 / 非流动的判定（必考）',tag:'考点',b:`<p><b>资产为流动</b>（满足任一）：① 在正常营业周期内变现/出售/消耗；② 主要为交易目的持有；③ 12 个月内变现；④ 现金或现金等价物（无使用限制）。</p>
+<p><b>负债为流动</b>（满足任一）：① 在正常营业周期内清偿；② 主要为交易目的持有；③ 12 个月内到期；④ 期末<b>无权</b>将清偿推迟至少 12 个月。</p>
+<div class="tip">造船厂的半成品船 18 个月才完工，但因为属于"正常营业周期"，仍算流动 —— 这是课堂原题。</div>`},
+ {t:'OCI 有哪几项（背这两类就够）',tag:'公式',b:`<ul>
+<li><b>不会重分类进损益</b>：PPE/无形资产的<b>重估盈余</b>；设定受益计划的<b>重计量</b>；FVOCI 权益工具的公允价值变动</li>
+<li><b>以后会重分类进损益</b>：境外经营折算差额；现金流量套期有效部分</li></ul>
+<p>Total comprehensive income = Profit for the year + OCI</p>
+<div class="warn">重估盈余走 OCI，但<b>重估后的折旧</b>走损益。这两个别弄混。</div>`},
+ {t:'费用按"性质"还是按"功能"',tag:'考点',b:`<table><tr><th></th><th>By nature 按性质</th><th>By function 按功能</th></tr>
+<tr><td>列示</td><td>原材料、工资、折旧…（不分摊）</td><td>Cost of sales → Gross profit → Distribution → Administrative</td></tr>
+<tr><td>优点</td><td>简单，不需要分摊判断</td><td>更能看出毛利与经营效率</td></tr>
+<tr><td>要求</td><td>—</td><td>必须<b>额外披露</b>折旧与职工福利费</td></tr></table>
+<div class="tip">考试做题默认用 <b>function</b>（要算 gross profit），题目说"by nature"才换。</div>`},
+ {t:'SCE 的四个组成部分',tag:'公式',b:`<ul>
+<li>本期 <b>total comprehensive income</b>（利润 + OCI 分开列）</li>
+<li><b>追溯调整</b>的影响（会计政策变更 / 前期差错，见 IAS 8）</li>
+<li>与所有者的交易：<b>股利</b>（分配）、<b>发行股份</b>（投入）</li>
+<li>每个权益组成部分的期初 → 期末<b>调节表</b></li></ul>
+<div class="warn">股利<b>不进损益</b>，直接减留存收益。这是 SCE 与 P&L 的分界线。</div>`},
+ {t:'附注与七条一般特征',tag:'考点',b:`<ul>
+<li>附注要披露：编制基础与会计政策；IFRS 要求但表内未列的信息；理解报表所必需的其他信息</li>
+<li>一般特征：公允列报与合规、<b>持续经营</b>与<b>权责发生制</b>、重要性与汇总、<b>不得抵销</b>、报告频率、比较信息、列报一致性</li></ul>`}
+]},
+{t:'⑤ Week 2｜从试算表编三表（Brisbane 全套）',pts:[
+ {t:'先做五个调整（workings）',tag:'公式',b:`<ul>
+<li><b>土地重估</b>：120 → 300，增值 <b>180</b> 进 OCI（重估盈余）</li>
+<li><b>建筑物折旧</b>：250 ÷ 25 年 = <b>10</b>，按题要求分配 5 / 5（分销 / 管理）</li>
+<li><b>期末存货</b> 119 → COGS = 107 + 488 − 119 = <b>476</b></li>
+<li><b>坏账准备</b>：175 × 4% = <b>7</b>（管理费用）</li>
+<li><b>工资拆分</b>：276 × 1/4 = 69（分销）、× 3/4 = 207（管理）</li></ul>
+<div class="tip">这套 workings 写在答题纸左上角，阅卷老师按点给分。</div>`},
+ {t:'利润表（by function）',tag:'例题',b:`<table><tr><td>Revenue</td><td>1,432</td></tr>
+<tr><td>Cost of sales（107 + 488 − 119）</td><td>(476)</td></tr>
+<tr><td><b>Gross profit</b></td><td><b>956</b></td></tr>
+<tr><td>Distribution costs（101 + 69 + 5）</td><td>(175)</td></tr>
+<tr><td>Administrative expenses（186 + 207 + 5 + 7）</td><td>(405)</td></tr>
+<tr><td><b>Operating profit</b></td><td><b>376</b></td></tr>
+<tr><td>Investment income</td><td>30</td></tr>
+<tr><td><b>Profit before tax</b></td><td><b>406</b></td></tr>
+<tr><td>Tax</td><td>(24)</td></tr>
+<tr><td><b>Profit for the year</b></td><td><b>382</b></td></tr>
+<tr><td>OCI：重估盈余</td><td>180</td></tr>
+<tr><td><b>Total comprehensive income</b></td><td><b>562</b></td></tr></table>
+<div class="warn">商誉 300 不摊销（IAS 36 只做减值测试），题目没给减值迹象就<b>不动它</b>。</div>`},
+ {t:'资产负债表与权益变动',tag:'例题',b:`<table><tr><th>SOFP 30/6/2021</th><th>$'000</th></tr>
+<tr><td>Land（重估后）</td><td>300</td></tr>
+<tr><td>Buildings（250 − 100）</td><td>150</td></tr>
+<tr><td>Goodwill</td><td>300</td></tr>
+<tr><td>Inventory</td><td>119</td></tr>
+<tr><td>Trade receivables（175 − 7）</td><td>168</td></tr>
+<tr><td>Bank</td><td>349</td></tr>
+<tr><td><b>Total assets</b></td><td><b>1,386</b></td></tr>
+<tr><td>Share capital</td><td>200</td></tr>
+<tr><td>Revaluation surplus</td><td>180</td></tr>
+<tr><td>Retained earnings（503 + 382 − 20）</td><td>865</td></tr>
+<tr><td>Trade payables</td><td>117</td></tr>
+<tr><td>Tax payable</td><td>24</td></tr>
+<tr><td><b>Total equity &amp; liabilities</b></td><td><b>1,386</b></td></tr></table>
+<div class="tip">平衡了就说明调整全对：<b>1,386 = 1,386</b>。这张表我算过一遍，可以放心对照。</div>`}
+]},
+{t:'⑥ Week 3｜IAS 2 存货',pts:[
+ {t:'成本的三块构成（IAS 2.10–18）',tag:'公式',b:`<ul>
+<li><b>采购成本</b>：买价（扣商业折扣）+ 不可退回的税费 + 运输 + 装卸</li>
+<li><b>加工成本</b>：直接人工 + <b>固定制造费用</b>（按正常产能分摊）+ 变动制造费用</li>
+<li><b>其他成本</b>：使存货达到现在地点与状态所必需的成本（如必要的中转仓储、为特定客户设计的成本）</li></ul>`},
+ {t:'不能计入存货的四项（IAS 2.16 / 2.18）',tag:'考点',b:`<ul>
+<li>非正常损耗（abnormal waste）</li>
+<li>仓储费 —— 除生产过程中必需的阶段间存储</li>
+<li>不参与使存货达到现状的管理费用</li>
+<li><b>销售费用</b>（selling costs）</li></ul>
+<div class="warn">另：借款费用按 IAS 23 处理，只有"符合条件的资产"才能资本化，常规存货不算。</div>`},
+ {t:'例题：Staybright（含 VAT）',tag:'例题',b:`<p>材料 32,000 <b>含 25% VAT</b>；商业折扣 500；直接人工 1,000 小时 × £8；其他变动制造费用 1,400；固定制造费用 4,000；销售与分销费用 20,000。</p>
+<table><tr><td>材料（32,000 ÷ 1.25）</td><td>25,600</td></tr>
+<tr><td>减：商业折扣</td><td>(500)</td></tr>
+<tr><td>直接人工（1,000 × 8）</td><td>8,000</td></tr>
+<tr><td>其他变动制造费用</td><td>1,400</td></tr>
+<tr><td>固定制造费用</td><td>4,000</td></tr>
+<tr><td>销售与分销费用</td><td><b>不计入</b></td></tr>
+<tr><td><b>存货成本</b></td><td><b>38,500</b></td></tr></table>
+<div class="tip">VAT 是"可退回的税"，剔除；商业折扣是"采购成本的减项"，扣掉。两个方向相反，最容易一起错。</div>`},
+ {t:'成本公式：Specific ID / FIFO / 加权平均',tag:'考点',b:`<ul>
+<li><b>Specific identification</b>：能单独辨认的项目（汽车、珠宝、定制订单）</li>
+<li>其余必须用 <b>FIFO</b> 或 <b>weighted average</b>（IAS 2.25）</li>
+<li><b>LIFO 被禁止</b></li>
+<li>性质与用途相似的存货必须用<b>同一</b>成本公式</li></ul>
+<div class="warn">IAS 8 的例题里"LIFO 改成加权平均"＝<b>会计政策变更</b>，因为计量基础变了。</div>`},
+ {t:'NRV 与"成本与可变现净值孰低"',tag:'公式',b:`<p><b>NRV = 估计售价 − 完工估计成本 − 销售估计费用</b></p>
+<ul>
+<li>计量：<b>lower of cost and NRV</b>（IAS 2.9）</li>
+<li>减记的金额<b>当期确认为费用</b>（IAS 2.34）</li>
+<li>以后 NRV 回升 → 可以转回，但<b>以原减记金额为限</b></li></ul>
+<div class="warn">NRV 按<b>单项</b>比较，不能把 A 的增值和 B 的减值相互抵消（不能按总额比）。</div>`},
+ {t:'例题：Standard Mix（单项比较 + 转回）',tag:'例题',b:`<table><tr><th>项目</th><th>成本</th><th>NRV</th><th>取低</th></tr>
+<tr><td>A</td><td>7,000</td><td>10,000</td><td>7,000</td></tr>
+<tr><td>B</td><td>8,400</td><td>10,200 × 75% = <b>7,650</b></td><td>7,650</td></tr>
+<tr><td>C</td><td>9,200</td><td>10,400 − 1,800 = <b>8,600</b></td><td>8,600</td></tr>
+<tr><td><b>合计</b></td><td>24,600</td><td></td><td><b>23,250</b></td></tr></table>
+<p>减记 <b>1,350</b>：Dr 存货减记损失 1,350 / Cr 存货减记准备 1,350</p>
+<p>次年 NRV 升至 25,000，回升 1,750，但<b>只能转回 1,350</b>：<br>Dr 存货减记准备 1,350 / Cr 存货减记损失 1,350</p>
+<div class="tip">转回上限是"原来的减记额"，不是"现在能涨多少"。这也是 prudence 的体现：<b>损失立刻认，收益不提前认</b>。</div>`},
+ {t:'为什么用 NRV：审慎 + 盈余管理空间',tag:'考点',b:`<ul>
+<li>符合概念框架的<b>不对称审慎</b>：认全部损失，不认未实现收益</li>
+<li>但 NRV 依赖未来估计 → 管理层可用来"洗大澡"（先多提减记，次年转回抬利润）</li>
+<li>所以 IAS 2 要求披露：减记金额与转回金额</li></ul>
+<div class="tip">论述题常问"NRV 的主观性是否损害相关性"，答：损害如实反映，但提高相关性；靠披露与审计约束。</div>`},
+ {t:'披露要求（四条）',tag:'考点',b:`<ol style="padding-left:18px">
+<li>计量存货所用的会计政策（含成本公式）</li>
+<li>存货的账面总额及分类</li>
+<li>本期确认为费用的存货金额</li>
+<li>本期减记金额与转回金额</li></ol>`}
+]},
+{t:'⑦ Week 3｜IAS 8 政策、估计与差错',pts:[
+ {t:'三个概念，一张表分清',tag:'公式',b:`<table><tr><th>类型</th><th>定义</th><th>处理</th></tr>
+<tr><td><b>会计政策</b></td><td>编制报表所用的具体原则、基础、惯例、规则</td><td><b>追溯</b>（除非不可行）</td></tr>
+<tr><td><b>会计估计</b></td><td>因评估资产/负债现状与预期未来利益而调整账面金额</td><td><b>未来适用</b></td></tr>
+<tr><td><b>前期差错</b></td><td>漏记或错报（计算错、误用政策、疏忽、舞弊）</td><td>重大差错<b>追溯重述</b></td></tr></table>
+<div class="tip">判别口诀：<b>计量基础变了 = 政策；输入值变了 = 估计。</b></div>`},
+ {t:'课堂那道选择题',tag:'例题',b:`<ul>
+<li>(a) 坏账率 10% → 5%：<b>估计</b></li>
+<li>(b) 存货由 LIFO 改为加权平均：<b>政策</b>（计量基础变了）</li>
+<li>(c) 折旧年限 15 → 20 年：<b>估计</b></li>
+<li>(d) 成本模式改为重估模式：<b>政策</b>（IFRS 允许的选择）</li>
+<li>(e) 由 IAS 17 改为 IFRS 16：<b>政策</b>（准则强制要求）</li></ul>
+<div class="warn">(d) 有个例外：成本模式 → 重估模式的差额<b>走 OCI</b>，不调整比较期损益。</div>`},
+ {t:'追溯调整具体怎么做',tag:'公式',b:`<ol style="padding-left:18px">
+<li>调整<b>最早列报期间</b>的期初留存收益（及每个受影响权益项目）</li>
+<li><b>重述</b>比较期的每个受影响项目</li>
+<li>在 SCE 中单独列示"追溯调整"一行</li>
+<li>披露：性质、原因、调整金额、若不可行则说明原因</li></ol>
+<div class="tip">不需要重述第三张资产负债表（若准则要求除外），只需要最早期间的期初余额。</div>`},
+ {t:'例题：Alpha plc 前期差错重述',tag:'例题',b:`<p>2024 年发现 2023 年末存货高估 1,100（税 30%，无其他权益变动）。</p>
+<b>2023 重述</b>：销售 14,700；COGS 8,900 + 1,100 = 10,000 → 毛利 4,700；分销与管理 (1,800)；税前 2,900；税 870；<b>净利 2,030</b>（原 2,800）
+<p>留存收益 31/12/2023 = 4,000 + 2,030 = <b>6,030</b>（原 6,800，<b>下调 770</b> = 1,100 × 70%）</p>
+<b>2024</b>：销售 20,800；COGS 13,600 − 1,100 = <b>12,500</b> → 毛利 8,300；管理 (3,700)；税前 4,600；税 1,380；<b>净利 3,220</b>
+<p>留存收益 31/12/2024 = 6,030 + 3,220 = <b>9,250</b></p>
+<hr>
+<p><b>SCE 呈现</b>：2023 期初 4,000 → 本年利润 2,030 → 前期差错更正 (770) → 期末 6,030；2024 期初 6,030 → 利润 3,220 → 期末 9,250。</p>
+<div class="tip">关键洞察：这个错误<b>两年合计不影响总利润</b>，只影响两年的分配。所以 2024 年必须同时重述 COGS（因为期初存货被高估会推高本年成本）。</div>`}
+]},
+{t:'⑧ 课程信息与下一步',pts:[
+ {t:'考核与截止日（务必记住）',tag:'框架',b:`<table><tr><th>作业</th><th>权重</th><th>截止</th></tr>
+<tr><td>Individual essay（2,000 词）</td><td>30%</td><td><b>2026 年 11 月 16 日</b></td></tr>
+<tr><td>Group presentation（15 分钟）</td><td>20%</td><td><b>2026 年 12 月 21 日</b></td></tr>
+<tr><td>Written exam（2 小时）</td><td>50%</td><td>2027 春季 第 13 周</td></tr></table>
+<div class="warn">每项都要 <b>40%</b> 及格，加权总分 40% 才算过模块。<b>论文离现在只剩不到一个月</b>，先动这个。</div>`},
+ {t:'Week 4 之后会学什么（先预习）',tag:'框架',b:`<ul>
+<li>Week 4：IAS 16 不动产、厂房与设备（成本、折旧、重估模型）</li>
+<li>之后：IAS 38 无形资产、IAS 36 减值、IAS 37 准备、IAS 12 递延所得税、IFRS 15 收入、IFRS 16 租赁、合并报表</li></ul>
+<div class="tip">等 Week 4 课件发我，我按老师口径补进来，并接上这里的"三表编制"流程。</div>`}
 ]}
 ]}
 ];
