@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课程笔记 · Personal Tax / Business Law / FAR</title>
+<style>
+  :root{
+    --bg:#f6f4ef; --card:#fff; --text:#2b2619; --sub:#6d6152; --line:#e3ddd2;
+    --accent:#1f3f5f; --accent-soft:#eaf1f8;
+    --hl:#fff3c4; --ok:#2f7d55; --ok-soft:#e8f5ee;
+    --warn:#b4413a; --warn-soft:#fdeceb;
+    --shadow:0 2px 10px rgba(40,30,15,.06);
+  }
+  body.dark{
+    --bg:#14161a; --card:#1c1f25; --text:#e8e3d8; --sub:#9a9384; --line:#2c3138;
+    --accent:#7fb0dd; --accent-soft:#1f2b38;
+    --hl:#4a3f1d; --ok:#6fce9b; --ok-soft:#1e3329;
+    --warn:#ef8b83; --warn-soft:#3a2321;
+    --shadow:0 2px 12px rgba(0,0,0,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","PingFang SC",sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.72;
+    transition:background .25s,color .25s;
+  }
+  header{
+    position:sticky;top:0;z-index:50;background:var(--bg);
+    border-bottom:1px solid var(--line);
+    backdrop-filter:blur(8px);
+    padding:14px 0 0;
+  }
+  .container{max-width:880px;margin:0 auto;padding:0 16px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .top h1{font-size:1.15rem;font-weight:700;letter-spacing:-.2px}
+  .top h1 small{font-weight:400;color:var(--sub);font-size:.72rem;margin-left:6px}
+  .icon-btn{
+    background:none;border:1px solid var(--line);color:var(--text);
+    width:36px;height:36px;border-radius:10px;font-size:1rem;cursor:pointer;
+  }
+  .tabs{display:flex;gap:8px;margin:12px 0 10px;overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    flex:0 0 auto;padding:8px 14px;border-radius:999px;border:1px solid var(--line);
+    background:var(--card);color:var(--sub);font-size:.82rem;font-weight:600;
+    cursor:pointer;transition:.18s;white-space:nowrap;
+  }
+  .tab.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  body.dark .tab.on{color:#0f1216}
+  .search-wrap{position:relative;margin-bottom:12px}
+  .search-wrap input{
+    width:100%;padding:11px 40px 11px 38px;border-radius:12px;border:1px solid var(--line);
+    background:var(--card);color:var(--text);font-size:.9rem;outline:none;
+  }
+  .search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .search-wrap .mag{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--sub);font-size:.9rem}
+  .search-wrap .kbd{
+    position:absolute;right:12px;top:50%;transform:translateY(-50%);
+    font-size:.7rem;color:var(--sub);border:1px solid var(--line);border-radius:5px;padding:1px 6px;
+  }
+  main{padding:16px 0 60px}
+  .course-head{margin:6px 0 14px}
+  .course-head .name{font-size:1.3rem;font-weight:800;letter-spacing:-.3px}
+  .course-head .desc{color:var(--sub);font-size:.82rem;margin-top:2px}
+  .prog{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:.76rem;color:var(--sub)}
+  .bar{flex:1;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+  .bar i{display:block;height:100%;width:0;border-radius:99px;background:var(--ok);transition:width .3s}
+  .filters{display:flex;gap:8px;margin:14px 0 16px;flex-wrap:wrap}
+  .chip{
+    padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);
+    color:var(--sub);font-size:.76rem;cursor:pointer;
+  }
+  .chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+  .chap{margin:22px 0 10px;font-size:.95rem;font-weight:700;color:var(--accent);
+    padding-left:10px;border-left:3px solid var(--accent);line-height:1.3}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden;
+  }
+  .card-head{display:flex;align-items:flex-start;gap:10px;padding:13px 14px;cursor:pointer}
+  .card-head .t{flex:1;font-size:.9rem;font-weight:600;line-height:1.5}
+  .card.done .card-head .t{color:var(--sub)}
+  .tag{
+    flex:0 0 auto;font-size:.64rem;font-weight:700;padding:2px 7px;border-radius:6px;
+    letter-spacing:.3px;margin-top:3px;white-space:nowrap;
+  }
+  .tag.公式{background:#e9f0fb;color:#2f5fa8}
+  .tag.易错{background:var(--warn-soft);color:var(--warn)}
+  .tag.考点{background:#f0ecfa;color:#6a4bb5}
+  .tag.框架{background:var(--ok-soft);color:var(--ok)}
+  body.dark .tag.公式{background:#1e2b3d;color:#7fa8e0}
+  body.dark .tag.考点{background:#2a2338;color:#b09bea}
+  .caret{color:var(--sub);font-size:.7rem;transition:transform .2s;margin-top:5px}
+  .card.open .caret{transform:rotate(90deg)}
+  .body{display:none;padding:0 14px 14px;font-size:.86rem;color:var(--text)}
+  .card.open .body{display:block}
+  .body ul{padding-left:18px;margin:4px 0}
+  .body li{margin:4px 0}
+  .body b{color:var(--accent)}
+  .body .k{
+    background:var(--hl);padding:0 3px;border-radius:3px;font-weight:600;
+  }
+  body.dark .body .k{color:#f0e2a8}
+  .body table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.8rem}
+  .body th,.body td{border:1px solid var(--line);padding:5px 8px;text-align:left}
+  .body th{background:var(--accent-soft);font-weight:600}
+  .body .warn{
+    background:var(--warn-soft);border-left:3px solid var(--warn);
+    padding:8px 10px;border-radius:0 8px 8px 0;margin:8px 0;font-size:.82rem;
+  }
+  .body .tip{
+    background:var(--ok-soft);border-left:3px solid var(--ok);
+    padding:8px 10px;border-radius:0 8px 8px 0;margin:8px 0;font-size:.82rem;
+  }
+  .card-foot{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:8px 14px;border-top:1px dashed var(--line);font-size:.74rem;color:var(--sub);
+  }
+  .mark{display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
+  .mark input{width:15px;height:15px;accent-color:var(--ok);cursor:pointer}
+  .empty{text-align:center;color:var(--sub);padding:50px 0;font-size:.86rem}
+  footer{text-align:center;color:var(--sub);font-size:.72rem;padding:0 0 40px}
+  .hidden{display:none!important}
+  @media print{
+    header,.filters,.card-foot,.icon-btn{display:none}
+    .card .body{display:block}
+    body{background:#fff}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="top">
+      <h1>课程笔记 <small>2026 秋 · 阿屿整理</small></h1>
+      <button class="icon-btn" id="themeBtn" title="切换主题">🌙</button>
+    </div>
+    <nav class="tabs" id="tabs"></nav>
+    <div class="search-wrap">
+      <span class="mag">⌕</span>
+      <input id="q" type="search" placeholder="搜索：准则号 / 关键词 / 公式…">
+      <span class="kbd">/</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div id="courseHead"></div>
+  <div class="filters" id="filters">
+    <button class="chip on" data-f="all">全部</button>
+    <button class="chip" data-f="todo">未掌握</button>
+    <button class="chip" data-f="err">易错点</button>
+  </div>
+  <div id="list"></div>
+</main>
+<footer>点标题展开 · 勾「已掌握」会记住 · 数据存在你手机浏览器里</footer>
+
+<script>
+const DATA = [
+{id:'pt',name:'Personal Tax',desc:'英国个人所得税 · 计算题为主，税基/税率/减免三层结构',chapters:[
+{t:'① 税制地图与居民身份',pts:[
+ {t:'英国税种地图：谁在什么时候交什么税',tag:'框架',b:`<ul>
+<li><b>Income Tax</b>：按<u>年度</u>征（6 Apr – 5 Apr），累进</li>
+<li><b>NICs</b>：按<u>发薪期</u>征，用于社保，和 IT 分开算</li>
+<li><b>CGT</b>：按<u>处置事件</u>征（卖资产才交）</li>
+<li><b>IHT</b>：按<u>转移事件</u>征（生前赠与 / 死亡遗产）</li>
+<li><b>VAT</b>：按<u>交易</u>征，企业代收代缴，不是企业的成本</li>
+<li><b>Corporation Tax</b>：公司利润，和 Personal Tax 是两条线</li></ul>
+<div class="tip">答题先判断税种，再看是「年度」还是「事件」——很多分是判题型拿的。</div>`},
+ {t:'Residence：法定居民测试 SRT',tag:'考点',b:`<ul>
+<li><b>Automatic overseas test</b>：上一税年非居民 + 本年到英国 &lt;46 天 → 非居民</li>
+<li><b>Automatic UK test</b>：本年到英国 ≥183 天 → 居民；或全年在英国工作；或有唯一住所且住满 91 天</li>
+<li><b>Sufficient ties test</b>：都不满足时，看 ties（家庭/住宿/工作/90天/英国）数量 + 在英天数</li></ul>
+<div class="warn">住在英国 ≠ 税务居民；居民 ≠ domicile（住所）。三类身份组合决定是否可用 remittance basis。</div>`},
+ {t:'Domicile 与 remittance basis',tag:'考点',b:`<ul>
+<li>英国 domicile：全球收入全球征税</li>
+<li>Non-dom：可选择 remittance basis，<b>只对汇入英国的境外收入征税</b></li>
+<li>代价：失去 personal allowance 和 CGT AEA（除非 unremitted income &lt; £2,000）</li>
+<li>Remittance basis charge：住满 7/9/12/14 年中若干年，年费 £30k / £60k</li>
+<li>Deemed domicile：在英国住满 15 个税年中的 15 年</li></ul>`},
+ {t:'Personal Allowance 及其削减',tag:'公式',b:`<ul>
+<li>基础 £12,570（冻结至 2028）</li>
+<li>收入超过 <span class="k">£100,000</span> 后，每多 £2 减 £1 → 到 £125,140 全没</li>
+<li>Marriage allowance：可转移 £1,260（受让方需为 basic rate）</li>
+<li>Blind person's allowance 另计</li></ul>
+<div class="warn">£100k–£125,140 之间实际边际税率 60%，是经典考点。</div>`}
+]},
+{t:'② Income Tax 五步法（核心计算）',pts:[
+ {t:'五步计算框架（背下来）',tag:'公式',b:`<ol style="padding-left:18px">
+<li>汇总 <b>Total income</b>：employment / trading / property / savings / dividends</li>
+<li>减 <b>Reliefs</b>：pension contributions（gross）、gift aid（gross）、trading losses、interest paid</li>
+<li>减 <b>Personal allowance</b>（考虑 taper）</li>
+<li>按<b>顺序</b>征税：非储蓄收入 → 储蓄收入 → 股息</li>
+<li>套税率、算 tax liability，减已扣税款（PAYE / tax deducted）</li></ol>
+<div class="tip">英格兰/威尔士/北爱：20% / 40% / 45%，band 为 £0–37,700 / £37,701–125,140 / 之上。苏格兰有独立税率表，题目会说明。</div>`},
+ {t:'Savings 与 Dividend 的"叠放"规则',tag:'易错',b:`<ul>
+<li>储蓄收入享有 <b>Personal Savings Allowance</b>：basic £1,000、higher £500、additional £0</li>
+<li>股息有 <b>Dividend allowance £500</b>——注意它是"<span class="k">0% 档</span>"，<b>仍然占用 band</b>，不是免税额度</li>
+<li>股息税率：8.75% / 33.75% / 39.35%</li>
+<li>顺序永远是 非储蓄 → 储蓄 → 股息，从低到高填 band</li></ul>
+<div class="warn">最常见错误：把 dividend allowance 当成"不用申报"。它照样吃 band，把后面的股息推到更高税率。</div>`},
+ {t:'Gift Aid 与 Pension 的 gross up',tag:'公式',b:`<ul>
+<li>Gift aid：实际捐款 × <b>100/80</b> = gross contribution，从 total income 中扣除（extend basic rate band）</li>
+<li>Pension（relief at source）：个人净付 × <b>100/80</b> = gross，同样 extend band</li>
+<li>净工资扣除型（occupational, net pay）不需要 gross up</li></ul>
+<div class="tip">做题：先 gross up → 扩大 basic/higher band → 再算税。别搞反顺序。</div>`},
+ {t:'Trading losses 的使用顺序',tag:'考点',b:`<ul>
+<li>同一贸易 <b>carry forward</b>（同贸易、同类型收入）</li>
+<li><b>Carry back</b> 12 个月（新贸易前 4 年可选择 early trade relief）</li>
+<li>当年 <b>sideways relief</b>：抵总所得（有 cap，需 4 年内）</li>
+<li>Terminal loss：最后 12 个月可 carry back 3 年</li></ul>
+<div class="warn">Loss relief 用掉的额度会影响 personal allowance taper 判断——先算净收入再定 PA。</div>`}
+]},
+{t:'③ Employment Income 与福利',pts:[
+ {t:'Employment income 的范围',tag:'框架',b:`<ul>
+<li>工资、奖金、佣金、小费、代金券、实物福利</li>
+<li><b>Receipts basis</b>：按"有权取得"的时点，不是实收时点</li>
+<li>应税：<b>wholly, exclusively and necessarily</b> 才可扣</li>
+<li>通勤（ordinary commuting）不可扣；临时工作地点可</li>
+<li>Mileage：自有车 45p/英里（前 10,000 英里），之后 25p</li>
+<li>Professional subscription 可扣</li></ul>`},
+ {t:'公司车 / 油 / 贷款福利',tag:'公式',b:`<ul>
+<li><b>Company car</b>：list price × CO2-based %（0g 极低 %，越高排放 % 越高，上限 37%），减去员工自付</li>
+<li><b>Fuel benefit</b>：固定基数 × 同一 %</li>
+<li><b>Beneficial loan</b>：官方利率 − 实际利率，× 贷款额；&lt;£10,000 且为 qualifying 贷款则豁免</li>
+<li><b>Living accommodation</b>：annual value + （成本 &gt; £75,000 部分的 official rate）</li>
+<li>雇主交 Class 1A NICs（税率看当年）</li></ul>`},
+ {t:'Termination payments',tag:'易错',b:`<ul>
+<li><b>前 £30,000 免征</b>所得税（NICs 另有规则）</li>
+<li>但 <b>PILON（代通知金）</b>、未休假工资、已赚未付的工资<b>全额应税</b>，不占用 30,000</li>
+<li>伤残/死亡赔偿另有豁免</li></ul>
+<div class="warn">题目给"遣散费 £45,000 + 3 个月代通知金 £9,000"，只对 45,000 用 30,000 免税额。</div>`},
+ {t:'PAYE 与申报',tag:'考点',b:`<ul>
+<li>雇主按 <b>RTI</b> 实时申报，代扣 IT 和 Class 1 NICs</li>
+<li>福利走 <b>P11D</b>，员工在 self assessment 中申报</li>
+<li>Self assessment 截止：纸质 31 Oct，线上 31 Jan</li>
+<li>Payments on account：1/31 和 7/31 各付 50%（上年税额 &gt; £1,000 且未扣净时）</li></ul>`}
+]},
+{t:'④ NICs（国民保险）',pts:[
+ {t:'Class 1 雇员：8% / 2%',tag:'公式',b:`<ul>
+<li><b>8%</b>：Primary Threshold £12,570 至 Upper Earnings Limit £50,270 之间</li>
+<li><b>2%</b>：超过 £50,270 的部分</li>
+<li>雇主 Class 1：15%（2025/26 起），Secondary Threshold £5,000</li></ul>
+<div class="warn">NICs 是<b>按发薪期</b>算再累计的，不是简单"年收入套年阈值"。月薪题要用月阈值 ×12。</div>`},
+ {t:'Class 2 / Class 4 自雇',tag:'考点',b:`<ul>
+<li>Class 2 自 2024/25 起实质取消（小利润不再强制，可自愿缴纳以保权益）</li>
+<li>Class 4：利润 £12,570–£50,270 部分 <b>6%</b>，超过部分 <b>2%</b></li>
+<li>Class 3 voluntary：补缴记录用</li></ul>
+<div class="tip">自雇的税负 = Income Tax + Class 4，不要漏 Class 4。</div>`},
+ {t:'Employment vs Self-employment 判定',tag:'考点',b:`<ul>
+<li>控制（control）、能否派替工（substitution）、风险自负、提供自己的工具、是否"自成一门生意"</li>
+<li>MoJ 的<b>雇佣状态测试</b>和 IR35（off-payroll working）</li>
+<li>判错性质 → 补税 + 罚金</li></ul>`}
+]},
+{t:'⑤ Trading Income 与资本减免',pts:[
+ {t:'Adjusted trading profit',tag:'公式',b:`<ul>
+<li>会计利润 → 调增：折旧、资本性支出、业主私用、<b>英国客户招待费</b>、罚款、非经营性支出</li>
+<li>调减：账面折旧换成 capital allowances、免税收入</li>
+<li>Basis period：2024/25 起 <b>tax year basis</b>（按税年归属利润），过渡期有 spreading</li>
+<li>Cash basis 门槛已放宽（小企业可用收付实现制）</li></ul>`},
+ {t:'Capital Allowances',tag:'考点',b:`<table><tr><th>类型</th><th>比例 / 条件</th></tr>
+<tr><td>AIA</td><td>£1m，多数厂房设备 100% 一次性</td></tr>
+<tr><td>Main pool WDA</td><td>18% 余值递减</td></tr>
+<tr><td>Special rate pool</td><td>6%（integral features、长寿命资产）</td></tr>
+<tr><td>小池</td><td>余值 ≤ £1,000 直接全额扣除</td></tr>
+<tr><td>汽车</td><td>0g 100% FYA；≤50g 18%；&gt;50g 6%</td></tr></table>
+<div class="warn">出售时低于 tax WDV → balancing allowance；高于 → balancing charge（计入利润）。</div>`},
+ {t:'Pension 与 reliefs 上限',tag:'公式',b:`<ul>
+<li>Annual allowance £60,000，高收入 taper 最低降至 £10,000</li>
+<li>可 carry forward 前 3 年未用额度</li>
+<li>非纳税人可存 £3,600 gross</li>
+<li>已取养老金 → <b>MPAA £10,000</b></li></ul>`},
+ {t:'Property income',tag:'考点',b:`<ul>
+<li>Property allowance £1,000（与实扣二选一）</li>
+<li>Rent-a-room £7,500</li>
+<li>住宅按揭利息<b>不能</b>全额扣，只能按 20% 给 tax reducer</li>
+<li>Furnished holiday lettings 有特殊待遇（注意规则近年有变）</li></ul>`}
+]},
+{t:'⑥ CGT 资本利得税',pts:[
+ {t:'计算步骤',tag:'公式',b:`<ul>
+<li>处置收入 − 可扣除成本（购入价 + 交易费用 + 改良支出）</li>
+<li>减当年损失、往年结转损失</li>
+<li>减 <b>Annual Exempt Amount £3,000</b></li>
+<li>乘税率：<b>18% / 24%</b>（住宅类与 carried interest 另有规则）</li></ul>
+<div class="warn">AEA 是<b>每人每年</b>，不是每个资产；夫妻间可转让资产以各用一份。</div>`},
+ {t:'Shares 匹配规则',tag:'易错',b:`<ul>
+<li>① 同日买入</li>
+<li>② 之后 <b>30 天</b>内买入（bed & breakfasting 被堵）</li>
+<li>③ 其余进 <b>share pool</b>（加权平均成本）</li></ul>
+<div class="tip">顺序错了答案必错，这题几乎每卷都有。</div>`},
+ {t:'主要减免',tag:'考点',b:`<ul>
+<li><b>PPR</b>：主要居所减免（+ 最后 9 个月视同居住）</li>
+<li><b>BADR</b>：10%，终身额度 £1m（卖企业/股份）</li>
+<li>Gift relief / holdover、rollover relief（替换商业资产）</li>
+<li>Incorporation relief（转成公司股份）</li>
+<li>Chattels：≤£6,000 免征；wasting assets 免征</li></ul>`},
+ {t:'申报与缴纳',tag:'考点',b:`<ul>
+<li>英国住宅用地：成交后 <b>60 天</b>内申报并缴税（单独申报，不等年度申报）</li>
+<li>其他资产：走 self assessment，31 Jan 缴</li>
+<li>Non-resident 卖英国住宅同样适用</li></ul>`}
+]},
+{t:'⑦ IHT 遗产税',pts:[
+ {t:'核心逻辑：三种转移',tag:'框架',b:`<ul>
+<li><b>PET</b>（potentially exempt transfer）：给个人/信托的生前赠与，7 年内死亡才征税</li>
+<li><b>LCT</b>（chargeable lifetime transfer）：给信托，立即可税（税率 20% 生前）</li>
+<li><b>Death estate</b>：死亡时的全部遗产</li></ul>
+<div class="tip">关键：所有生前转移按"<b>7 年累积</b>"，算某一笔时要把前 7 年的加进来吃 NRB。</div>`},
+ {t:'NRB / RNRB',tag:'公式',b:`<ul>
+<li>Nil rate band <b>£325,000</b></li>
+<li>Residence NRB <b>£175,000</b>（留给直系后代的自住房）</li>
+<li><b>Taper</b>：遗产超过 <b>£2m</b>，每超 £2 减 £1 RNRB</li>
+<li>配偶间可<b>转移未用额度</b>（NRB + RNRB 都能转）</li></ul>
+<div class="warn">£2m 的门槛把很多"有房家庭"排除在 RNRB 之外——先算总遗产再判。</div>`},
+ {t:'税率与 taper relief',tag:'公式',b:`<ul>
+<li>标准 40%；若遗产的 <b>10% 以上</b>捐慈善 → <b>36%</b></li>
+<li>死亡前 3–7 年的赠与有 taper relief：</li></ul>
+<table><tr><th>赠与到死亡的时间</th><th>税额减免</th></tr>
+<tr><td>0–3 年</td><td>0%</td></tr><tr><td>3–4 年</td><td>20%</td></tr>
+<tr><td>4–5 年</td><td>40%</td></tr><tr><td>5–6 年</td><td>60%</td></tr>
+<tr><td>6–7 年</td><td>80%</td></tr></table>
+<div class="warn">Taper 减的是<b>税</b>，不是资产价值；PET 超过 7 年=完全免。</div>`},
+ {t:'Business / Agricultural relief',tag:'考点',b:`<ul>
+<li>BPR：非上市股份/未上市企业权益 100%；上市股份（控股）50%</li>
+<li>AIM 股份 50%</li>
+<li>APR：农地/农用财产 100% 或 50%</li>
+<li>需满足 <b>2 年</b>持有期（有 replacement 规则）</li></ul>`}
+]},
+{t:'⑧ VAT 增值税',pts:[
+ {t:'注册门槛与税率',tag:'公式',b:`<ul>
+<li>强制注册：滚动 12 个月应税营业额 &gt; <b>£90,000</b>（或预计 30 天内会超）</li>
+<li>自愿注销门槛 £88,000</li>
+<li>标准 20%，低税率 5%（家用燃料、儿童座椅等），零税率 0%（食品、书籍、童装）</li>
+</ul>
+<div class="warn"><b>Zero-rated 与 Exempt 都能不向客户收 VAT，但：</b>zero-rated 的进项税可退，exempt 的不可退。这是最高频陷阱。</div>`},
+ {t:'计税与申报',tag:'公式',b:`<ul>
+<li>应缴 = output tax − input tax</li>
+<li>Invoice accounting（权责发生）vs Cash accounting（≤£1.35m 可用）</li>
+<li>Flat rate scheme：营业额 ≤£150,000，按行业固定比例 × 含税营业额</li>
+<li>通常按季度申报，<b>1 个月 + 7 天</b>内</li>
+<li>Making Tax Digital 强制电子申报</li></ul>`},
+ {t:'特殊情形',tag:'考点',b:`<ul>
+<li>Place of supply：商品看发货地，服务看客户所在地（B2B 一般 reverse charge）</li>
+<li>Partial exemption：同时有应税和免税业务时的进项税分摊</li>
+<li>Bad debt relief（6 个月后）</li>
+<li>Penalty：按错误程度分 careless / deliberate，可披露减免</li></ul>`}
+]},
+{t:'⑨ 合规、避税与道德',pts:[
+ {t:'关键日期与罚则',tag:'考点',b:`<ul>
+<li>31 Oct：纸质申报；31 Jan：线上申报 + 缴税</li>
+<li>31 Jul：第二笔 payments on account</li>
+<li>逾期申报：£100 → 3 个月 £10/天 → 6 个月 5%或£300 → 12 个月再加</li>
+<li>记录保存：一般 5 年（有期限延长情形）</li>
+<li>Discovery assessment 可追溯 4 / 6 / 20 年</li></ul>`},
+ {t:'Tax avoidance vs evasion',tag:'考点',b:`<ul>
+<li><b>Evasion</b>：违法（隐瞒、造假）→ 刑事</li>
+<li><b>Avoidance</b>：合法但违背立法意图 → GAAR 可反制</li>
+<li><b>Mitigation</b>：立法允许的规划（如 ISA、pension）</li>
+<li>DOTAS 披露规则、Promoters of tax avoidance schemes</li></ul>`},
+ {t:'专业与道德',tag:'考点',b:`<ul>
+<li>PCRT：诚信、客观、专业胜任、保密、专业行为</li>
+<li>AML：客户尽调（CDD）、可疑活动报告（SAR）</li>
+<li>利益冲突 → 需独立、回避或取得同意</li>
+<li>不能替客户向 HMRC 提供误导性信息</li></ul>`}
+]}
+]},
+{id:'law',name:'Global Corporate Business Law',desc:'英国法为主 · 论述+案例，判例名要背准',chapters:[
+{t:'① 法律渊源与判例制度',pts:[
+ {t:'法律渊源四层',tag:'框架',b:`<ul>
+<li><b>Common law</b>：判例累积形成的规则</li>
+<li><b>Equity</b>：弥补普通法僵化，救济为 injunction / specific performance / trust；原则：he who comes to equity must come with clean hands</li>
+<li><b>Statute</b>：成文法优先，可推翻判例</li>
+<li><b>Retained EU law / 国际公约</b>：如 CISG、Rome I</li></ul>`},
+ {t:'遵循先例（stare decisis）',tag:'考点',b:`<ul>
+<li><b>Ratio decidendi</b>（判决理由）有约束力；<b>obiter dicta</b>（附带意见）只有说服力</li>
+<li>上议院/最高法院：1966 Practice Statement 后可背离自己</li>
+<li>上诉法院：原则上受自己约束，例外见 <b>Young v Bristol Aeroplane</b>（冲突、被推翻、明显错误）</li>
+<li>下级法院不受同级或上级他庭约束</li></ul>
+<div class="tip">答题格式：issue → rule（判例）→ application → conclusion（IRAC）。</div>`},
+ {t:'成文法解释方法',tag:'考点',b:`<ul>
+<li><b>Literal</b> 字面 / <b>Golden</b> 黄金（荒谬时修正）/ <b>Mischief</b> 除弊 / <b>Purposive</b> 目的</li>
+<li>辅助规则：ejusdem generis（同类）、noscitur a sociis（上下文）、expressio unius（明示其一排除其他）</li>
+<li>外部辅助：Hansard（Pepper v Hart 限条件）、解释性备忘录</li></ul>`},
+ {t:'法院层级与救济',tag:'框架',b:`<ul>
+<li>Supreme Court → Court of Appeal → High Court（King's Bench / Chancery / Family）→ Crown / County → Magistrates / Tribunal</li>
+<li>普通法救济：damages</li>
+<li>衡平救济：specific performance、injunction、rescission、rectification、account of profits</li>
+<li>司法审查（judicial review）：越权、程序不当、不合理、合法期待</li></ul>`}
+]},
+{t:'② 合同成立：Offer & Acceptance',pts:[
+ {t:'Offer vs Invitation to Treat',tag:'考点',b:`<table><tr><th>情形</th><th>判例</th><th>结论</th></tr>
+<tr><td>橱窗陈列</td><td>Fisher v Bell</td><td>ITT</td></tr>
+<tr><td>报纸广告</td><td>Partridge v Crittenden</td><td>ITT</td></tr>
+<tr><td>单方悬赏广告</td><td>Carlill v Carbolic Smoke Ball</td><td>Offer（可构成单方合同）</td></tr>
+<tr><td>询价</td><td>Harvey v Facey</td><td>非 offer</td></tr>
+<tr><td>"may be prepared to sell"</td><td>Gibson v Manchester CC</td><td>ITT（缺确定性）</td></tr>
+<tr><td>自助机/公交</td><td>Thornton v Shoe Lane</td><td>机器发出 offer，投币为 acceptance</td></tr></table>`},
+ {t:'要约的终止',tag:'考点',b:`<ul>
+<li><b>Revocation</b>：须在承诺前<b>送达</b>受要约人（<b>Dickinson v Dodds</b>）；但单方合同中一旦开始履行则不可撤回（Errington v Errington）</li>
+<li><b>Lapse</b>：明示期限或合理期间届满</li>
+<li><b>Rejection</b>：拒绝即消灭</li>
+<li><b>Counter-offer</b>：反要约消灭原要约（<b>Hyde v Wrench</b>）；但"请求补充信息"不等于反要约（Stevenson Jaques）</li>
+<li>死亡：要约人死亡，一般终止（除可履行的单方合同）</li></ul>`},
+ {t:'Acceptance 的规则',tag:'易错',b:`<ul>
+<li>镜像规则：必须<b>无条件</b>接受全部条款（有改动=反要约）</li>
+<li>一般须<b>送达</b>要约人（<b>Entores</b> 电传案：即时通讯以收到为生效）</li>
+<li><b>Postal rule</b>：邮政承诺<b>投递即生效</b>（<b>Adams v Lindsell</b>），但仅限承诺，且要约人可排除</li>
+<li>沉默不构成承诺（<b>Felthouse v Bindley</b>）</li>
+<li>行为可构成承诺（Carlill、battle of the forms 中 last shot 规则）</li></ul>
+<div class="warn">Email / 网站点击：英国法倾向"收到生效"，但无定论，答题要说明不确定性。</div>`},
+ {t:'Consideration 约因',tag:'公式',b:`<ul>
+<li>定义（Currie v Misa）：一方得到<b>利益</b>或另一方承受<b>损失</b></li>
+<li>须<b>有价值</b>但不必<b>相当</b>（Thomas v Thomas：£1 房租有效）</li>
+<li>不得是<b>过去的</b>约因（Re McArdle）</li>
+<li><b>既有义务</b>不构成约因：Stilk v Myrick（不额外付）；但超出原义务则可：Hartley v Ponsonby</li>
+<li>部分还债不构成对全额债务的清偿（<b>Foakes v Beer</b> / Pinnel's case），除非有对价（提前付、换物、第三方付款）</li>
+<li><b>Promissory estoppel</b>：High Trees 案，需明示承诺、依赖、不公平，只作抗辩不作诉因</li></ul>`},
+ {t:'Intention & Capacity',tag:'考点',b:`<ul>
+<li>商业推定有意图（Edmonds v Lawson 反向推翻需明确证据）</li>
+<li>家庭/社交推定无意图：<b>Balfour v Balfour</b>（无）；<b>Merritt v Merritt</b>（分居后书面协议 → 有）</li>
+<li>未成年人：必需品（necessaries）与学徒合同可约束；其他可撤销</li>
+<li>精神失常 / 醉酒：知悉对方无能力则可撤销</li>
+<li>公司：ultra vires 已被 CA 2006 s.39 废除（对第三方保护）</li></ul>`}
+]},
+{t:'③ 合同条款与免责条款',pts:[
+ {t:'Terms vs Representations',tag:'框架',b:`<ul>
+<li>判断因素：陈述时间间隔、是否书面、重要性、陈述方专业能力</li>
+<li>条款分类：<b>Condition</b>（违反可终止+索赔）、<b>Warranty</b>（只能索赔）、<b>Innominate</b>（看后果严重性，<b>Hong Kong Fir</b>）</li>
+<li>明示条款 / 默示条款（business efficacy：The Moorcock；statute：SGA 1979 ss.12–15；custom）</li>
+<li>Collateral contract / misrepresentation 可作例外，突破 parole evidence rule</li></ul>`},
+ {t:'条款的并入（Incorporation）',tag:'考点',b:`<ul>
+<li><b>签署</b>：签字即受约束，不论是否读过（<b>L'Estrange v Graucob</b>），例外：欺诈、误解（non est factum）</li>
+<li><b>通知</b>：须在<b>缔约前或同时</b>合理提示（<b>Olley v Marlborough Court</b> 酒店房间免责无效；<b>Chapelton v Barry</b> 收据不足以并入）</li>
+<li><b>交易习惯</b>：<b>McCutcheon v David MacBrayne</b>，一贯且一致才可（British Crane 双方同行业可用）</li></ul>`},
+ {t:'免责条款的控制：UCTA 1977',tag:'考点',b:`<ul>
+<li>s.2(1)：<b>不能</b>排除因过失造成的<b>死亡或人身伤害</b>责任</li>
+<li>s.2(2)：其他损失可排除，但须<b>合理</b>（reasonableness）</li>
+<li>s.3：标准条款下排除自身违约责任须合理</li>
+<li>s.6：货物买卖中<u>所有权与品质</u>的默示条款不可排除（消费者）/须合理（B2B）</li>
+<li>s.7：类似适用于服务</li>
+<li>合理性（Sch 2）：谈判地位、有无诱导、是否明知、定制程度、行业惯例</li></ul>
+<div class="warn">UCTA 只适用 <b>B2B</b>；对消费者用 <b>CRA 2015</b>：s.65 人身伤亡绝对不可排除，s.62 公平性测试，Sch 2 灰名单。</div>`},
+ {t:'解释规则',tag:'考点',b:`<ul>
+<li>Contra proferentem：对起草方不利解释</li>
+<li><b>Canada Steamship</b> 三步：明示过失？广义措辞是否涵盖？若涵盖，该责任是否本可合法排除？</li>
+<li>主要义务 vs 次要义务（Photo Production v Securicor）</li>
+<li>四角规则已被 <b>Investors Compensation Scheme</b> 目的解释取代</li></ul>`}
+]},
+{t:'④ 无效因素与合同解除',pts:[
+ {t:'Misrepresentation 三要件',tag:'考点',b:`<ul>
+<li>① 虚假的<b>事实</b>陈述（非意见/未来意图，Edgington v Fitzmaurice 例外）</li>
+<li>② 针对受述方并<b>诱导</b>其缔约（Attwood v Small 未依赖则无救济）</li>
+<li>③ 陈述方是<b>事实</b>陈述而非沉默（例外：最大诚信合同、半真半假、情况变化须更正）</li></ul>
+<table><tr><th>类型</th><th>救济</th></tr>
+<tr><td>Fraudulent（Derry v Peek）</td><td>撤销 + 侵权赔偿</td></tr>
+<tr><td>Negligent（MA 1967 s.2(1)）</td><td>撤销 + damages（推定过失）</td></tr>
+<tr><td>Innocent</td><td>撤销，法院可判 damages 代替（s.2(2)）</td></tr></table>
+<div class="warn">撤销权可能因<b>确认、第三人权利、无法恢复原状、时效</b>而丧失。</div>`},
+ {t:'Mistake 错误',tag:'考点',b:`<ul>
+<li><b>Common mistake</b>：双方同错（res extincta 标的已灭失；res sua 标的已属自己；品质错误需根本性）</li>
+<li><b>Mutual</b>：各理解不同，客观解释可解决则不影响</li>
+<li><b>Unilateral</b>：一方知情（<b>Hartog v Colin & Shields</b> 价格单位笔误）</li>
+<li><b>Non est factum</b>：签署文件性质完全不同（极窄）</li>
+<li>衡平救济：rectification</li></ul>`},
+ {t:'Duress / Undue Influence / 非法性',tag:'考点',b:`<ul>
+<li><b>Duress</b>：人身、货物、<b>经济胁迫</b>（DSND Subsea：缺乏实际选择、正当性、因果）</li>
+<li><b>Undue influence</b>：实际（actual）或推定（presumed，如律师-客户、父母-子女），可用独立建议抗辩</li>
+<li><b>Illegality</b>：违法合同不可执行；restraint of trade 须<b>合理</b>（范围、时间、地域、公共利益）</li>
+<li>后果：撤销、不可执行、恢复原状</li></ul>`},
+ {t:'解除的四种方式',tag:'框架',b:`<ul>
+<li><b>Performance</b>：<b>entire obligations</b>（Cutter v Powell 未完成不给钱）；例外：可分割、substantial performance（Bolton v Mahadeva 反例）、接受部分履行、阻碍履行</li>
+<li><b>Agreement</b>：accord & satisfaction、variation（需对价）</li>
+<li><b>Breach</b>：违反 condition / 根本违约 → 可终止 + 索赔（repidiatory breach 可立即接受）</li>
+<li><b>Frustration</b>：<b>Davis Contractors</b>（非因过错、义务根本改变、不可预见）；<b>Taylor v Caldwell</b>；不可自致（The Sea Angel 多因素）</li></ul>`},
+ {t:'Remedies 救济',tag:'公式',b:`<ul>
+<li><b>Expectation</b>：使原告处于"如约履行"的地位；<b>Reliance</b>：恢复到缔约前</li>
+<li><b>Remoteness</b>：<b>Hadley v Baxendale</b> 两分支（自然发生 / 缔约时已知的特殊情况）；The Achilleas 强调"责任承担"</li>
+<li><b>Mitigation</b>：原告须减损，<b>British Westinghouse</b> 获益可抵扣</li>
+<li><b>Liquidated damages</b> vs <b>Penalty</b>：<b>Cavendish v Makdessi</b>——是否保护合法利益且不相称</li>
+<li>衡平：specific performance（土地/独特物）、injunction、quantum meruit</li></ul>
+<div class="warn">非金钱损失（distress）原则不赔，例外：合同目的即为提供安宁/愉悦（Farley v Skinner）。</div>`}
+]},
+{t:'⑤ 代理法 Agency',pts:[
+ {t:'代理的产生',tag:'考点',b:`<ul>
+<li><b>Express</b> 明示授权 / <b>Implied</b> 默示（职位、惯例）</li>
+<li><b>Ratification</b>：事后追认，须<b>知情且全盘</b>，且追认时本人须存在</li>
+<li><b>Necessity</b>：紧急、无法联系本人、善意、为本人利益</li>
+<li><b>Estoppel / apparent authority</b>：<b>Freeman & Lockyer</b>——本人<b>陈述</b>（holding out）+ 依赖 + 变动地位</li></ul>
+<div class="warn">Apparent authority 看"本人制造的表象"，不是代理人的自称；内部限制一般不约束善意第三人（Turquand 规则）。</div>`},
+ {t:'代理人的义务与权利',tag:'考点',b:`<ul>
+<li>义务：遵从指示、亲自履行、谨慎、<b>不得获秘密利益</b>（须交出）、不得自我交易、保密、如实报账</li>
+<li>权利：报酬、费用补偿（indemnity）、留置权（lien）、lien on goods</li>
+<li>终止：完成、期限届满、撤销、死亡/破产、破产；<b>irrevocable agency</b>（与利益结合）</li>
+<li>未披露本人（undisclosed principal）：可介入，但受"主体默示条款"限制</li></ul>`}
+]},
+{t:'⑥ 商业组织形式与公司人格',pts:[
+ {t:'四种形态对比',tag:'框架',b:`<table><tr><th></th><th>责任</th><th>法律地位</th><th>要点</th></tr>
+<tr><td>Sole trader</td><td>无限</td><td>非独立</td><td>注册简单，税按 IT</td></tr>
+<tr><td>Partnership（PA 1890）</td><td>无限连带</td><td>非独立</td><td>s.5 合伙人互为代理；s.24 默认条款（均分利润、一致同意）</td></tr>
+<tr><td>LLP（LLP Act 2000）</td><td>有限</td><td>独立人格</td><td>成员不承担管理责任，需登记</td></tr>
+<tr><td>Company（CA 2006）</td><td>有限</td><td>独立人格</td><td>ltd / plc（plc 最低 £50,000 股本，1/4 实缴）</td></tr></table>`},
+ {t:'Salomon 原则及其后果',tag:'考点',b:`<ul>
+<li><b>Salomon v Salomon</b>：公司是与股东分离的独立法律人格</li>
+<li>后果：有限责任、公司财产独立、永久存续、可以自己名义起诉被诉、股东不是公司代理人</li>
+<li>例外——<b>揭开面纱</b>：<b>Prest v Petrodel</b>（evasion 原则，非 concealment）；Gilford Motor（规避禁令）；Daimler（战时敌侨）；欺诈/集团代理</li></ul>
+<div class="warn">Prest 后英国法立场：仅在"有人利用公司组织逃避既存法律义务"时揭开，标准很窄。</div>`},
+ {t:'设立与章程',tag:'考点',b:`<ul>
+<li>Promoter 对公司的信托义务（不得秘密获利）</li>
+<li><b>Pre-incorporation contract</b>：公司成立前签的合同，<b>s.51</b> 由签署人个人负责（除非明示排除）</li>
+<li>文件：Memorandum、Articles（可用 Model Articles）、s.9 申请、注册处发证</li>
+<li><b>s.33</b>：章程构成公司与成员间的<b>法定合同</b>（但主要是成员与公司，不直接约束成员之间）</li></ul>`},
+ {t:'股本与资本维持',tag:'公式',b:`<ul>
+<li>Share capital：nominal value + share premium</li>
+<li>配股：董事须有授权（s.550 私人公司自动授权），现有股东有<b>优先认购权</b>（s.561，可排除）</li>
+<li>分红只能用<b>可分配利润</b>（Part 23），资本不可分</li>
+<li>减资：法院确认程序 或 董事偿债能力声明（私人公司）</li>
+<li>股份回购：可分配利润或发行新股所得（s.692）</li>
+<li>Financial assistance 规则（私人公司已大幅放宽）</li></ul>`}
+]},
+{t:'⑦ 董事义务与责任',pts:[
+ {t:'董事的类型与任免',tag:'考点',b:`<ul>
+<li><b>De jure</b>（正式任命）/ <b>De facto</b>（实际行使职能）/ <b>Shadow</b>（幕后指挥）</li>
+<li>任命：须至少 1 名自然人董事（16 岁以上）</li>
+<li><b>s.168</b>：股东可普通决议罢免，须 <b>28 天 special notice</b>；可附补偿（须批准）</li>
+<li>服务合同超 2 年须成员批准</li></ul>`},
+ {t:'七项法定职责（ss.171–177）',tag:'考点',b:`<ul>
+<li><b>s.171</b> 在章程授权范围内行使权力（正当目的）</li>
+<li><b>s.172</b> 促进公司整体成功（考虑长期、员工、供应商、客户、社区、环境、声誉；<b>s.172(3)</b> 接近破产时须考虑<b>债权人</b>利益）</li>
+<li><b>s.173</b> 独立判断</li>
+<li><b>s.174</b> 合理谨慎、技能与勤勉（<b>双重客观标准</b>：一般知识 + 个人特殊专长）</li>
+<li><b>s.175</b> 避免利益冲突（可由独立董事授权）</li>
+<li><b>s.176</b> 不得接受第三方利益</li>
+<li><b>s.177</b> 就拟议交易申报利益（s.182 就已发生交易）</li></ul>
+<div class="warn">s.172 是主观+客观混合测试；s.174 是客观基准 + 主观提升。别混。</div>`},
+ {t:'违反义务的后果',tag:'考点',b:`<ul>
+<li>Damages / 恢复原状（account of profits）/ 撤销交易 / injunction / 归还财产</li>
+<li><b>Ratification</b>（s.239）：由知情成员决议批准，但董事关联方的票不计入</li>
+<li>公司可购买 D&O 保险；indemnity 受限（s.232）</li>
+<li>利益冲突交易可能被撤销（除非批准）</li></ul>`},
+ {t:'破产时的董事责任',tag:'考点',b:`<ul>
+<li><b>Wrongful trading（s.214 IA 1986）</b>：明知或应当知道无可避免破产仍继续交易 → 个人赔偿；抗辩：采取了一切合理步骤把损失降到最低</li>
+<li><b>Fraudulent trading（s.213）</b>：故意欺诈，需不诚实，可能刑责</li>
+<li>董事资格取消（CDDA 1986，2–15 年）</li></ul>
+<div class="tip">答 wrong trading 题：时间点（何时应当知道）+ 抗辩（是否采取措施）+ 后果（赔偿法院认为合适金额）。</div>`}
+]},
+{t:'⑧ 股东、治理与破产',pts:[
+ {t:'决议与会议',tag:'公式',b:`<ul>
+<li><b>Ordinary resolution</b>：简单多数（&gt;50%）</li>
+<li><b>Special resolution</b>：<b>75%</b></li>
+<li>Written resolution（私人公司）：一般逐案通过，不需开会；不得用于罢免董事或审计师</li>
+<li>通知期：一般会议 14 天；plc AGM 21 天；短通知需达到相应比例同意</li>
+<li>plc 须每年开 AGM（间隔不超过 15 个月）</li></ul>`},
+ {t:'少数股东救济',tag:'考点',b:`<ul>
+<li><b>s.260 derivative claim</b>：代表公司起诉董事（须法院许可，行为须经批准、善意等）</li>
+<li><b>s.994 unfair prejudice</b>：不公平损害，救济包括买断股份、监管公司</li>
+<li>Just and equitable winding up（s.122(1)(g)）</li>
+<li>个人权利被侵害可直诉（如 s.33 章程权利）</li></ul>`},
+ {t:'公司治理（UK CGC）',tag:'考点',b:`<ul>
+<li>"<b>Comply or explain</b>"，非强制</li>
+<li>原则：董事会领导、职责分工（董事长/CEO 分离）、组成（至少半数独立非执行董事）、审计/风险/薪酬委员会、薪酬与业绩挂钩</li>
+<li>披露：Strategic Report、Directors' Report、Remuneration Report、Corporate Governance Statement</li>
+<li>ESG / s.172(1) 利益相关者报告 / 供应链尽职（Modern Slavery Act）</li></ul>`},
+ {t:'破产程序与清偿顺序',tag:'公式',b:`<ul>
+<li>资不抵债测试：<b>现金流</b>（无法到期清偿）或 <b>资产负债表</b>（负债 &gt; 资产）s.123</li>
+<li>程序：CVL（债权人自愿清算）、MVL（成员自愿清算，需偿债声明）、强制清算、<b>Administration</b>（救助公司/goal 顺序）、CVA、LPA Receivership</li>
+<li>分配顺序：固定抵押 → 清算费用 → 优先债权人（员工工资、税）→ 浮动抵押（含 prescribed part）→ 无担保 → 股东</li>
+<li>可撤销交易：preference（s.239）、transaction at undervalue（s.238）</li></ul>`}
+]},
+{t:'⑨ 侵权、雇佣与知识产权（跨域）',pts:[
+ {t:'Negligence 四要素',tag:'考点',b:`<ul>
+<li>Duty（<b>Donoghue v Stevenson</b> 邻人原则；<b>Caparo</b> 三要件：可预见、接近性、公平合理）</li>
+<li>Breach：合理人标准；专业标准 <b>Bolam</b>（同行认可做法）</li>
+<li>Causation：<b>but for</b> 测试；多因（material contribution）</li>
+<li>Remoteness：<b>Wagon Mound</b> 合理可预见</li>
+<li>抗辩：contributory negligence、volenti non fit injuria、illegality</li>
+<li>Vicarious liability：雇佣关系 + 与职务有密切联系（Catholic Church 案）</li></ul>`},
+ {t:'雇佣法要点',tag:'考点',b:`<ul>
+<li>区分 contract of service vs for services（control / integration / economic reality）</li>
+<li><b>Wrongful dismissal</b>：违约（通知期）</li>
+<li><b>Unfair dismissal</b>：需 2 年服务；理由（能力、行为、冗余、法定、其他实质理由）+ 程序合理</li>
+<li>Redundancy：公平甄选、协商义务</li>
+<li>EqA 2010：9 项受保护特征，直接/间接歧视、骚扰、受害；需证明"不利待遇"和"相关原因"</li></ul>`},
+ {t:'知识产权',tag:'框架',b:`<ul>
+<li><b>Patent</b>（1977）：新颖、创造性、工业应用，20 年，须申请</li>
+<li><b>Trade mark</b>（1994）：可识别来源，10 年可续，注册制</li>
+<li><b>Copyright</b>（CDPA 1988）：自动产生，文学/艺术/音乐/软件，作者死后 70 年</li>
+<li><b>Passing off</b>：商誉 + 虚假陈述 + 损害（Jif Lemon）</li>
+<li>Confidential information / 商业秘密</li></ul>`},
+ {t:'答题模板（论述题稳拿分）',tag:'考点',b:`<ul>
+<li>① 定性问题（合同/侵权/公司法）→ ② 适用规则（判例名 + 一句话要点）→ ③ 套事实（对比正反两面）→ ④ 结论（可能结果 + 风险）</li>
+<li>论述题要"两面论证"：给对方最强论点，再说为什么我更强</li>
+<li>每个论点挂判例，案例名错 = 掉分；记不住全名就写 <b>Carlill</b>、<b>Prest</b> 这种简称</li></ul>`}
+]}
+]},
+{id:'far',name:'Financial Accounting and Reporting',desc:'IFRS 准则 + 合并报表 + 分析，计算与论述并重',chapters:[
+{t:'① 概念框架与列报',pts:[
+ {t:'Conceptual Framework 核心',tag:'框架',b:`<ul>
+<li>目标：向现有和潜在投资者、贷款人提供<b>决策有用</b>信息 + 评估管理层受托责任</li>
+<li>基本质量特征：<b>相关性</b>（预测价值、确认价值、重要性）与<b>如实反映</b>（完整、中立、无误）</li>
+<li>增强特征：可比性、可验证性、及时性、可理解性</li>
+<li>约束：成本 &lt; 收益</li>
+<li>要素：资产＝<b>控制</b> + 过去事项 + 未来经济利益；负债＝<b>现时义务</b> + 过去事项 + 资源流出</li></ul>
+<div class="warn">"控制"是资产定义的核心改动点，服务特许权、客户合同等要按控制判断。</div>`},
+ {t:'基础假设与计量基础',tag:'考点',b:`<ul>
+<li>Going concern、accruals、materiality、prudence（谨慎但不偏斜）、substance over form</li>
+<li>计量基础：历史成本、现行成本、可变现价值、<b>公允价值</b>、使用价值</li>
+<li>OCI 的用途：把"未实现/未通过损益"的价值变动放到权益，避免噪音</li></ul>`},
+ {t:'IAS 1 报表结构',tag:'考点',b:`<ul>
+<li>五张表：SOFP、SOPL &amp; OCI、SCE、现金流量表、附注</li>
+<li>流动资产判定：12 个月内变现/出售，或为交易持有</li>
+<li>OCI 项目：重估盈余、设定受益计划重计量、FVOCI 权益工具、现金流量套期、外币折算差额</li>
+<li>比较信息 1 期；"额外"报表需说明</li></ul>`},
+ {t:'IAS 8 政策、估计与差错',tag:'易错',b:`<table><tr><th>项目</th><th>处理</th></tr>
+<tr><td>会计政策变更</td><td><b>追溯</b>：重述比较期，调整期初留存收益</td></tr>
+<tr><td>会计估计变更</td><td><b>未来适用</b>：当期及以后期间</td></tr>
+<tr><td>前期差错</td><td><b>追溯重述</b>；重大差错必须重述</td></tr></table>
+<div class="warn">区分关键：政策=计量基础变了（如存货 FIFO→加权平均）；估计=输入值变了（如残值、折旧年限、坏账率）。</div>`}
+]},
+{t:'② IFRS 15 收入',pts:[
+ {t:'五步法（必背）',tag:'公式',b:`<ol style="padding-left:18px">
+<li>识别与客户的<b>合同</b>（5 条件：批准、权利义务清晰、支付条款、商业实质、对价很可能收回）</li>
+<li>识别<b>履约义务</b>（可明确区分：能单独受益 + 合同内可区分）</li>
+<li>确定<b>交易价格</b>（可变对价、融资成分、非现金对价、应付客户对价）</li>
+<li><b>分摊</b>至各履约义务（按单独售价的相对比例，可用调整市价法/成本加成/余值法）</li>
+<li>在履约义务满足时<b>确认收入</b>（时点 or 时段）</li></ol>`},
+ {t:'时段确认的三条件（满足其一）',tag:'考点',b:`<ul>
+<li>① 客户在建造过程中<b>同时取得并消耗</b>利益</li>
+<li>② 建造/改良<b>创造或增强</b>客户控制的资产</li>
+<li>③ 不产生<b>可替代用途</b>，且企业有<b>可强制执行</b>的收款权</li></ul>
+<div class="warn">履约进度用 input（成本/工时）或 output（单位/里程碑）法，但<b>已收款 ≠ 进度</b>。预收款是合同负债，不是收入。</div>`},
+ {t:'易错细节包',tag:'易错',b:`<ul>
+<li>可变对价：期望值法（多结果）或最可能金额法（二元），须做<b>限制性估计</b>（极可能不会重大转回）</li>
+<li>重大融资成分：交付与付款间隔 &gt;1 年要折现（实务可用 ≤1 年豁免）</li>
+<li>主要责任人 vs 代理人：<b>控制</b>商品→总额法，否则净额法</li>
+<li>质保：保证型（IAS 37 准备）vs 服务型（单独履约义务）</li>
+<li>合同取得成本（佣金）资本化并摊销，除非 ≤1 年</li></ul>`}
+]},
+{t:'③ IFRS 16 租赁',pts:[
+ {t:'承租人单一模型',tag:'公式',b:`<ul>
+<li>初始：<b>租赁负债</b>＝未来租金按租赁内含利率（不可知则增量借款利率）折现；<b>使用权资产</b>＝负债 + 预付租金 + 初始直接费用 + 复原成本</li>
+<li>后续：ROU 按直线法折旧（若所有权转移则按使用寿命）；负债按<b>实际利率法</b>计利息</li>
+<li>计入损益：折旧 + 利息（前高后低，总费用前重后轻）</li>
+<li>豁免：<b>短期（≤12 个月）</b>与<b>低价值</b>资产，可按直线法计入费用</li></ul>
+<div class="warn">租赁期包含"合理确定会行使"的续租/终止选择权——判断要说明理由。</div>`},
+ {t:'重新计量与售后回租',tag:'考点',b:`<ul>
+<li>指数/比率变动、余值担保变动、租赁期变化、购买选择权评估变化 → 重新计量负债，调整 ROU</li>
+<li>租赁修改：非单独合同 → 按比例终止并重新计量</li>
+<li><b>Sale and leaseback</b>：先判断是否满足 IFRS 15 的销售；满足则只对<b>转移给买方</b>的权利确认利得，保留部分按比例不确认</li></ul>`},
+ {t:'出租人分类',tag:'考点',b:`<ul>
+<li><b>Finance lease</b>：几乎所有风险报酬转移 → 确认应收款（净投资），确认融资收益</li>
+<li><b>Operating lease</b>：其他 → 租金按直线法确认收入；初始直接费用计入资产成本</li>
+<li>制造商/经销商出租人：按公允价值确认销售收入，成本为账面成本减去未担保余值现值</li></ul>`}
+]},
+{t:'④ PPE / 无形资产 / 减值',pts:[
+ {t:'IAS 16 初始与后续计量',tag:'公式',b:`<ul>
+<li>成本＝购买价（扣除折扣）+ 进口税费 + <b>可直接归属</b>的运输安装调试 + 拆卸复原义务现值</li>
+<li>日常维修费用化；重大检查/更换部件资本化（component accounting）</li>
+<li>折旧：直线法、余额递减法、工作量法；残值和使用寿命至少每年复核</li>
+<li>重估模型：整类重估；增值→OCI（重估盈余），减值→损益（先冲减原盈余）；折旧按重估后金额</li>
+<li>IAS 23：符合条件的资产借款费用<b>资本化</b>（一般借款按资本化率）</li></ul>`},
+ {t:'IAS 38 无形资产',tag:'考点',b:`<ul>
+<li><b>研究阶段一律费用化</b>；开发阶段满足全部条件才资本化</li>
+<li>记忆口诀 <b>PIRATE</b>：Probable benefits、Intention to complete、Resources adequate、Ability to use/sell、Technical feasibility、Expenditure measurable</li>
+<li>有限寿命→摊销（无残值，除非有承诺购买）；<b>无限寿命→不摊销，每年减值测试</b></li>
+<li>内部品牌、商誉、客户名单（自创）不可确认</li></ul>`},
+ {t:'IAS 36 减值',tag:'公式',b:`<ul>
+<li>可收回金额 = <b>max（公允价值减处置费用，使用价值 VIU）</b></li>
+<li>VIU：未来现金流按<b>税前</b>折现率折现（反映特定风险）</li>
+<li>减值损失：先冲商誉，再按比例冲其他资产（不得低于各自可收回金额）</li>
+<li>CGU：能独立产生现金流入的最小资产组；总部资产按合理基础分摊</li>
+<li>商誉减值<b>不可转回</b>；其他资产减值转回上限＝假设未减值时的账面值</li></ul>
+<div class="warn">减值是账面值 vs 可收回金额；折旧是分摊成本。别把两者混成一个概念。</div>`},
+ {t:'IAS 40 投资性房地产 / IFRS 5',tag:'考点',b:`<ul>
+<li>IAS 40：为赚取租金或资本增值而持有。成本模式或<b>公允价值模式</b>（公允价值变动进损益）。自用部分按 IAS 16，混合用途需可靠分摊</li>
+<li>IFRS 5：持有待售需"立即可售 + 高度可能 + 12 个月内完成"；<b>不折旧</b>，按账面值与公允价值减费用孰低计量</li>
+<li>终止经营：单列损益并重述比较期</li></ul>`}
+]},
+{t:'⑤ 负债、准备与金融工具',pts:[
+ {t:'IAS 37 准备三条件',tag:'公式',b:`<ul>
+<li>① 过去事项产生的<b>现时义务</b>（法定或推定）</li>
+<li>② 经济利益流出<b>很可能</b>（&gt;50%）</li>
+<li>③ 金额能<b>可靠估计</b></li>
+<li>计量：最佳估计；多项同类取期望值；长期需折现；<b>不确认未来经营亏损</b></li>
+<li><b>Onerous contract</b>：不可避免成本 &gt; 预期收益，按差额计提</li>
+<li>重组：须有详细正式计划 + 已产生有效预期（announcement）</li></ul>
+<div class="warn">Contingent liability 只披露不确认；contingent asset 仅在"基本确定"时确认（谨慎性原则）。</div>`},
+ {t:'IAS 10 期后事项',tag:'考点',b:`<ul>
+<li><b>Adjusting</b>：报告日已存在的状况 → 调整报表（如诉讼判决、客户破产证明坏账）</li>
+<li><b>Non-adjusting</b>：报告日后新发生 → 仅披露（如火灾、并购、汇率剧变）</li>
+<li>持续经营不再适用 → 不能按 going concern 编制</li></ul>`},
+ {t:'IFRS 9 金融资产分类',tag:'考点',b:`<ul>
+<li>业务模式 + 合同现金流特征（<b>SPPI</b> 测试）</li>
+<li>持有收息（Hold to collect）+ SPPI → <b>摊余成本</b></li>
+<li>收息+出售（Hold to collect &amp; sell）→ <b>FVOCI</b>（债）；权益工具可<u>不可撤销</u>选择 FVOCI（股利进损益）</li>
+<li>其他 → <b>FVTPL</b></li>
+<li>减值：<b>ECL 三阶段</b>——阶段 1（12 个月 ECL，利息按总额）、阶段 2（信用风险显著上升，全期 ECL，总额）、阶段 3（已减值，全期 ECL，利息按净额）</li>
+<li>应收账款可用简化矩阵（全期 ECL）</li></ul>`},
+ {t:'股 vs 债的区分（IAS 32）',tag:'易错',b:`<ul>
+<li>固定金额交付现金的义务 → 负债；无交付义务 → 权益</li>
+<li><b>可转换债券</b>：拆分负债成分（折现）与权益成分（余值）</li>
+<li>优先股：视条款是否为"或有可清偿"</li>
+<li>库存股（treasury shares）冲减权益，不确认损益</li></ul>`}
+]},
+{t:'⑥ 所得税、EPS 与其他准则',pts:[
+ {t:'IAS 12 递延所得税',tag:'公式',b:`<ul>
+<li>暂时性差异＝资产/负债<b>账面值</b>与<b>计税基础</b>之差</li>
+<li>应纳税暂时性差异 → <b>DTL</b>；可抵扣暂时性差异 → <b>DTA</b>（须很可能有未来应税利润）</li>
+<li>税率用<b>预期转回时</b>适用的税率；<b>不折现</b></li>
+<li>DTA 可确认的依据：存在足够的应税暂时性差异、税务筹划机会、亏损可结转</li>
+<li>不确认 DTL 的情形：商誉初始确认、非企业合并且不影响会计/应税利润的初始确认</li>
+<li>其他：亏损结转、重估、未分配利润的子公司投资（除非不拟分配）</li></ul>`},
+ {t:'IAS 33 每股收益',tag:'公式',b:`<ul>
+<li>基本 EPS ＝（净利 − 优先股股利）÷ <b>加权平均普通股股数</b></li>
+<li>加权：按月份比例；<b>红股/拆股需追溯调整</b>全部可比期</li>
+<li>稀释：期权用<b>库藏股法</b>（行权价低于市价时）；可转债用"若转换法"（加回税后利息、加股份），仅在<b>反稀释</b>时排除</li>
+<li>列报：持续经营与总 EPS 分别披露</li></ul>`},
+ {t:'IAS 21 外币折算',tag:'考点',b:`<ul>
+<li>功能货币：主要影响价格的经济环境</li>
+<li>交易日按即期汇率；期末货币性项目按<b>期末汇率</b>，差额进损益</li>
+<li>非货币性项目（历史成本）按交易日汇率，不重译</li>
+<li>报表折算：资产/负债用<b>期末汇率</b>，损益用<b>平均汇率</b>，差额进 <b>OCI</b></li>
+<li>恶性通胀：IAS 29 先重述</li></ul>`},
+ {t:'IAS 7 现金流量表（间接法）',tag:'公式',b:`<ul>
+<li>起点：税前利润 → 加回折旧/摊销/减值/利息费用 → 减去非经营收益（处置利得）</li>
+<li><b>营运资本变动</b>：存货↑减、应收↑减、应付↑加</li>
+<li>口诀：<span class="k">资产增加＝现金减少（反着）；负债增加＝现金增加（顺着）</span></li>
+<li>Prepaid 增加 → 现金减少（资产↑）；Accrued 增加 → 现金增加（负债↑）</li>
+<li>利息与股利：可分列于经营/筹资/投资，但需一致</li>
+<li>税费与利息通常单列</li></ul>
+<div class="warn">你的老坑：Prepaid（先付款=资产）vs Accrued（先欠账=负债），方向别搞反。</div>`}
+]},
+{t:'⑦ 合并报表（重头戏）',pts:[
+ {t:'控制三要素与合并范围',tag:'考点',b:`<ul>
+<li>IFRS 10 <b>控制</b>：① 对被投资方的<b>权力</b>（主导相关活动）② 可变回报的<b>敞口</b> ③ 用权力影响回报的能力</li>
+<li>实质性权力：需看是否为"主要责任人"（principal vs agent）</li>
+<li>豁免：投资性主体按 FVTPL 计量</li>
+<li>IFRS 11：共同控制（joint control）→ 合营（JV，权益法）或共同经营（按份额确认资产负债）</li></ul>`},
+ {t:'Goodwill 计算（必考）',tag:'公式',b:`<ul>
+<li><b>Goodwill ＝ 对价 − 可辨认净资产公允价值</b></li>
+<li>含 NCI 时：Goodwill ＝ 对价 + NCI + 原持股公允价值 − 100% 可辨认净资产公允价值</li>
+<li><b>Full goodwill</b>（NCI 按公允价值）/ <b>Partial goodwill</b>（NCI 按应享净资产份额）——题目一般让你两种都算</li>
+<li>FV 调整：土地增值、存货增值（随出售实现）、固定资产增值（按剩余寿命折旧）、未入账无形资产、递延税影响</li>
+<li>负商誉（bargain purchase）→ 复核后直接计入<b>损益</b></li></ul>`},
+ {t:'集团留存收益与 NCI',tag:'公式',b:`<ul>
+<li>P 的留存 + 应付 P 的份额 ×（S 购后留存 ± 购后 FV 调整）− 未实现利润份额</li>
+<li>NCI ＝ 初始计量 + 应享购后留存 + 应享 FV 调整 − 未实现利润</li>
+<li>收购前股利：冲减投资成本（或作为对价调整）</li>
+<li>购后股利：内部交易，抵消</li></ul>`},
+ {t:'集团内部交易抵消',tag:'易错',b:`<ul>
+<li><b>存货</b>：未实现利润按<b>卖方</b>毛利 × 剩余比例，按<b>买方</b>持股比例分摊至 NCI</li>
+<li><b>PPE</b>：未实现利润需按使用中折旧<b>逐步实现</b>；方向：售出方有利润</li>
+<li><b>应收应付、内部借贷、内部股利</b>全额抵消</li>
+<li><b>Downstream</b>（母公司卖子公司）：全部归母公司股东；<b>Upstream</b>（子公司卖母公司）：按持股分摊</li></ul>
+<div class="warn">Upstream 与 downstream 的 PUP 分摊方向，是合并报表最常丢分的一处。</div>`},
+ {t:'Associates / JV（IAS 28）',tag:'考点',b:`<ul>
+<li>显著影响推定 20%；存在董事会席位、参与决策、技术依赖等可低于 20%</li>
+<li>权益法：投资 ＝ 成本 + 购后利润份额 − 股利 − 减值</li>
+<li>内部交易未实现利润按<b>投资方持股</b>抵消（无论 up/down stream）</li>
+<li>被投资方亏损使投资减至零 → 停止确认（除有义务）</li></ul>`}
+]},
+{t:'⑧ 报表分析与职业道德',pts:[
+ {t:'比率体系',tag:'公式',b:`<table><tr><th>类别</th><th>核心比率</th></tr>
+<tr><td>盈利</td><td>毛利率、营业利润率、净利率、ROCE＝EBIT/（总资产−流动负债）</td></tr>
+<tr><td>效率</td><td>存货周转天数、应收天数、应付天数、资产周转率、现金循环周期</td></tr>
+<tr><td>流动性</td><td>流动比率、速动比率（剔存货）、现金比率</td></tr>
+<tr><td>杠杆</td><td>Debt/Equity、利息保障倍数（PBIT/利息）</td></tr>
+<tr><td>投资</td><td>EPS、P/E、股息率、股利支付率、每股净资产</td></tr></table>`},
+ {t:'分析的局限（论述题）',tag:'考点',b:`<ul>
+<li>历史成本与通胀失真；会计政策差异削弱可比性</li>
+<li>期末粉饰（window dressing）、季节性与异常项目</li>
+<li>缺少非财务信息（品牌、人力、客户关系）</li>
+<li>比率本身孤立无意义：需与同业、往年、预算比</li>
+<li>合并报表掩盖分部差异</li></ul>`},
+ {t:'职业伦理（IESBA）',tag:'考点',b:`<ul>
+<li>五项基本原则：<b>诚信</b>、<b>客观</b>、<b>专业胜任与应有关注</b>、<b>保密</b>、<b>专业行为</b></li>
+<li>五类威胁：自身利益、自我评价、倡导、密切关系、胁迫</li>
+<li>防范措施：独立复核、轮换、回避、披露、咨询</li>
+<li>典型情境：客户要求平滑利润、关联交易未披露、重大不确定性不披露、审计后接受聘用做 CFO</li></ul>`},
+ {t:'常见舞弊手法（考试情境）',tag:'易错',b:`<ul>
+<li>提前确认收入 / 虚构销售 / 误导性退货条款</li>
+<li>研发支出不当资本化</li>
+<li>"cookie jar" 准备：多提少提准备平滑利润</li>
+<li>关联方交易未按 IAS 24 披露</li>
+<li>资产负债表外融资（未合并 SPE）</li></ul>`}
+]}
+]}
+];
+
+/* ============ 渲染逻辑 ============ */
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+let mastered = new Set(store.get('cn-mastered', []));
+let courseId = store.get('cn-course', DATA[0].id);
+let filter = 'all';
+let kw = '';
+
+const tabsEl = document.getElementById('tabs');
+const headEl = document.getElementById('courseHead');
+const listEl = document.getElementById('list');
+const qEl = document.getElementById('q');
+
+function cur(){ return DATA.find(c => c.id === courseId) || DATA[0]; }
+
+function renderTabs(){
+  tabsEl.innerHTML = DATA.map(c => {
+    const total = c.chapters.reduce((s, ch) => s + ch.pts.length, 0);
+    return '<button class="tab' + (c.id === courseId ? ' on' : '') + '" data-c="' + c.id + '">' + c.name +
+      ' <span style="opacity:.65">' + total + '</span></button>';
+  }).join('');
+}
+
+function renderHead(){
+  const c = cur();
+  const total = c.chapters.reduce((s, ch) => s + ch.pts.length, 0);
+  const done = c.chapters.reduce((s, ch) => s + ch.pts.filter((p, i) => mastered.has(c.id + '-' + ch.t + '-' + i)).length, 0);
+  const pct = total ? Math.round(done / total * 100) : 0;
+  headEl.innerHTML = '<div class="course-head"><div class="name">' + c.name + '</div><div class="desc">' + c.desc + '</div>' +
+    '<div class="prog"><span>' + done + '/' + total + ' 已掌握</span><div class="bar"><i style="width:' + pct + '%"></i></div><span>' + pct + '%</span></div></div>';
+}
+
+function match(p){
+  if(filter === 'todo' && !kw){ /* handled by caller */ }
+  if(!kw) return true;
+  const t = (p.t + ' ' + p.b).replace(/<[^>]+>/g, ' ').toLowerCase();
+  return t.indexOf(kw) > -1;
+}
+
+function renderList(){
+  const c = cur();
+  let html = '';
+  let shown = 0;
+  c.chapters.forEach(ch => {
+    let inner = '';
+    ch.pts.forEach((p, i) => {
+      const id = c.id + '-' + ch.t + '-' + i;
+      if(kw && !match(p)) return;
+      if(filter === 'todo' && mastered.has(id)) return;
+      if(filter === 'err' && p.tag !== '易错') return;
+      shown++;
+      const open = !!kw;
+      inner += '<div class="card' + (mastered.has(id) ? ' done' : '') + (open ? ' open' : '') + '" data-id="' + id + '">' +
+        '<div class="card-head"><span class="tag ' + p.tag + '">' + p.tag + '</span>' +
+        '<div class="t">' + p.t + '</div><span class="caret">▶</span></div>' +
+        '<div class="body">' + p.b + '</div>' +
+        '<div class="card-foot"><label class="mark"><input type="checkbox" data-m="' + id + '"' + (mastered.has(id) ? ' checked' : '') + '> 已掌握</label>' +
+        '<span>长按标题可复制</span></div></div>';
+    });
+    if(inner) html += '<div class="chap">' + ch.t + '</div>' + inner;
+  });
+  listEl.innerHTML = shown ? html : '<div class="empty">这里没有内容 —— 换个筛选或关键词试试</div>';
+}
+
+function renderAll(){ renderTabs(); renderHead(); renderList(); }
+
+tabsEl.addEventListener('click', e => {
+  const b = e.target.closest('.tab'); if(!b) return;
+  courseId = b.dataset.c; store.set('cn-course', courseId);
+  renderAll(); window.scrollTo({top:0, behavior:'smooth'});
+});
+
+document.getElementById('filters').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if(!b) return;
+  filter = b.dataset.f;
+  document.querySelectorAll('.chip').forEach(x => x.classList.toggle('on', x === b));
+  renderList();
+});
+
+listEl.addEventListener('click', e => {
+  const mark = e.target.closest('input[data-m]');
+  if(mark){
+    const id = mark.dataset.m;
+    if(mark.checked) mastered.add(id); else mastered.delete(id);
+    store.set('cn-mastered', [...mastered]);
+    const card = mark.closest('.card'); if(card) card.classList.toggle('done', mark.checked);
+    renderHead();
+    if(filter === 'todo') setTimeout(renderList, 180);
+    return;
+  }
+  const head = e.target.closest('.card-head');
+  if(head) head.parentElement.classList.toggle('open');
+});
+
+qEl.addEventListener('input', () => { kw = qEl.value.trim().toLowerCase(); renderList(); });
+document.addEventListener('keydown', e => {
+  if(e.key === '/' && document.activeElement !== qEl){ e.preventDefault(); qEl.focus(); }
+  if(e.key === 'Escape'){ qEl.value = ''; kw = ''; renderList(); qEl.blur(); }
+});
+
+/* 主题 */
+const themeBtn = document.getElementById('themeBtn');
+if(store.get('cn-theme', 'light') === 'dark'){ document.body.classList.add('dark'); themeBtn.textContent = '☀️'; }
+themeBtn.addEventListener('click', () => {
+  const dark = document.body.classList.toggle('dark');
+  themeBtn.textContent = dark ? '☀️' : '🌙';
+  store.set('cn-theme', dark ? 'dark' : 'light');
+});
+
+renderAll();
+</script>
+</body>
+</html>
