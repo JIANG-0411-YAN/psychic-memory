@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>井字棋 · 小涵 vs 阿屿</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body {
+    min-height:100vh; background:radial-gradient(circle at 50% 0%, #1b2430 0%, #0e1218 60%, #0a0d11 100%);
+    color:#e6edf5; font-family:-apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:24px 18px; gap:22px; overflow:hidden;
+  }
+  h1 { font-size:17px; font-weight:500; letter-spacing:3px; color:#8fa3b8; }
+  h1 span { color:#5fb8e8; }
+
+  .scoreboard { display:flex; gap:10px; width:100%; max-width:340px; }
+  .card {
+    flex:1; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07);
+    border-radius:14px; padding:12px 8px; text-align:center; transition:.3s;
+  }
+  .card.active { border-color:currentColor; box-shadow:0 0 18px -6px currentColor; background:rgba(255,255,255,.07); }
+  .card.pink { color:#ff7a9c; }
+  .card.blue { color:#5fb8e8; }
+  .name { font-size:13px; opacity:.85; margin-bottom:4px; }
+  .num { font-size:26px; font-weight:300; letter-spacing:1px; }
+
+  .wrap { position:relative; width:min(78vw, 340px); aspect-ratio:1/1; }
+  .board {
+    position:absolute; inset:0; display:grid;
+    grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr); gap:9px;
+  }
+  .cell {
+    background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.06);
+    border-radius:16px; display:flex; align-items:center; justify-content:center;
+    font-size:44px; font-weight:200; cursor:pointer; transition:background .2s, transform .1s, border-color .2s;
+    color:#fff;
+  }
+  .cell:active { transform:scale(.96); }
+  .cell.x { color:#ff7a9c; text-shadow:0 0 22px rgba(255,122,156,.45); }
+  .cell.o { color:#5fb8e8; text-shadow:0 0 22px rgba(95,184,232,.45); }
+  .cell.win { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.25); }
+  .cell.done { cursor:default; }
+
+  .status { font-size:14px; letter-spacing:1px; color:#9fb2c6; min-height:20px; text-align:center; }
+  .status b { font-weight:500; }
+
+  .btns { display:flex; gap:10px; }
+  button {
+    background:rgba(255,255,255,.05); color:#c9d7e4; border:1px solid rgba(255,255,255,.1);
+    padding:10px 20px; border-radius:999px; font-size:13px; cursor:pointer; transition:.2s;
+    font-family:inherit;
+  }
+  button:active { background:rgba(255,255,255,.12); }
+
+  .draw-line { position:absolute; height:3px; border-radius:2px; background:#fff; transform-origin:0 50%; opacity:0; box-shadow:0 0 14px currentColor; transition:opacity .3s; pointer-events:none; }
+</style>
+</head>
+<body>
+  <h1>小涵 <span>vs</span> 阿屿</h1>
+
+  <div class="scoreboard">
+    <div class="card pink active" id="cardO">
+      <div class="name">小涵 ×</div>
+      <div class="num" id="scoreO">0</div>
+    </div>
+    <div class="card blue" id="cardX">
+      <div class="name">阿屿 ○</div>
+      <div class="num" id="scoreX">0</div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="board" id="board"></div>
+    <div class="draw-line" id="line"></div>
+  </div>
+
+  <div class="status" id="status">轮到 <b style="color:#ff7a9c">小涵</b> 落子</div>
+
+  <div class="btns">
+    <button id="reset">再来一局</button>
+    <button id="resetScore">清空比分</button>
+  </div>
+
+<script>
+const boardEl = document.getElementById('board');
+const statusEl = document.getElementById('status');
+const lineEl = document.getElementById('line');
+const scoreOEl = document.getElementById('scoreO');
+const scoreXEl = document.getElementById('scoreX');
+const cardO = document.getElementById('cardO');
+const cardX = document.getElementById('cardX');
+
+const LINES = [
+  [0,1,2],[3,4,5],[6,7,8],
+  [0,3,6],[1,4,7],[2,5,8],
+  [0,4,8],[2,4,6]
+];
+
+let board, turn, over, score = { O:0, X:0 };
+
+function init() {
+  board = Array(9).fill('');
+  turn = 'O';
+  over = false;
+  lineEl.style.opacity = 0;
+  boardEl.innerHTML = '';
+  for (let i = 0; i < 9; i++) {
+    const c = document.createElement('div');
+    c.className = 'cell';
+    c.dataset.i = i;
+    c.addEventListener('click', () => play(i, c));
+    boardEl.appendChild(c);
+  }
+  updateStatus();
+}
+
+function updateStatus() {
+  if (over) return;
+  const who = turn === 'O'
+    ? '<b style="color:#ff7a9c">小涵</b>'
+    : '<b style="color:#5fb8e8">阿屿</b>';
+  statusEl.innerHTML = '轮到 ' + who + ' 落子';
+  cardO.classList.toggle('active', turn === 'O');
+  cardX.classList.toggle('active', turn === 'X');
+}
+
+function play(i, cell) {
+  if (over || board[i]) return;
+  board[i] = turn;
+  cell.textContent = turn === 'O' ? '×' : '○';
+  cell.classList.add(turn === 'O' ? 'x' : 'o', 'done');
+
+  const result = checkWin();
+  if (result) {
+    over = true;
+    cardO.classList.remove('active');
+    cardX.classList.remove('active');
+    if (result.winner === 'draw') {
+      statusEl.innerHTML = '平局，谁也不服谁';
+    } else {
+      result.line.forEach(idx => boardEl.children[idx].classList.add('win'));
+      score[result.winner]++;
+      scoreOEl.textContent = score.O;
+      scoreXEl.textContent = score.X;
+      const name = result.winner === 'O'
+        ? '<b style="color:#ff7a9c">小涵</b>'
+        : '<b style="color:#5fb8e8">阿屿</b>';
+      statusEl.innerHTML = name + ' 赢了';
+      drawLine(result.line);
+    }
+    return;
+  }
+
+  turn = turn === 'O' ? 'X' : 'O';
+  updateStatus();
+}
+
+function checkWin() {
+  for (const l of LINES) {
+    const [a,b,c] = l;
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      return { winner: board[a], line: l };
+    }
+  }
+  if (board.every(v => v)) return { winner: 'draw' };
+  return null;
+}
+
+function drawLine(line) {
+  const first = boardEl.children[line[0]].getBoundingClientRect();
+  const last = boardEl.children[line[2]].getBoundingClientRect();
+  const parent = boardEl.getBoundingClientRect();
+  const x1 = first.left + first.width/2 - parent.left;
+  const y1 = first.top + first.height/2 - parent.top;
+  const x2 = last.left + last.width/2 - parent.left;
+  const y2 = last.top + last.height/2 - parent.top;
+  const len = Math.hypot(x2-x1, y2-y1);
+  const ang = Math.atan2(y2-y1, x2-x1) * 180 / Math.PI;
+  lineEl.style.width = len + 'px';
+  lineEl.style.left = x1 + 'px';
+  lineEl.style.top = y1 + 'px';
+  lineEl.style.transform = `rotate(${ang}deg)`;
+  lineEl.style.color = board[line[0]] === 'O' ? '#ff7a9c' : '#5fb8e8';
+  lineEl.style.background = lineEl.style.color;
+  lineEl.style.opacity = .85;
+}
+
+document.getElementById('reset').onclick = () => { init(); };
+document.getElementById('resetScore').onclick = () => {
+  score = { O:0, X:0 };
+  scoreOEl.textContent = 0;
+  scoreXEl.textContent = 0;
+  init();
+};
+
+init();
+</script>
+</body>
+</html>
