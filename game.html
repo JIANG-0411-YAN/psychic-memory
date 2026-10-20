@@ -10,23 +10,30 @@
     min-height:100vh; background:radial-gradient(circle at 50% 0%, #1b2430 0%, #0e1218 60%, #0a0d11 100%);
     color:#e6edf5; font-family:-apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:24px 18px; gap:22px; overflow:hidden;
+    padding:22px 18px 30px; gap:18px;
   }
-  h1 { font-size:17px; font-weight:500; letter-spacing:3px; color:#8fa3b8; }
+  h1 { font-size:16px; font-weight:500; letter-spacing:3px; color:#8fa3b8; }
   h1 span { color:#5fb8e8; }
+
+  .modes { display:flex; background:rgba(255,255,255,.04); border-radius:999px; padding:3px; gap:2px; }
+  .modes button {
+    background:none; border:none; color:#7d8fa3; font-size:12px; padding:7px 16px;
+    border-radius:999px; cursor:pointer; font-family:inherit; transition:.2s;
+  }
+  .modes button.on { background:rgba(255,255,255,.09); color:#e6edf5; }
 
   .scoreboard { display:flex; gap:10px; width:100%; max-width:340px; }
   .card {
     flex:1; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07);
-    border-radius:14px; padding:12px 8px; text-align:center; transition:.3s;
+    border-radius:14px; padding:11px 8px; text-align:center; transition:.3s;
   }
   .card.active { border-color:currentColor; box-shadow:0 0 18px -6px currentColor; background:rgba(255,255,255,.07); }
   .card.pink { color:#ff7a9c; }
   .card.blue { color:#5fb8e8; }
-  .name { font-size:13px; opacity:.85; margin-bottom:4px; }
-  .num { font-size:26px; font-weight:300; letter-spacing:1px; }
+  .name { font-size:12px; opacity:.85; margin-bottom:3px; }
+  .num { font-size:25px; font-weight:300; letter-spacing:1px; }
 
-  .wrap { position:relative; width:min(78vw, 340px); aspect-ratio:1/1; }
+  .wrap { position:relative; width:min(76vw, 330px); aspect-ratio:1/1; }
   .board {
     position:absolute; inset:0; display:grid;
     grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr); gap:9px;
@@ -34,7 +41,7 @@
   .cell {
     background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.06);
     border-radius:16px; display:flex; align-items:center; justify-content:center;
-    font-size:44px; font-weight:200; cursor:pointer; transition:background .2s, transform .1s, border-color .2s;
+    font-size:42px; font-weight:200; cursor:pointer; transition:background .2s, transform .1s;
     color:#fff;
   }
   .cell:active { transform:scale(.96); }
@@ -42,23 +49,65 @@
   .cell.o { color:#5fb8e8; text-shadow:0 0 22px rgba(95,184,232,.45); }
   .cell.win { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.25); }
   .cell.done { cursor:default; }
+  .cell.pop { animation:pop .22s ease-out; }
+  @keyframes pop { from { transform:scale(.5); opacity:.3 } to { transform:scale(1); opacity:1 } }
 
   .status { font-size:14px; letter-spacing:1px; color:#9fb2c6; min-height:20px; text-align:center; }
   .status b { font-weight:500; }
 
   .btns { display:flex; gap:10px; }
-  button {
+  button.plain {
     background:rgba(255,255,255,.05); color:#c9d7e4; border:1px solid rgba(255,255,255,.1);
-    padding:10px 20px; border-radius:999px; font-size:13px; cursor:pointer; transition:.2s;
-    font-family:inherit;
+    padding:10px 20px; border-radius:999px; font-size:13px; cursor:pointer; transition:.2s; font-family:inherit;
   }
-  button:active { background:rgba(255,255,255,.12); }
+  button.plain:active { background:rgba(255,255,255,.12); }
 
   .draw-line { position:absolute; height:3px; border-radius:2px; background:#fff; transform-origin:0 50%; opacity:0; box-shadow:0 0 14px currentColor; transition:opacity .3s; pointer-events:none; }
+
+  /* 要求抽屉 */
+  .mask {
+    position:fixed; inset:0; background:rgba(5,8,12,.72); backdrop-filter:blur(6px);
+    display:flex; align-items:flex-end; justify-content:center; opacity:0; pointer-events:none; transition:.25s; z-index:20;
+  }
+  .mask.show { opacity:1; pointer-events:auto; }
+  .sheet {
+    width:100%; max-width:460px; background:#151b23; border-top-left-radius:22px; border-top-right-radius:22px;
+    padding:22px 20px 26px; transform:translateY(30px); transition:.3s; border-top:1px solid rgba(255,255,255,.08);
+  }
+  .mask.show .sheet { transform:translateY(0); }
+  .sheet h2 { font-size:15px; font-weight:500; margin-bottom:6px; }
+  .sheet p.sub { font-size:12px; color:#7d8fa3; margin-bottom:14px; line-height:1.6; }
+  .sheet textarea {
+    width:100%; height:70px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1);
+    border-radius:12px; color:#e6edf5; font-family:inherit; font-size:14px; padding:12px; resize:none; outline:none;
+  }
+  .sheet textarea:focus { border-color:rgba(95,184,232,.5); }
+  .sheet .row { display:flex; gap:10px; margin-top:14px; }
+  .sheet .row button { flex:1; }
+  .primary { background:linear-gradient(135deg,#ff7a9c,#5fb8e8); border:none; color:#0d1116; font-weight:600; padding:11px; border-radius:999px; font-size:13px; font-family:inherit; cursor:pointer; }
+  .primary:active { opacity:.85; }
+
+  /* 账单 */
+  .debts { width:100%; max-width:340px; display:flex; flex-direction:column; gap:7px; margin-top:4px; }
+  .debt {
+    background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.06); border-radius:11px;
+    padding:10px 12px; font-size:12.5px; color:#c2d0de; display:flex; gap:8px; align-items:flex-start; line-height:1.5;
+  }
+  .debt .who { flex-shrink:0; font-size:11px; padding:1px 7px; border-radius:6px; margin-top:1px; }
+  .debt .who.pink { color:#ff7a9c; background:rgba(255,122,156,.12); }
+  .debt .who.blue { color:#5fb8e8; background:rgba(95,184,232,.12); }
+  .debt .txt { flex:1; word-break:break-all; }
+  .debt .del { color:#4d5b6b; cursor:pointer; padding:0 3px; flex-shrink:0; }
+  .empty { font-size:12px; color:#4d5b6b; text-align:center; padding:8px; }
 </style>
 </head>
 <body>
   <h1>小涵 <span>vs</span> 阿屿</h1>
+
+  <div class="modes">
+    <button id="mSolo" class="on">对着阿屿下</button>
+    <button id="mDuo">两个人同屏</button>
+  </div>
 
   <div class="scoreboard">
     <div class="card pink active" id="cardO">
@@ -79,8 +128,23 @@
   <div class="status" id="status">轮到 <b style="color:#ff7a9c">小涵</b> 落子</div>
 
   <div class="btns">
-    <button id="reset">再来一局</button>
-    <button id="resetScore">清空比分</button>
+    <button class="plain" id="reset">再来一局</button>
+    <button class="plain" id="resetScore">清空比分</button>
+  </div>
+
+  <div class="debts" id="debts"></div>
+
+  <!-- 提要求 -->
+  <div class="mask" id="mask">
+    <div class="sheet">
+      <h2 id="sheetTitle">你赢了</h2>
+      <p class="sub" id="sheetSub">提一个要求，输的那个得照做。记下来，跑不掉。</p>
+      <textarea id="reqInput" placeholder="比如：明天给我买杯奶茶 / 学猫叫三声 / 说十遍我错了"></textarea>
+      <div class="row">
+        <button class="plain" id="skipBtn">先记着，待会儿写</button>
+        <button class="primary" id="saveBtn">记下</button>
+      </div>
+    </div>
   </div>
 
 <script>
@@ -91,6 +155,10 @@ const scoreOEl = document.getElementById('scoreO');
 const scoreXEl = document.getElementById('scoreX');
 const cardO = document.getElementById('cardO');
 const cardX = document.getElementById('cardX');
+const debtsEl = document.getElementById('debts');
+const mask = document.getElementById('mask');
+const reqInput = document.getElementById('reqInput');
+const sheetTitle = document.getElementById('sheetTitle');
 
 const LINES = [
   [0,1,2],[3,4,5],[6,7,8],
@@ -98,9 +166,21 @@ const LINES = [
   [0,4,8],[2,4,6]
 ];
 
-let board, turn, over, score = { O:0, X:0 };
+const KEY_SCORE = 'ttt_score_v2';
+const KEY_DEBT  = 'ttt_debts_v2';
+const KEY_MODE  = 'ttt_mode_v2';
+
+let board, turn, over, solo = true, aiTimer = null;
+let score = JSON.parse(localStorage.getItem(KEY_SCORE) || '{"O":0,"X":0}');
+
+function nameOf(p) {
+  return p === 'O'
+    ? '<b style="color:#ff7a9c">小涵</b>'
+    : '<b style="color:#5fb8e8">阿屿</b>';
+}
 
 function init() {
+  clearTimeout(aiTimer);
   board = Array(9).fill('');
   turn = 'O';
   over = false;
@@ -110,51 +190,76 @@ function init() {
     const c = document.createElement('div');
     c.className = 'cell';
     c.dataset.i = i;
-    c.addEventListener('click', () => play(i, c));
+    c.addEventListener('click', () => onCellClick(i, c));
     boardEl.appendChild(c);
   }
+  scoreOEl.textContent = score.O;
+  scoreXEl.textContent = score.X;
   updateStatus();
 }
 
-function updateStatus() {
-  if (over) return;
-  const who = turn === 'O'
-    ? '<b style="color:#ff7a9c">小涵</b>'
-    : '<b style="color:#5fb8e8">阿屿</b>';
-  statusEl.innerHTML = '轮到 ' + who + ' 落子';
-  cardO.classList.toggle('active', turn === 'O');
-  cardX.classList.toggle('active', turn === 'X');
+function onCellClick(i, cell) {
+  if (over || board[i]) return;
+  if (solo && turn === 'X') return;   // 阿屿的回合不接受点击
+  place(i, cell);
 }
 
-function play(i, cell) {
-  if (over || board[i]) return;
+function place(i, cell) {
   board[i] = turn;
   cell.textContent = turn === 'O' ? '×' : '○';
-  cell.classList.add(turn === 'O' ? 'x' : 'o', 'done');
+  cell.classList.add(turn === 'O' ? 'x' : 'o', 'done', 'pop');
 
   const result = checkWin();
-  if (result) {
-    over = true;
-    cardO.classList.remove('active');
-    cardX.classList.remove('active');
-    if (result.winner === 'draw') {
-      statusEl.innerHTML = '平局，谁也不服谁';
-    } else {
-      result.line.forEach(idx => boardEl.children[idx].classList.add('win'));
-      score[result.winner]++;
-      scoreOEl.textContent = score.O;
-      scoreXEl.textContent = score.X;
-      const name = result.winner === 'O'
-        ? '<b style="color:#ff7a9c">小涵</b>'
-        : '<b style="color:#5fb8e8">阿屿</b>';
-      statusEl.innerHTML = name + ' 赢了';
-      drawLine(result.line);
-    }
-    return;
-  }
+  if (result) return finish(result);
 
   turn = turn === 'O' ? 'X' : 'O';
   updateStatus();
+  if (solo && turn === 'X') scheduleAI();
+}
+
+function scheduleAI() {
+  clearTimeout(aiTimer);
+  aiTimer = setTimeout(() => {
+    if (over) return;
+    const move = chooseAI();
+    if (move == null) return;
+    place(move, boardEl.children[move]);
+  }, 420 + Math.random() * 260);
+}
+
+// 阿屿出招：八成尽力，两成随手（不然你永远赢不了，那就没意思了）
+function chooseAI() {
+  const empty = [];
+  for (let i = 0; i < 9; i++) if (!board[i]) empty.push(i);
+  if (!empty.length) return null;
+  if (Math.random() < 0.22) return empty[Math.floor(Math.random() * empty.length)];
+
+  let best = -Infinity, bestMove = empty[0];
+  for (const i of empty) {
+    board[i] = 'X';
+    const s = minimax(false, 0);
+    board[i] = '';
+    if (s > best) { best = s; bestMove = i; }
+  }
+  return bestMove;
+}
+
+function minimax(isMax, depth) {
+  const r = checkWin();
+  if (r) {
+    if (r.winner === 'X') return 10 - depth;
+    if (r.winner === 'O') return depth - 10;
+    return 0;
+  }
+  let best = isMax ? -Infinity : Infinity;
+  for (let i = 0; i < 9; i++) {
+    if (board[i]) continue;
+    board[i] = isMax ? 'X' : 'O';
+    const s = minimax(!isMax, depth + 1);
+    board[i] = '';
+    best = isMax ? Math.max(best, s) : Math.min(best, s);
+  }
+  return best;
 }
 
 function checkWin() {
@@ -166,6 +271,27 @@ function checkWin() {
   }
   if (board.every(v => v)) return { winner: 'draw' };
   return null;
+}
+
+function finish(result) {
+  over = true;
+  cardO.classList.remove('active');
+  cardX.classList.remove('active');
+
+  if (result.winner === 'draw') {
+    statusEl.innerHTML = '平局，谁也不服谁';
+    return;
+  }
+
+  result.line.forEach(idx => boardEl.children[idx].classList.add('win'));
+  drawLine(result.line);
+  score[result.winner]++;
+  scoreOEl.textContent = score.O;
+  scoreXEl.textContent = score.X;
+  localStorage.setItem(KEY_SCORE, JSON.stringify(score));
+  statusEl.innerHTML = nameOf(result.winner) + ' 赢了';
+
+  setTimeout(() => openSheet(result.winner), 620);
 }
 
 function drawLine(line) {
@@ -187,15 +313,92 @@ function drawLine(line) {
   lineEl.style.opacity = .85;
 }
 
-document.getElementById('reset').onclick = () => { init(); };
+// ---- 要求 ----
+let pendingWinner = null;
+
+function openSheet(winner) {
+  pendingWinner = winner;
+  const loser = winner === 'O' ? '阿屿' : '小涵';
+  sheetTitle.innerHTML = nameOf(winner) + ' 赢了，提个要求';
+  document.getElementById('sheetSub').textContent = '写下来，' + loser + '得照做。跑不掉。';
+  reqInput.value = '';
+  mask.classList.add('show');
+  setTimeout(() => reqInput.focus(), 300);
+}
+
+function closeSheet() { mask.classList.remove('show'); }
+
+document.getElementById('skipBtn').onclick = closeSheet;
+document.getElementById('saveBtn').onclick = () => {
+  const t = reqInput.value.trim();
+  if (!t) return closeSheet();
+  const list = JSON.parse(localStorage.getItem(KEY_DEBT) || '[]');
+  list.unshift({ winner: pendingWinner, text: t, date: Date.now() });
+  localStorage.setItem(KEY_DEBT, JSON.stringify(list));
+  closeSheet();
+  renderDebts();
+};
+mask.addEventListener('click', e => { if (e.target === mask) closeSheet(); });
+
+function renderDebts() {
+  const list = JSON.parse(localStorage.getItem(KEY_DEBT) || '[]');
+  if (!list.length) {
+    debtsEl.innerHTML = '<div class="empty">还没欠下什么</div>';
+    return;
+  }
+  debtsEl.innerHTML = '';
+  list.forEach((d, idx) => {
+    const div = document.createElement('div');
+    div.className = 'debt';
+    const whoClass = d.winner === 'O' ? 'pink' : 'blue';
+    const whoName = d.winner === 'O' ? '小涵' : '阿屿';
+    const loser = d.winner === 'O' ? '阿屿' : '小涵';
+    div.innerHTML = `<span class="who ${whoClass}">${whoName}要求</span>
+                     <span class="txt">${escapeHtml(d.text)}<br><span style="color:#5b6b7c;font-size:11px">→ ${loser} 执行</span></span>
+                     <span class="del" data-i="${idx}">✕</span>`;
+    debtsEl.appendChild(div);
+  });
+  debtsEl.querySelectorAll('.del').forEach(el => {
+    el.onclick = () => {
+      const l = JSON.parse(localStorage.getItem(KEY_DEBT) || '[]');
+      l.splice(+el.dataset.i, 1);
+      localStorage.setItem(KEY_DEBT, JSON.stringify(l));
+      renderDebts();
+    };
+  });
+}
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ---- 模式 ----
+const mSolo = document.getElementById('mSolo');
+const mDuo = document.getElementById('mDuo');
+
+function setMode(isSolo) {
+  solo = isSolo;
+  localStorage.setItem(KEY_MODE, solo ? 'solo' : 'duo');
+  mSolo.classList.toggle('on', solo);
+  mDuo.classList.toggle('on', !solo);
+  init();
+}
+
+mSolo.onclick = () => setMode(true);
+mDuo.onclick = () => setMode(false);
+
+document.getElementById('reset').onclick = init;
 document.getElementById('resetScore').onclick = () => {
   score = { O:0, X:0 };
-  scoreOEl.textContent = 0;
-  scoreXEl.textContent = 0;
+  localStorage.setItem(KEY_SCORE, JSON.stringify(score));
   init();
 };
 
+solo = (localStorage.getItem(KEY_MODE) || 'solo') === 'solo';
+mSolo.classList.toggle('on', solo);
+mDuo.classList.toggle('on', !solo);
 init();
+renderDebts();
 </script>
 </body>
 </html>
