@@ -124,6 +124,13 @@
   .empty{text-align:center;color:var(--sub);padding:50px 0;font-size:.86rem}
   footer{text-align:center;color:var(--sub);font-size:.72rem;padding:0 0 40px}
   .hidden{display:none!important}
+  .docbar{display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin:16px 0 6px;text-decoration:none;color:var(--text);box-shadow:var(--shadow);transition:.2s}
+  .docbar:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .docbar .ico{font-size:1.15rem}
+  .docbar .txt{display:flex;flex-direction:column;line-height:1.35;flex:1;min-width:0}
+  .docbar .txt b{font-size:.86rem}
+  .docbar .txt small{color:var(--sub);font-size:.7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .docbar .dl{font-size:.74rem;color:#fff;background:var(--accent);padding:5px 13px;border-radius:999px;flex:none}
   @media print{
     header,.filters,.card-foot,.icon-btn{display:none}
     .card .body{display:block}
@@ -148,6 +155,11 @@
 </header>
 
 <main class="container">
+  <a class="docbar" href="part6-assurance-mechanism.docx" download="第6部分_鉴证作用机制与改进路径.docx">
+    <span class="ico">📄</span>
+    <span class="txt"><b>环境审计 · 第六部分</b><small>鉴证作用机制与改进路径 · Word 底稿（含 PPT 分页脚本）</small></span>
+    <span class="dl">下载</span>
+  </a>
   <div id="courseHead"></div>
   <div class="filters" id="filters">
     <button class="chip on" data-f="all">全部</button>
