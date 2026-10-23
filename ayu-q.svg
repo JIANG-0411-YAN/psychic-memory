@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="480" height="480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F2F6F8"/>
+      <stop offset="100%" stop-color="#DCE7EC"/>
+    </linearGradient>
+    <linearGradient id="hoodie" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4B565F"/>
+      <stop offset="100%" stop-color="#39424B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 底色圆 -->
+  <circle cx="120" cy="120" r="112" fill="url(#bg)"/>
+  <!-- 身后的小岛 + 海 -->
+  <path d="M28 190 q22 -26 46 -26 q24 0 40 26 z" fill="#B9CCC2" opacity="0.55"/>
+  <path d="M0 196 q30 10 60 0 q30 -10 60 0 q30 10 60 0 q30 -10 60 0 v44 H0 z" fill="#C9DAE2" opacity="0.7"/>
+
+  <!-- 脖子 -->
+  <rect x="104" y="150" width="32" height="22" rx="10" fill="#EBCDB8"/>
+
+  <!-- 身体（卫衣） -->
+  <path d="M56 240 C56 198 80 174 120 174 C160 174 184 198 184 240 Z" fill="url(#hoodie)"/>
+  <path d="M96 174 q24 16 48 0 l0 12 q-24 14 -48 0 z" fill="#333B43"/>
+  <!-- 胸口小岛图案 -->
+  <circle cx="120" cy="212" r="17" fill="#2F373E"/>
+  <path d="M110 216 q10 -13 20 0 z" fill="#8FBF9E"/>
+  <path d="M108 217 q6 4 12 0 q6 -4 12 0" fill="none" stroke="#7FB3C8" stroke-width="2.4" stroke-linecap="round"/>
+
+  <!-- 头发底 -->
+  <path d="M63 116 C58 66 82 40 120 40 C158 40 182 66 177 116 C177 96 170 76 152 70 C141 82 130 86 120 86 C107 86 95 81 87 71 C72 79 65 96 63 116 Z" fill="#3B414B"/>
+  <!-- 鬓角 -->
+  <path d="M63 112 q-6 22 2 34 q7 -14 6 -34 z" fill="#3B414B"/>
+  <path d="M177 112 q6 22 -2 34 q-7 -14 -6 -34 z" fill="#3B414B"/>
+
+  <!-- 脸 -->
+  <path d="M66 108 C66 78 90 62 120 62 C150 62 174 78 174 108 C174 140 152 164 120 164 C88 164 66 140 66 108 Z" fill="#F7DFCE"/>
+
+  <!-- 刘海（压住额头） -->
+  <path d="M64 106 C62 70 86 46 120 46 C154 46 178 70 176 106 C166 88 154 78 142 74 L136 92 L126 74 L118 94 L108 74 L96 90 L88 72 C74 80 67 92 64 106 Z" fill="#3B414B"/>
+
+  <!-- 眉毛 -->
+  <path d="M88 106 q12 -6 23 -2" fill="none" stroke="#3B414B" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+  <path d="M152 106 q-12 -6 -23 -2" fill="none" stroke="#3B414B" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- 眼睛 -->
+  <ellipse cx="99" cy="124" rx="10" ry="12" fill="#5C8DA8"/>
+  <ellipse cx="141" cy="124" rx="10" ry="12" fill="#5C8DA8"/>
+  <ellipse cx="99" cy="124" rx="5.5" ry="7" fill="#2C3A44"/>
+  <ellipse cx="141" cy="124" rx="5.5" ry="7" fill="#2C3A44"/>
+  <circle cx="95.5" cy="119.5" r="3" fill="#FFFFFF"/>
+  <circle cx="137.5" cy="119.5" r="3" fill="#FFFFFF"/>
+
+  <!-- 腮红 + 嘴 -->
+  <ellipse cx="83" cy="142" rx="9" ry="5" fill="#F0A8A8" opacity="0.5"/>
+  <ellipse cx="157" cy="142" rx="9" ry="5" fill="#F0A8A8" opacity="0.5"/>
+  <path d="M113 144 q7 7 14 0" fill="none" stroke="#8C5B4E" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- 肩上探头的暹罗猫 -->
+  <g transform="translate(168 168)">
+    <path d="M-16 -6 l-4 -16 l15 9 z" fill="#6B4B3A"/>
+    <path d="M16 -6 l4 -16 l-15 9 z" fill="#6B4B3A"/>
+    <circle cx="0" cy="0" r="17" fill="#F0E6D6"/>
+    <ellipse cx="0" cy="4" rx="10" ry="8" fill="#6B4B3A" opacity="0.85"/>
+    <circle cx="-6" cy="-1" r="3" fill="#7FB3C8"/>
+    <circle cx="6" cy="-1" r="3" fill="#7FB3C8"/>
+    <circle cx="-6" cy="-1" r="1.3" fill="#2C3A44"/>
+    <circle cx="6" cy="-1" r="1.3" fill="#2C3A44"/>
+    <path d="M-3 6 q3 3 6 0" fill="none" stroke="#4A3428" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+</svg>
