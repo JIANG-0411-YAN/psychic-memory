@@ -893,16 +893,29 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 ,
 {id:'far',name:'Financial Accounting and Reporting',desc:'CH50035 · Week 1–4 已对齐（含 IAS 16 重估）· 论文 30% / 展示 20% / 期末 50%',chapters:[
 {t:'⓪ 先补 ITA：这门课的地基',pts:[
- {t:'五要素与恒等式',tag:'框架',b:`<ul>
-<li><b>财务状况</b>：Assets = Liabilities + Equity</li>
-<li><b>经营成果</b>：Income − Expenses = Profit</li>
-<li>展开式（含 Drawing/Dividend）：<br><b>Assets + Expenses + Dividends = Liabilities + Equity + Income</b></li></ul>
-<div class="tip">左边全是"借记增加"的，右边全是"贷记增加"的。这一条记住，分录就不靠背。</div>`},
+ {t:'五要素与恒等式（整门课的地基）',tag:'框架',b:`<p>财务报表把企业的经济现实切成五个要素，每个都有英文定义（2018 框架）：</p>
+<table><tr><th>要素</th><th>英文</th><th>一句话定义</th></tr>
+<tr><td>资产</td><td>asset</td><td>由过去事件产生、企业<b>控制</b>的<b>现时经济资源</b>（有产生经济利益的潜力）</td></tr>
+<tr><td>负债</td><td>liability</td><td>由过去事件产生、企业<b>转移经济资源</b>的<b>现时义务</b></td></tr>
+<tr><td>权益</td><td>equity</td><td>资产扣除负债后的<b>剩余权益</b>（residual interest）</td></tr>
+<tr><td>收益</td><td>income</td><td>资产增加或负债减少，导致权益增加（不含所有者投入）</td></tr>
+<tr><td>费用</td><td>expenses</td><td>资产减少或负债增加，导致权益减少（不含向所有者分配）</td></tr></table>
+<p><b>两条恒等式</b>：</p>
+<ul><li>时点（资产负债表）：<b>Assets = Liabilities + Equity</b></li>
+<li>期间（利润表）：<b>Income − Expenses = Profit</b>，利润最终并进 Equity</li></ul>
+<p><b>展开式</b>（把损益也塞进资产负债等式）：<br><b>Assets + Expenses + Drawings = Liabilities + Equity + Income</b></p>
+<div class="tip">左边全是「借记增加」，右边全是「贷记增加」——这一条记住，分录就不用背。<br>数字例：赊购设备 £5,000 → 资产 +5,000、负债 +5,000，等式仍平。付现金买耗材 £300 → 资产 −300、费用 +300，等式仍平。</div>`},
  {t:'借贷规则（DEAD CLIC）',tag:'公式',b:`<table><tr><th>借方 Dr 增加</th><th>贷方 Cr 增加</th></tr>
-<tr><td>Dividends / Drawings</td><td>Liabilities</td></tr>
-<tr><td>Expenses</td><td>Income</td></tr>
-<tr><td>Assets</td><td>Capital / Equity</td></tr></table>
-<div class="warn">ITA 最常错的三处：① 费用与资产的边界（预付是资产）；② 累计折旧是资产减项，不是负债；③ 宣告股利先记负债（Dividend payable），付款时才动现金。</div>`},
+<tr><td><b>D</b>ividends / Drawings</td><td><b>L</b>iabilities</td></tr>
+<tr><td><b>E</b>xpenses</td><td><b>I</b>ncome</td></tr>
+<tr><td><b>A</b>ssets</td><td><b>C</b>apital / Equity</td></tr></table>
+<p><b>四条常用分录（照这个句型写）</b>：</p>
+<table><tr><th>交易</th><th>Dr</th><th>Cr</th></tr>
+<tr><td>赊购存货 £2,000</td><td>Inventory 2,000</td><td>Trade payables 2,000</td></tr>
+<tr><td>现销 £800（成本 500）</td><td>Cash 800 / COGS 500</td><td>Revenue 800 / Inventory 500</td></tr>
+<tr><td>计提本月电费 £150 未付</td><td>Electricity expense 150</td><td>Accruals 150</td></tr>
+<tr><td>宣告股利 £1,000</td><td>Retained earnings 1,000</td><td>Dividend payable 1,000</td></tr></table>
+<div class="warn">ITA 最常错的三处：① 费用与资产的边界（预付是资产，不是费用）；② 累计折旧是资产的<b>减项</b>，不是负债；③ 宣告股利先记负债（Dividend payable），实际付款时才动现金。</div>`},
  {t:'期末调整五大类（ITA 的命门）',tag:'考点',b:`<table><tr><th>类型</th><th>判断</th><th>调整分录</th></tr>
 <tr><td>Accrual 应计费用</td><td>已发生未付</td><td>Dr 费用 / Cr 应付款</td></tr>
 <tr><td>Prepayment 预付</td><td>已付未用</td><td>先把付出记资产，用掉的部分 Dr 费用 / Cr 预付</td></tr>
@@ -925,18 +938,21 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <div class="tip">FAR 比 ITA 多的不是"更难的分录"，是"同一个数字可以有两种合法算法，但只有一种符合 IFRS"。所以每道题先问：这条准则允许我怎么计量？</div>`}
 ]},
 {t:'① Week 1｜Conceptual Framework（一切准则的上位法）',pts:[
- {t:'财务报告的目标与使用者',tag:'考点',b:`<p>目标：提供对<b>现有和潜在投资者、贷款人及其他债权人</b>做"是否提供资源"决策有用的信息。</p>
-<ul>
-<li><b>主要使用者</b>：投资者、贷款人、债权人（资本提供者）</li>
-<li>次要：供应商、客户、员工、政府</li>
-<li>信息内容：经济资源与要求权（资产/负债/权益）、资源变动（收入/费用）、现金流的时点与不确定性</li></ul>
-<div class="warn">考论述题时，<b>先写"决策有用"</b>，再展开"预测未来现金流"。这是打分点。</div>`},
- {t:'两大基本质量特征 + 四个增强特征',tag:'公式',b:`<ul>
-<li><b>Relevance 相关性</b>：预测价值、确认价值、重要性（materiality）</li>
-<li><b>Faithful representation 如实反映</b>：完整、中立、无重大错误</li>
-<li><b>增强</b>：可比性、可验证性、及时性、可理解性</li>
-<li>约束条件：<b>成本 &lt; 收益</b></li></ul>
-<div class="warn">相关性与如实反映有时冲突（例如公允价值更相关但更难核实）；<b>prudence（审慎）</b>是"中立"的一个侧面，不是独立特征，别混。</div>`},
+ {t:'财务报告的目标与使用者',tag:'考点',b:`<p><b>目标（框架 1.2）</b>：提供对<b>现有和潜在投资者、贷款人及其他债权人</b>作出「是否向企业提供资源」决策有用的财务信息。</p>
+<table><tr><th>群体</th><th>为什么排第一</th></tr>
+<tr><td><b>投资者</b>（investors）</td><td>要判断未来股利与股价，最关心盈利能力</td></tr>
+<tr><td><b>贷款人</b>（lenders）</td><td>要判断本金与利息能否收回，最关心偿债能力</td></tr>
+<tr><td><b>其他债权人</b>（other creditors）</td><td>供应商、员工关心短期能否被支付</td></tr></table>
+<p>次要使用者：监管机构、员工、客户、公众。他们的需求常与上面三者重叠，所以不再单独列为主要使用者。</p>
+<p><b>信息内容三块</b>：① 经济资源与要求权（资产/负债/权益）；② 资源变动（收益/费用）；③ 现金流与融资情况（现金流的金额、时点与不确定性）。</p>
+<div class="warn">论述题打分点：先写 <b>decision-useful</b>，再展开「帮助预测未来现金流」（框架 1.3），最后说「不是给管理层做内部决策用的」（那叫 management accounting）。</div>`},
+ {t:'两大基本质量特征 + 四个增强特征',tag:'公式',b:`<p><b>基本特征（fundamental）——缺一个信息就不能用</b>：</p>
+<table><tr><th>特征</th><th>构成</th><th>例子</th></tr>
+<tr><td><b>Relevance 相关性</b></td><td>预测价值（predictive value）、确认价值（confirmatory value）、重要性（materiality）</td><td>存货按 NRV 减记 → 提示未来现金流入下降</td></tr>
+<tr><td><b>Faithful representation 如实反映</b></td><td>完整（complete）、中立（neutral）、无重大错误（free from error）</td><td>不隐瞒诉讼或有负债</td></tr></table>
+<p><b>增强特征（enhancing）——让有用变更好用</b>：可比性（comparability，含一致性）、可验证性（verifiability）、及时性（timeliness）、可理解性（understandability）。</p>
+<p><b>约束条件</b>：成本 &lt; 收益（cost constraint）。</p>
+<div class="warn">三个易错：① 相关性与如实反映可能冲突（公允价值更相关，但估值更难核实）；② <b>prudence 审慎</b>是「中立」的一个侧面，不是独立特征；③ 重要性是<b>相关性的一个侧面</b>，不是单独列示的特征。</div>`},
  {t:'五要素的新定义（2018 框架改动点）',tag:'考点',b:`<table><tr><th>要素</th><th>定义</th></tr>
 <tr><td><b>Asset</b></td><td>由过去事项产生的、由主体<b>控制</b>的、预期带来经济利益的现时经济资源</td></tr>
 <tr><td><b>Liability</b></td><td>由过去事项产生的、主体<b>转移经济资源</b>的现时义务</td></tr>
@@ -957,11 +973,15 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <div class="tip">为什么这题总要提：它决定了「重估增值为什么不能进利润表」——重估只是维持资本，没产生利润，所以走 OCI。</div>`}
 ]},
 {t:'② Week 1｜复式记账与分录（Madrid 8 题全解）',pts:[
- {t:'做题三步：认科目 → 判要素 → 定借贷',tag:'公式',b:`<ol style="padding-left:18px">
-<li>这笔交易动了<b>哪两个（或以上）科目</b>？</li>
-<li>每个科目属于<b>资产/负债/权益/收入/费用</b>中的哪一类？</li>
+ {t:'做题三步：认科目 → 判要素 → 定借贷',tag:'公式',b:`<ol><li>这笔交易动了<b>哪几个科目</b>（至少两个）？</li>
+<li>每个科目属于<b>资产 / 负债 / 权益 / 收益 / 费用</b>中的哪一类？增减往哪边？</li>
 <li>按 DEAD CLIC 定 Dr / Cr，最后检查借贷相等</li></ol>
-<div class="tip">考卷常要求同时写出"要素类型 + 增减方向"，这是白送的分，别只写分录。</div>`},
+<p><b>示范：12 月 1 日预付明年 1–3 月租金 £3,000</b></p>
+<table><tr><th>科目</th><th>要素</th><th>方向</th><th>Dr / Cr</th></tr>
+<tr><td>Prepayments</td><td>资产</td><td>增加</td><td>Dr 3,000</td></tr>
+<tr><td>Cash</td><td>资产</td><td>减少</td><td>Cr 3,000</td></tr></table>
+<p>12 月 31 日<b>不做</b>租金费用；到 1 月底才 Dr Rent expense 1,000 / Cr Prepayments 1,000。</p>
+<div class="tip">考卷常要求同时写「要素类型 + 增减方向」，这是白送分。记：<b>预付是资产（先付钱），应计是负债（先欠账）</b>。</div>`},
  {t:'Madrid Q1 ①–④',tag:'例题',b:`<table><tr><th>交易</th><th>Dr</th><th>Cr</th><th>要素 / 方向</th></tr>
 <tr><td>①赊购办公用品 £450</td><td>Office supplies 450</td><td>Accounts payable 450</td><td>费用↑ / 负债↑</td></tr>
 <tr><td>②7/1 付 5 年仓库保险 £10,000</td><td>Prepaid insurance 10,000</td><td>Cash 10,000</td><td>资产↑ / 资产↓</td></tr>
