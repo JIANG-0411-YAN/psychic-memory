@@ -172,7 +172,7 @@
 
 <script>
 const DATA = [
-{id:'pt',name:'Personal Tax',desc:'CH50027 · 已按 Week 1–3 课件对齐 · 2 小时笔试占 100%',chapters:[
+{id:'pt',name:'Personal Tax',desc:'CH50027 · 已按 Week 1–4 课件对齐 · 2 小时笔试占 100%',chapters:[
 {t:'① Week 1｜英国税制 & Self Assessment（考点密集）',pts:[
  {t:'税种分类：direct / indirect，capital / revenue',tag:'考点',b:`<table><tr><th>税种</th><th>直接/间接</th><th>资本/收益</th></tr>
 <tr><td>Income Tax</td><td>Direct</td><td>Revenue</td></tr>
@@ -404,14 +404,87 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <li>Jackie（误填）→ 非避税非逃税，12 个月内可改；Michelle（故意少报）→ 逃税，最高 70%（隐瞒则 100%）</li>
 <li>Amy：notice 25/4/2026 → 线上截止 <b>31/1/2027</b>；实际 1/3/2027 逾期提交 → enquiry 窗口至 <b>30/4/2028</b>（其后 quarter day + 12 个月）；非经营记录保存至 <b>31/1/2028</b></li></ul>`}
 ]},
-{t:'⑤ Week 4–8｜Employment Income（课前预习，等课件）',pts:[
- {t:'预习清单（Ch.7–8 会考的点）',tag:'框架',b:`<ul>
-<li>应税所得范围与 receipts basis</li>
-<li>可扣除费用：wholly, exclusively and necessarily；通勤不可扣；mileage 45p/25p</li>
-<li>福利：company car / fuel / beneficial loan / living accommodation</li>
-<li>Termination payments：前 £30,000 免，PILON 全额应税</li>
-<li>PAYE、P11D、Class 1A</li></ul>
-<div class="tip">等 Week 4 课件发我，我把这章按老师口径补全（含例题和作业）。</div>`}
+{t:'⑤ Week 4｜Employment Income①（工资 · 奖金 · 里程 · 可扣费用）',pts:[
+ {t:'Employment vs Self-employment：六条判据',tag:'考点',b:`<p>下面六条都成立 → 更像 <b>employee</b>：</p>
+<ul>
+<li>不自己提供设备（does not provide his own equipment）</li>
+<li>不能雇助手，必须亲自干活</li>
+<li>不能从「良好的管理」中获利（cannot profit from sound management）——赚多赚少是老板的</li>
+<li>不承担财务风险（no financial risk）</li>
+<li>一般不能拒绝被派来的工作（cannot decline work when offered）</li>
+<li>享受病假工资与带薪假期（sick pay / holiday pay）</li></ul>
+<div class="tip">答题时把六条一条条往事实上套，再说整体印象。有一条不符不致命。</div>`},
+ {t:'Pro-forma：Employment income 怎么算',tag:'公式',b:`<table><tr><th>£</th><th></th></tr>
+<tr><td>Salary</td><td>X</td></tr>
+<tr><td>Bonus</td><td>X</td></tr>
+<tr><td>Commission / tips</td><td>X</td></tr>
+<tr><td>Benefits in kind</td><td>X</td></tr>
+<tr><td>Less: allowable deductions</td><td>(X)</td></tr>
+<tr><td><b>Employment income</b></td><td><b>X</b></td></tr></table>
+<div class="warn">tips / gratuity 是<b>应税</b>的，客户直接塞给的钱也要放进 commission / tips 那一行。不是老板发的也算。</div>`},
+ {t:'Bonus 什么时候算「收到」',tag:'考点',b:`<p><b>一般雇员</b>：取较早者——① 实际支付日；② 取得收款权利日（entitled to payment）。</p>
+<p><b>董事（director）</b>：取下面三者中<b>最早</b>：</p>
+<ol><li>上面一般规则里的较早者</li>
+<li>金额<b>记入公司账簿</b>（credited in the company's accounting records）之日</li>
+<li><b>later of</b>：会计期间结束日／金额被确定（determined）之日</li></ol>
+<div class="tip">第 3 条本身是「两个日期取晚者」，再跟前两个比取最早。董事常常在「记账那天」就被征税，哪怕钱还没到手、还带着条件。</div>`},
+ {t:'例题 1：Josephine 的董事奖金算哪一年',tag:'例题',b:`<p>Diamond plc 年结 31 March，奖金 £5,000：</p>
+<table><tr><th>事件</th><th>日期</th></tr>
+<tr><td>董事们确定金额</td><td>28 Feb 2026</td></tr>
+<tr><td>记入 director's account</td><td>10 Mar 2026</td></tr>
+<tr><td>可提取（entitled）</td><td>15 Apr 2026</td></tr>
+<tr><td>实际支付</td><td>28 Apr 2026</td></tr></table>
+<p><b>答</b>：她是董事，三个候选（10 Mar / 15 Apr / 28 Apr）里最早是记账日 <b>10 March 2026</b> → 落在 <b>2025/26</b>。</p>
+<div class="warn">「later of 期末 31 Mar 2026 / 确定日 28 Feb 2026」= 31 Mar 2026，比 10 Mar 晚，所以不选。答题就把候选日期全列出来划最早的那个。</div>`},
+ {t:'Approved mileage allowance：45p / 25p',tag:'公式',b:`<p>2025/26：前 <b>10,000</b> business miles 每英里 <b>45p</b>，之后每英里 <b>25p</b>。</p>
+<table><tr><th>情形</th><th>处理</th></tr>
+<tr><td>报销 ≤ 法定标准</td><td>报销款<b>免税</b>，没有调整</td></tr>
+<tr><td>报销 &gt; 法定标准</td><td>超出部分<b>应税</b>（作为 earnings）</td></tr>
+<tr><td>没报销／报销不足</td><td>可主张 allowable deduction = 法定里程额 − 已收报销</td></tr></table>
+<div class="warn">① 只有 <b>business miles</b> 进这个阶梯，通勤不算；② 阶梯是<b>按税年累计</b>，不是按每趟；③ 报销超过法定额时没有「负扣除」，只能加回应税收入。</div>`},
+ {t:'例题 2：Kerry（自用车，超标准报销）',tag:'例题',b:`<p>1,800cc 自用车，2025/26 公务 12,000 miles，雇主按 30p/mile 付。</p>
+<table><tr><th>£</th><th></th></tr>
+<tr><td>10,000 × 45p</td><td>4,500</td></tr>
+<tr><td>2,000 × 25p</td><td>500</td></tr>
+<tr><td>法定里程额</td><td><b>5,000</b></td></tr>
+<tr><td>减：雇主支付 12,000 × 30p</td><td>(3,600)</td></tr>
+<tr><td><b>Allowable deduction</b></td><td><b>1,400</b></td></tr></table>
+<div class="warn">课件那行写成「1,200 × 30p」是笔误，12,000 × 30p = <b>3,600</b>，5,000 − 3,600 = 1,400。别跟着抄错。</div>`},
+ {t:'Travel expenses：三个地点，两种结论',tag:'考点',b:`<table><tr><th>路线</th><th>能否扣</th></tr>
+<tr><td>Home → <b>Permanent</b> workplace（日常通勤）</td><td><b>不可扣</b>（私人性质）</td></tr>
+<tr><td>Home → <b>Temporary</b> workplace（少于 24 个月）</td><td><b>可扣</b></td></tr>
+<tr><td>Permanent workplace → 客户／其他工作地点</td><td><b>可扣</b></td></tr></table>
+<div class="tip">口诀：<b>通勤不扣，跑外勤扣，临时工地扣</b>。temporary 看同一地点是否连续超过 24 个月。</div>`},
+ {t:'例题 3：Kim（先剔通勤再走阶梯）',tag:'例题',b:`<p>2025/26（1 Jun – 5 Apr）自用车，雇主一分没报销：</p>
+<table><tr><th>行程</th><th>miles</th><th>处理</th></tr>
+<tr><td>Home ↔ permanent workplace</td><td>3,400</td><td>不算</td></tr>
+<tr><td>Permanent workplace ↔ customers</td><td>11,200</td><td>算</td></tr>
+<tr><td>Home ↔ temporary workplace（&lt;24 个月）</td><td>1,300</td><td>算</td></tr>
+<tr><td><b>Business miles 合计</b></td><td><b>12,500</b></td><td></td></tr></table>
+<table><tr><th>£</th><th></th></tr>
+<tr><td>雇主报销</td><td>0</td></tr>
+<tr><td>10,000 × 45p</td><td>4,500</td></tr>
+<tr><td>2,500 × 25p</td><td>625</td></tr>
+<tr><td><b>Allowable deduction</b></td><td><b>5,125</b></td></tr></table>
+<div class="warn">第一步永远先把 3,400 通勤踢掉，再拿 12,500 走阶梯。直接拿 15,900 算就全错。</div>`},
+ {t:'可扣除费用清单（背这几条）',tag:'考点',b:`<p>总原则：<b>wholly, exclusively and necessarily</b> 为履行职务而花的才可扣；带私人好处的不可扣。</p>
+<table><tr><th>项目</th><th>结论</th></tr>
+<tr><td>工作穿的衣服（含工作服）</td><td><b>不可扣</b></td></tr>
+<tr><td>向 approved occupational pension scheme 缴款</td><td>可扣</td></tr>
+<tr><td>工资扣除式捐赠（payroll deduction）</td><td>可扣</td></tr>
+<tr><td>与职务相关的专业团体年费（subscription to professional bodies）</td><td>可扣</td></tr>
+<tr><td>自用车的法定 business mileage 额</td><td>可扣</td></tr></table>
+<div class="warn">「necessarily」是最狠的词：不是「上班需要」，而是「这份职务逼着你必须花」。所以西装、通勤都不行。</div>`},
+ {t:'Homework 1：John 的 15,400 miles',tag:'作业',b:`<p>法定额 = 10,000 × 45p + 5,400 × 25p = 4,500 + 1,350 = <b>£5,850</b></p>
+<p><b>(1) 40p/mile</b>：实收 15,400 × 40p = £6,160 → 6,160 − 5,850 = <b>£310 应税</b>（超出法定标准的部分作为 earnings 征税）。</p>
+<p><b>(2) 25p/mile</b>：实收 15,400 × 25p = £3,850 → 5,850 − 3,850 = <b>£2,000 allowable deduction</b>。</p>
+<div class="tip">模板：先算法定额 → 再算实收 → 相减。实收多写「应税 X」，实收少写「可扣 X」。</div>`},
+ {t:'Homework 2：Judy 的 employment income',tag:'作业',b:`<table><tr><th>£</th><th></th></tr>
+<tr><td>Salary</td><td>18,000</td></tr>
+<tr><td>Bonus（30 Sep 2025 实收，属 2025/26）</td><td>4,000</td></tr>
+<tr><td>Gratuity（客户 1 Dec 2025 给的小费，应税）</td><td>500</td></tr>
+<tr><td><b>Employment income 2025/26</b></td><td><b>22,500</b></td></tr></table>
+<div class="warn">那笔 2026 年 9 月才发的 £4,800 是<b>预期</b>，2025/26 一分不算（receipts basis）。bonus 看「什么时候收到」而不是「业绩属于哪一年」——业绩是 year ended 31 Mar 2025，但 30 Sep 2025 才收到，就落在 2025/26。</div>`}
 ]},
 {t:'⑥ Week 9–10｜Self-employment & Basis period（预习）',pts:[
  {t:'预习清单（Ch.9–10）',tag:'框架',b:`<ul>
