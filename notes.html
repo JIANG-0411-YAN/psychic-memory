@@ -155,11 +155,6 @@
 </header>
 
 <main class="container">
-  <a class="docbar" href="part6-assurance-mechanism.docx" download="第6部分_鉴证作用机制与改进路径.docx">
-    <span class="ico">📄</span>
-    <span class="txt"><b>环境审计 · 第六部分</b><small>鉴证作用机制与改进路径 · Word 底稿（含 PPT 分页脚本）</small></span>
-    <span class="dl">下载</span>
-  </a>
   <div id="courseHead"></div>
   <div class="filters" id="filters">
     <button class="chip on" data-f="all">全部</button>
@@ -273,12 +268,14 @@ const DATA = [
 </ul>
 <p>Example：存 10,000 后取 2,000 → 还能存 20,000 − (10,000 − 2,000) = <b>£12,000</b></p>
 <div class="warn">注意这里为什么减 8,000：额度看的是"净存入"，取出会减少已用额度。别把 £20,000 直接减 10,000。</div>`},
- {t:'Qualifying interest paid（可扣除的利息）',tag:'考点',b:`<ul>
-<li>借款购买用于<u>合伙或雇佣</u>的厂房机器</li>
-<li>借款投资合伙企业</li>
-<li>借款购买 employee-controlled company 的股份</li>
-<li>借款投资合作社（co-operative）</li></ul>
-<div class="tip">自住房按揭利息不在其列（那是 tax reducer，不是扣除项）。</div>`},
+ {t:'Qualifying interest paid（可扣除的利息）',tag:'考点',b:`<p>只有<b>特定用途</b>的借款利息才允许从收入中扣除，常见四类：</p>
+<table><tr><th>借款用来做什么</th><th>英文</th></tr>
+<tr><td>购买用于<b>合伙或雇佣</b>的厂房机器设备</td><td>plant &amp; machinery used for partnership / employment</td></tr>
+<tr><td>投资合伙企业（出资）</td><td>investment in a partnership</td></tr>
+<tr><td>购买 employee-controlled company 的股份</td><td>shares in an employee-controlled company</td></tr>
+<tr><td>投资合作社</td><td>investment in a co-operative</td></tr></table>
+<p><b>两个限制</b>：① 扣除额有上限——一般取 £50,000 与「相关收入 25%」中的较高者；② 只算借款期间、且在用途存续期间的利息（钱还清了就不再扣）。</p>
+<div class="warn">别和自住房按揭混：自住房贷款利息<b>不是扣除项</b>，它是 tax reducer（按 20% 直接减税额），路径完全不同。</div>`},
  {t:'Personal Allowance 与 ANI（核心）',tag:'公式',b:`<ul>
 <li>正常 PA = <b>£12,570</b></li>
 <li><b>ANI</b> = total net income − gross personal pension contributions − gross gift aid donations</li>
@@ -486,21 +483,89 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <tr><td><b>Employment income 2025/26</b></td><td><b>22,500</b></td></tr></table>
 <div class="warn">那笔 2026 年 9 月才发的 £4,800 是<b>预期</b>，2025/26 一分不算（receipts basis）。bonus 看「什么时候收到」而不是「业绩属于哪一年」——业绩是 year ended 31 Mar 2025，但 30 Sep 2025 才收到，就落在 2025/26。</div>`}
 ]},
-{t:'⑥ Week 9–10｜Self-employment & Basis period（预习）',pts:[
- {t:'预习清单（Ch.9–10）',tag:'框架',b:`<ul>
-<li>Adjusted trading profit 的调增调减</li>
-<li>Capital allowances：AIA、WDA 18% / 6%、汽车</li>
-<li>Basis period reform：<b>tax year basis</b>（2024/25 起）+ 过渡期利润</li>
-<li>Trading losses 的使用顺序</li>
-<li>Class 4 NIC 与 POA 的联动</li></ul>`}
+{t:'⑥ Week 9–10｜Self-employment & Basis period（预习 · 已写细）',pts:[
+ {t:'这一章到底在算什么（先看全局）',tag:'框架',b:`<p>自雇（sole trader）没有工资单，所以要自己把<b>会计利润</b>换算成<b>税务口径的营业利润</b>，再并进 total income 交 income tax + Class 4 NIC。</p>
+<p>做题顺序固定四步，一步都不能跳：</p>
+<table><tr><th>Step</th><th>做什么</th><th>英文</th></tr>
+<tr><td>1</td><td>拿会计净利润（profit before tax per accounts）</td><td>accounting profit</td></tr>
+<tr><td>2</td><td>加回不可扣支出、扣掉非营业收入 → 税务调整后利润</td><td>tax adjusted trading profit</td></tr>
+<tr><td>3</td><td>再减 capital allowances（资本减免）</td><td>capital allowances</td></tr>
+<tr><td>4</td><td>按 basis period 规则，落到「本税年确认多少」</td><td>basis of assessment</td></tr></table>
+<div class="tip">题目给的 profit before tax 永远不是答案。看到 depreciation、private use、capital 这三个词，就要开始调了。</div>`},
+ {t:'调增：会计上扣了、税上不许扣的项目',tag:'考点',b:`<table><tr><th>项目</th><th>英文</th><th>为什么不让扣</th></tr>
+<tr><td>折旧</td><td>depreciation</td><td>税上只认 capital allowances，不能双重</td></tr>
+<tr><td>资本性支出</td><td>capital expenditure</td><td>不是 revenue 性质（买设备、改建、扩建）</td></tr>
+<tr><td>私人用途部分</td><td>private use</td><td>不满足 wholly &amp; exclusively for the trade</td></tr>
+<tr><td>招待客户</td><td>business entertaining</td><td>英国税法一律不认（员工食堂属例外）</td></tr>
+<tr><td>礼品</td><td>gifts</td><td>除非有明显广告标识且单价很低</td></tr>
+<tr><td>罚款、罚金</td><td>fines / penalties</td><td>违法行为的成本不予扣除</td></tr>
+<tr><td>一般性坏账准备</td><td>general provision</td><td>不是已确定的负债（呼应 IAS 37）</td></tr>
+<tr><td>所得税、NIC</td><td>income tax / NIC</td><td>税本身不能当费用</td></tr></table>
+<div class="warn">易混：<b>specific provision</b> 与 <b>bad debt written off</b> 可扣，<b>general provision</b> 不可扣。题目写「provision for doubtful debts」一定要看清是 general 还是 specific。</div>`},
+ {t:'调减：进了利润、但不是营业所得',tag:'公式',b:`<table><tr><th>项目</th><th>处理</th></tr>
+<tr><td>银行利息、股息</td><td>扣掉 → 走 savings / dividend，不在营业利润里征</td></tr>
+<tr><td>租金收入</td><td>扣掉 → 走 property income</td></tr>
+<tr><td>出售固定资产的利润</td><td>扣掉 → 走 CGT</td></tr>
+<tr><td>自己给自己开的工资</td><td>不存在；sole trader 的 drawings 不是费用</td></tr></table>
+<div class="tip">调减项一般只有一两个，藏在十几个调增里。先把 income 侧扫一遍：利息、租金、卖资产。</div>`},
+ {t:'Capital allowances：三个池子，两种减免',tag:'公式',b:`<table><tr><th>工具</th><th>适用范围</th><th>2025/26 金额</th></tr>
+<tr><td><b>AIA</b>（Annual Investment Allowance）</td><td>plant &amp; machinery，<b>不含汽车</b></td><td>£1,000,000 一次性全额扣</td></tr>
+<tr><td><b>WDA 18%</b>（main pool）</td><td>一般设备，余额递减</td><td>余额 × 18%</td></tr>
+<tr><td><b>WDA 6%</b>（special rate pool）</td><td>integral features（暖气、电梯、照明）、long-life assets、高排放汽车</td><td>余额 × 6%</td></tr>
+<tr><td>零排放汽车</td><td>新车</td><td>100% FYA（以教材当年规定为准）</td></tr>
+<tr><td>小额余额</td><td>pool 余额 ≤ £1,000</td><td>全额扣（small pool allowance）</td></tr></table>
+<p>顺序永远是：<b>先给 AIA，再对剩下的余额算 WDA</b>。</p>
+<div class="warn">① 汽车不能用 AIA；② 有私用比例时，CA 要按 business use % 折算，私用部分不给；③ 卖资产时把卖价从池子里扣，可能出现 balancing charge（要交税）或 balancing allowance。</div>`},
+ {t:'Basis period：2024/25 起改成 tax year basis',tag:'考点',b:`<p>现在每个税年征的是<b>该税年内（6 Apr – 5 Apr）实际赚到的利润</b>，不再用「以会计期间结尾」的老规则。</p>
+<p>所以会计期不是 4 月 5 日结束的，就要按<b>天数分摊（time apportionment）</b>，把跨年的两个会计期切成一个税年。</p>
+<div class="tip">例题给「year ended 31 December」，就把 2025 期和 2026 期按天数切，拼满 6 Apr 2025 – 5 Apr 2026。天数用题目给的，别自己估。</div>
+<div class="warn">2023/24 的过渡期额外利润叫 <b>transitional profits</b>，分 5 年摊。这类题只需知道有这回事，不要写进常规计算。</div>`},
+ {t:'Trading losses：五种出口，顺序要分清',tag:'考点',b:`<table><tr><th>情形</th><th>能抵什么</th><th>英文</th></tr>
+<tr><td>当年、同行业</td><td>可抵其他收入甚至资本利得</td><td>current year loss relief</td></tr>
+<tr><td>开业头 4 年</td><td>往前抵 3 年的 total income</td><td>early trade losses relief</td></tr>
+<tr><td>一般结转</td><td>往后抵<b>同一 trade</b> 的未来利润（无期限）</td><td>carry forward (CARF)</td></tr>
+<tr><td>停业最后 12 个月</td><td>往前抵 3 年、同行业</td><td>terminal loss relief</td></tr>
+<tr><td>抵资本利得</td><td>开业初期可扩到 chargeable gains</td><td>offset against CGT</td></tr></table>
+<div class="warn">最常错：<b>carry forward 只能抵同一 trade 的利润</b>，不能拿去抵工资或租金；能抵 total income 的是 current year / early years 那两种。</div>`},
+ {t:'Class 4 NIC 与 Payments on Account 的联动',tag:'公式',b:`<ul><li>利润 £12,570 – £50,270 之间：<b>6%</b></li>
+<li>超过 £50,270：<b>2%</b></li></ul>
+<p>Class 4 会进 POA 的基数——这就是 Week 1 公式里「IT + Class 4」的由来。</p>
+<div class="tip">顺序：先算 income tax liability（含 PA、dividend 特殊税率），再单独算 Class 4，两者相加才是总额。</div>`}
 ]},
-{t:'⑦ Week 11｜NIC（预习）',pts:[
- {t:'预习清单（Ch.16）',tag:'框架',b:`<ul>
-<li>Class 1 雇员 8% / 2%（PT 12,570、UEL 50,270）</li>
-<li>Class 1 雇主 15%（ST £5,000）</li>
-<li>Class 2 / Class 4 自雇：6% / 2%</li>
-<li>NIC 按<b>发薪期</b>计算，不是年度 —— 和 IT 的算法不同</li>
-<li>Class 1A 对福利征，随 P11D 申报</li></ul>`}
+{t:'⑦ Week 11｜NIC（预习 · 已写细）',pts:[
+ {t:'六类 NIC 一页分清',tag:'框架',b:`<table><tr><th>Class</th><th>谁交</th><th>对什么征</th><th>2025/26 税率</th></tr>
+<tr><td>Class 1 primary</td><td>雇员</td><td>工资</td><td>8% / 2%</td></tr>
+<tr><td>Class 1 secondary</td><td>雇主</td><td>工资</td><td>15%（超过 ST £5,000）</td></tr>
+<tr><td>Class 1A</td><td>雇主</td><td>benefits in kind</td><td>15%</td></tr>
+<tr><td>Class 2</td><td>自雇</td><td>固定额（已并入，实务上视为已缴）</td><td>—</td></tr>
+<tr><td>Class 3</td><td>自愿补缴</td><td>补足记录</td><td>—</td></tr>
+<tr><td>Class 4</td><td>自雇</td><td>利润</td><td>6% / 2%</td></tr></table>
+<div class="tip">考试只考 Class 1 primary、Class 1 secondary、Class 1A、Class 4 这四类，其他知道名字就行。</div>`},
+ {t:'Class 1 雇员：两段式算法',tag:'公式',b:`<p>门槛：<b>PT（Primary Threshold）£12,570</b>、<b>UEL（Upper Earnings Limit）£50,270</b>。</p>
+<table><tr><th>区间</th><th>税率</th></tr>
+<tr><td>£0 – £12,570</td><td>0%</td></tr>
+<tr><td>£12,570 – £50,270</td><td><b>8%</b></td></tr>
+<tr><td>超过 £50,270</td><td><b>2%</b></td></tr></table>
+<p><b>例：年薪 £60,000</b><br>(50,270 − 12,570) × 8% = 3,016<br>(60,000 − 50,270) × 2% = 194.6<br>合计 <b>£3,210.60</b></p>
+<div class="warn">PT 和 PA（12,570）数字一样但含义不同：PA 是所得税的免征额，PT 是 NIC 的门槛。别因为数字相同就当同一件事。</div>`},
+ {t:'Class 1 雇主：15%，还有 Employment Allowance',tag:'公式',b:`<p>雇主部分叫 <b>secondary contribution</b>，从 <b>ST（Secondary Threshold）£5,000</b> 起征，税率 <b>15%</b>。</p>
+<p><b>例：年薪 £60,000</b><br>(60,000 − 5,000) × 15% = <b>£8,250</b></p>
+<p>符合条件的小雇主可用 <b>Employment Allowance</b> 抵掉一部分（以教材当年额度为准）。</p>
+<div class="tip">答题时两段分开写：primary 归雇员、secondary 归雇主。题目问「total NIC cost to the employer」= secondary + Class 1A，不含 primary。</div>`},
+ {t:'Class 1A：对福利征，随 P11D 走',tag:'考点',b:`<ul><li>对 <b>benefits in kind</b>（公司车、燃油、无息贷款等）按 <b>15%</b> 征</li>
+<li>由<b>雇主</b>承担，不是雇员</li>
+<li>每年 <b>6 July</b> 前报 P11D，<b>19 July</b> 前缴款（电子申报 22 July）</li></ul>
+<div class="tip">福利本身的价值算雇员的 employment income（应税），Class 1A 是雇主另外再交一笔——两头都收，别以为交过 Class 1A 雇员就不用交税。</div>`},
+ {t:'Class 4：自雇按利润征，和 Class 1 完全两套',tag:'公式',b:`<table><tr><th>区间</th><th>税率</th></tr>
+<tr><td>£0 – £12,570</td><td>0%</td></tr>
+<tr><td>£12,570 – £50,270</td><td><b>6%</b></td></tr>
+<tr><td>超过 £50,270</td><td><b>2%</b></td></tr></table>
+<p><b>例：tax adjusted profit £40,000</b><br>(40,000 − 12,570) × 6% = <b>£1,645.80</b></p>
+<div class="warn">Class 4 的基数是<b>税务调整后利润</b>（已减 capital allowances），不是会计利润。顺序搞错整题都错。</div>`},
+ {t:'NIC 三个最容易翻车的点',tag:'易错',b:`<ol><li><b>按发薪期算</b>：Class 1 是每期工资各自算，不是全年汇总一次性算——月薪、周薪结果不同。</li>
+<li><b>年度上限</b>：多份工作可以申请 deferral / 退还超缴部分，题目会提示。</li>
+<li><b>NIC 不能抵扣所得税</b>：它是独立的一笔，和 income tax 并列，不是费用也不是扣除项。</li></ol>
+<div class="tip">考前默一遍：PT 12,570 / UEL 50,270 / ST 5,000 / 8% – 2% – 15% – 6%。这五个数字撑起整章计算。</div>`}
 ]}
 ]}
 ,
@@ -588,10 +653,11 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <tr><td>推理</td><td>演绎（deductive）</td><td>归纳（inductive）</td></tr>
 <tr><td>法官角色</td><td>主动（inquisitorial），查证事实</td><td>被动（adversarial），主持对抗</td></tr>
 <tr><td>律师角色</td><td>基于法院查明的证据辩论</td><td>自行发问、取证、构建案情</td></tr></table>`},
- {t:'为什么会计要学法律',tag:'考点',b:`<ul>
-<li>不合规 → 公司和个人承担损害赔偿或罚款</li>
-<li>审计与财务报表需要判断：或有负债、诉讼、合同义务（正好接 FAR 的 IAS 37）</li>
-<li>跨境交易要用 CISG / Incoterms 判断风险与收入确认时点</li></ul>`}
+ {t:'为什么会计要学法律',tag:'考点',b:`<p>三个层次，从近到远：</p>
+<ol><li><b>账本身被法律定义</b>：什么算收入、什么算负债、什么时候确认——背后都是合同法与公司法。合同没成立，就谈不上 revenue（对应 IFRS 15 的 performance obligation）。</li>
+<li><b>判断与披露靠法律事实</b>：或有负债（IAS 37 contingent liability）、诉讼、担保、违约赔偿，全要先看法律上「义务是否已存在」，才能定要不要计提、要不要披露。</li>
+<li><b>跨境交易的时间点与风险</b>：CISG 决定风险何时转移（Art 66–67），Incoterms 决定运费与保险谁承担——这两个直接决定收入确认时点和存货归属。</li></ol>
+<div class="tip">论文题可以这么收尾：会计不是法学的旁观者，<b>会计确认的每一个时点，背后都站着一个法律判断</b>。</div>`}
 ]},
 {t:'③ Week 2｜CISG 是什么、什么时候适用',pts:[
  {t:'CISG 一页概览',tag:'框架',b:`<ul>
@@ -610,8 +676,11 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <li>③ 两国均为缔约国；或冲突规范指向缔约国法</li>
 </ul>
 <div class="warn">国籍、当事人的民商身份都不影响。中国人在新西兰卖给中国人 → 营业地中新两国，CISG 适用。</div>`},
- {t:'Art 10：多个营业地怎么办',tag:'考点',b:`<p>有多个营业地时，取<b>与合同及履行关系最密切</b>的那个。</p>
-<p>Asante 案里被告主张自己营业地在加拿大，法院依 Art 10 认定为加拿大 → 美加均为缔约国 → CISG 适用。</p>`},
+ {t:'Art 10：多个营业地怎么办',tag:'考点',b:`<p><b>规则（Art 10）</b>：当事人有多个营业地时，取<b>与合同及其履行关系最密切（closest relationship）</b>的那一个，并考虑订约时或订约前已知或预期的情况。</p>
+<p><b>为什么要判这个</b>：Art 1 用「place of business」决定 CISG 适不适用（双方营业地是否都在缔约国）；Art 10 是它的配套条款，专门解决「营业地在哪」。</p>
+<p><b>判断步骤</b>：① 列出所有营业地 → ② 看合同在哪谈成、货从哪发、款付到哪 → ③ 选关系最紧密的那个 → ④ 再看该国是不是缔约国。</p>
+<p><b>Asante 案</b>：被告主张营业地在加拿大，法院依 Art 10 认定为加拿大 → 美加均为缔约国 → CISG 适用。</p>
+<div class="warn">两个易错：① 有分公司不等于多个营业地，要看它是否<b>独立签订合同</b>；② 没有营业地的（如个人）用 habitual residence（Art 10 末句）。</div>`},
  {t:'Art 6：能不能"退出"CISG（opt out）',tag:'考点',b:`<ul>
 <li>当事人可以<b>排除</b>（exclude）CISG 或减损其效力</li>
 <li>排除必须<b>明确</b>（clear intent）——只写"适用加州法"<b>不够</b>，因为美国法本身包含 CISG（条约优先）</li>
@@ -633,9 +702,17 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <p><b>Rule</b>: Art 9(1) + Art 8(3)。双方在长期往来中对一词形成的<b>共同理解</b>，优先于与之冲突的行业惯例。</p>
 <p><b>Holding</b>：按双方做法解释——"consignment"意为<b>买卖已成立，只是发票延后到实际提货时开</b>。买方须付全部价款；卖方也已合理减损。</p>
 <div class="tip">答题关键词：course of dealings controls customary usage。</div>`},
- {t:'CISG 排除的货物与交易',tag:'考点',b:`<ul>
-<li><b>按交易性质排除</b>：① 消费品（personal, family or household use）② 拍卖 ③ 强制执行/依法出售</li>
-<li><b>按货物种类排除</b>：① 股票、证券、票据、货币 ② 船舶、气垫船、飞机 ③ 电力</li></ul>`},
+ {t:'CISG 排除的货物与交易（Art 2 / Art 3）',tag:'考点',b:`<table><tr><th>条文</th><th>排除什么</th><th>英文</th></tr>
+<tr><td>Art 2(a)</td><td>个人/家庭/家用消费品</td><td>personal, family or household use</td></tr>
+<tr><td>Art 2(b)</td><td>拍卖</td><td>auction</td></tr>
+<tr><td>Art 2(c)</td><td>强制执行或依法出售</td><td>execution or otherwise by authority of law</td></tr>
+<tr><td>Art 2(d)</td><td>股票、证券、票据、货币</td><td>stocks, shares, investment securities, negotiable instruments, money</td></tr>
+<tr><td>Art 2(e)</td><td>船舶、气垫船、飞机</td><td>ships, hovercraft, aircraft</td></tr>
+<tr><td>Art 2(f)</td><td>电力</td><td>electricity</td></tr>
+<tr><td>Art 3(1)</td><td>以劳务为主、货物只是辅助的合同</td><td>preponderance of services</td></tr>
+<tr><td>Art 3(2)</td><td>买方提供大部分材料的「来料加工」</td><td>substantial part supplied by buyer</td></tr></table>
+<p><b>要不要背理由</b>：要。考卷常问「why excluded」，一句话答：这些要么不适合「货物买卖」的风险分配逻辑（如拍卖、强制执行），要么属于其他专门法规范畴（证券、船舶、飞机有登记制度）。</p>
+<div class="warn">易错：① 消费者买货自用被排除，但<b>商人买来再卖</b>不排除；② 软件、定制设备不一定排除，要看货物与服务的<b>比例</b>（Art 3），不是看它「是不是有形的」。</div>`},
  {t:'案例：Asante v PMC-Sierra（要不要 opt out）',tag:'案例',b:`<p><b>Facts</b>：加州买方 Asante 与（法院认定营业地在）加拿大的卖方 PMC 发生电子元件质量争议。双方订单条款分别写"适用买方地址所在州法（加州）"。</p>
 <p><b>Issues</b>：① 联邦法院有管辖权吗？② CISG 适用吗？③ 这种法律选择条款算不算排除 CISG？</p>
 <p><b>Holding</b>：<br>
@@ -867,11 +944,17 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <tr><td><b>Income</b></td><td>资产增加或负债减少，导致权益增加（非所有者投入）</td></tr>
 <tr><td><b>Expense</b></td><td>资产减少或负债增加，导致权益减少（非向所有者分配）</td></tr></table>
 <div class="tip">关键词从"预期流入"改成了"<b>控制 + 现时经济资源</b>"，所以"客户合同、使用权资产"这类能被确认为资产。</div>`},
- {t:'确认、计量与资本保持',tag:'框架',b:`<ul>
-<li>确认条件：满足要素定义 + 相关性与如实反映（成本效益）</li>
-<li>计量基础：历史成本、公允价值、使用价值（VIU）、现行成本</li>
-<li><b>资本保持</b>：财务资本保持下，只有期末净资产超过期初（扣除所有者交易）才算利润</li>
-<li>基础假设：<b>going concern</b>（持续经营）</li></ul>`}
+ {t:'确认、计量与资本保持',tag:'框架',b:`<p><b>确认（recognition）</b>：一项要素满足定义后，还要同时满足两条才进表——① 相关且如实反映（relevance &amp; faithful representation）；② 成本不超过收益（cost constraint）。</p>
+<p><b>计量基础（measurement bases）</b>：</p>
+<table><tr><th>基础</th><th>英文</th><th>含义</th></tr>
+<tr><td>历史成本</td><td>historical cost</td><td>交易发生时的对价</td></tr>
+<tr><td>公允价值</td><td>fair value</td><td>市场参与者之间有序交易的价格（IFRS 13）</td></tr>
+<tr><td>使用价值</td><td>value in use</td><td>未来现金流折现（IAS 36 里算 recoverable amount 用）</td></tr>
+<tr><td>现行成本</td><td>current cost</td><td>现在重买要花多少</td></tr></table>
+<p><b>资本保持（capital maintenance）</b>：只有期末资本超过期初资本（剔除与所有者的交易）才算利润。分两种视角：</p>
+<ul><li><b>财务资本保持</b>（financial capital maintenance）：以货币金额衡量，现行购买力或名义货币两种口径</li>
+<li><b>实体资本保持</b>（physical capital maintenance）：以生产能力衡量，利润 = 期末生产能力 − 期初生产能力</li></ul>
+<div class="tip">为什么这题总要提：它决定了「重估增值为什么不能进利润表」——重估只是维持资本，没产生利润，所以走 OCI。</div>`}
 ]},
 {t:'② Week 1｜复式记账与分录（Madrid 8 题全解）',pts:[
  {t:'做题三步：认科目 → 判要素 → 定借贷',tag:'公式',b:`<ol style="padding-left:18px">
@@ -950,9 +1033,20 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <li>与所有者的交易：<b>股利</b>（分配）、<b>发行股份</b>（投入）</li>
 <li>每个权益组成部分的期初 → 期末<b>调节表</b></li></ul>
 <div class="warn">股利<b>不进损益</b>，直接减留存收益。这是 SCE 与 P&L 的分界线。</div>`},
- {t:'附注与七条一般特征',tag:'考点',b:`<ul>
-<li>附注要披露：编制基础与会计政策；IFRS 要求但表内未列的信息；理解报表所必需的其他信息</li>
-<li>一般特征：公允列报与合规、<b>持续经营</b>与<b>权责发生制</b>、重要性与汇总、<b>不得抵销</b>、报告频率、比较信息、列报一致性</li></ul>`}
+ {t:'附注（Notes）与七条一般特征（IAS 1.112–138）',tag:'考点',b:`<p><b>附注要披露三块（IAS 1.112）</b>：</p>
+<ol><li>编制基础（basis of preparation）与所采用的会计政策（accounting policies）</li>
+<li>IFRS 要求披露、但表内没有列示的信息</li>
+<li>理解报表所必需的其他信息（additional information）</li></ol>
+<p><b>七条一般特征 / 列报要求</b>：</p>
+<table><tr><th>#</th><th>要求</th><th>英文</th></tr>
+<tr><td>1</td><td>公允列报与合规</td><td>fair presentation &amp; compliance with IFRS</td></tr>
+<tr><td>2</td><td>持续经营</td><td>going concern</td></tr>
+<tr><td>3</td><td>权责发生制</td><td>accrual basis</td></tr>
+<tr><td>4</td><td>重要性与汇总</td><td>materiality &amp; aggregation</td></tr>
+<tr><td>5</td><td>不得抵销</td><td>no offsetting</td></tr>
+<tr><td>6</td><td>报告频率（至少每年一次）</td><td>frequency of reporting</td></tr>
+<tr><td>7</td><td>比较信息与列报一致性</td><td>comparative information &amp; consistency</td></tr></table>
+<div class="warn">易错：某一 IFRS 的具体披露要求<b>叠加</b>在 IAS 1 之上，不是二选一（IAS 1.7 明确说 specific IFRS 的披露要求同样适用）。答题问「notes 该披露什么」，先答这三块，再补具体准则的条款。</div>`}
 ]},
 {t:'⑤ Week 2｜从试算表编三表（Brisbane 全套）',pts:[
  {t:'先做五个调整（workings）',tag:'公式',b:`<ul>
@@ -992,10 +1086,13 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <div class="tip">平衡了就说明调整全对：<b>1,386 = 1,386</b>。这张表我算过一遍，可以放心对照。</div>`}
 ]},
 {t:'⑥ Week 3｜IAS 2 存货',pts:[
- {t:'成本的三块构成（IAS 2.10–18）',tag:'公式',b:`<ul>
-<li><b>采购成本</b>：买价（扣商业折扣）+ 不可退回的税费 + 运输 + 装卸</li>
-<li><b>加工成本</b>：直接人工 + <b>固定制造费用</b>（按正常产能分摊）+ 变动制造费用</li>
-<li><b>其他成本</b>：使存货达到现在地点与状态所必需的成本（如必要的中转仓储、为特定客户设计的成本）</li></ul>`},
+ {t:'成本的三块构成（IAS 2.10–18）',tag:'公式',b:`<p>IAS 2.10 把存货成本拆成三块：<b>cost of purchase + cost of conversion + other costs</b>。</p>
+<table><tr><th>组成部分</th><th>放什么</th><th>不放什么</th></tr>
+<tr><td><b>采购成本</b><br>cost of purchase</td><td>买价（扣商业折扣与返利）、进口关税等不可退回税费、运输、装卸、保险</td><td>可退回的 VAT、商业折扣</td></tr>
+<tr><td><b>加工成本</b><br>cost of conversion</td><td>直接人工、<b>固定制造费用按正常产能分摊</b>、变动制造费用</td><td>异常损耗、闲置产能的那部分固定费用（要当期费用化）</td></tr>
+<tr><td><b>其他成本</b><br>other costs</td><td>使存货到达现在地点与状态所必需的成本：必要中转仓储、为特定客户设计的成本</td><td>非必要的仓储费、一般管理费、销售费用、借款费用（除非符合 IAS 23）</td></tr></table>
+<p><b>固定制造费用为什么按「正常产能」</b>：产能闲置时的固定费用不进存货，直接进当期损益，否则会把工厂停工的损失压进存货、虚增利润。</p>
+<div class="tip">算式：分摊率 = 固定制造费用总额 ÷ 正常产能产量。实际产量低于正常产能时，按实际产量分摊，差额费用化。</div>`},
  {t:'不能计入存货的四项（IAS 2.16 / 2.18）',tag:'考点',b:`<ul>
 <li>非正常损耗（abnormal waste）</li>
 <li>仓储费 —— 除生产过程中必需的阶段间存储</li>
@@ -1036,11 +1133,13 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <li>但 NRV 依赖未来估计 → 管理层可用来"洗大澡"（先多提减记，次年转回抬利润）</li>
 <li>所以 IAS 2 要求披露：减记金额与转回金额</li></ul>
 <div class="tip">论述题常问"NRV 的主观性是否损害相关性"，答：损害如实反映，但提高相关性；靠披露与审计约束。</div>`},
- {t:'披露要求（四条）',tag:'考点',b:`<ol style="padding-left:18px">
-<li>计量存货所用的会计政策（含成本公式）</li>
-<li>存货的账面总额及分类</li>
-<li>本期确认为费用的存货金额</li>
-<li>本期减记金额与转回金额</li></ol>`}
+ {t:'披露要求（IAS 2.36 四条）',tag:'考点',b:`<table><tr><th>#</th><th>披露什么</th><th>英文</th></tr>
+<tr><td>1</td><td>计量存货的会计政策，含所用的成本公式</td><td>accounting policies adopted in measuring inventories, including the cost formula used</td></tr>
+<tr><td>2</td><td>存货的账面总额，以及按企业适用分类的各类别账面金额</td><td>total carrying amount and the carrying amount in classifications appropriate to the entity</td></tr>
+<tr><td>3</td><td>本期确认为费用的存货金额（即卖掉的成本）</td><td>carrying amount of inventories recognised as an expense during the period</td></tr>
+<tr><td>4</td><td>本期确认的减记金额，以及减记的转回金额</td><td>write-down recognised as expense / reversal of any write-down</td></tr></table>
+<div class="tip">为什么第 3 条重要：它就是利润表里的 cost of sales 那一行。把「期初 + 本期购入 − 期末」勾稽一遍，能验证存货造没造假。</div>
+<div class="warn">易错：第 4 条的转回上限是<b>原减记金额</b>，不能转到比原始成本还高（NRV 回升也不许超过 cost）。</div>`}
 ]},
 {t:'⑦ Week 3｜IAS 8 政策、估计与差错',pts:[
  {t:'三个概念，一张表分清',tag:'公式',b:`<table><tr><th>类型</th><th>定义</th><th>处理</th></tr>
