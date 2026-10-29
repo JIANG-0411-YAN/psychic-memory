@@ -1520,7 +1520,180 @@ Tax = 49,100 × 20% = 9,820 + 49,730 × 40% = 19,892 → <b>£29,712</b><br>
 <div class="tip">IAS 36 减值跟 IAS 16 重估是连着考的（减值先冲 surplus、不足进 P&L），等课件来我把两侧接上。</div>`}
 ]}
 ]}
-];
+,
+{id:'math',name:'高等数学（上册复盘 + 下册地图）',desc:'下学期重修跟班 · 先补上册地基，下册按章节地图往里填题',chapters:[
+{t:'① 函数与极限（整门课的地基）',pts:[
+ {t:'等价无穷小（x→0）—— 背这张表就够',tag:'公式',b:`<table><tr><th>原式</th><th>等价于</th></tr>
+<tr><td>sin x，tan x，arcsin x，arctan x</td><td>x</td></tr>
+<tr><td>1 − cos x</td><td>x<sup>2</sup>/2</td></tr>
+<tr><td>ln(1+x)</td><td>x</td></tr>
+<tr><td>e<sup>x</sup> − 1，(1+x)<sup>α</sup> − 1</td><td>x，αx</td></tr>
+<tr><td>a<sup>x</sup> − 1</td><td>x·ln a</td></tr>
+<tr><td>x − sin x</td><td>x<sup>3</sup>/6</td></tr>
+<tr><td>tan x − x</td><td>x<sup>3</sup>/3</td></tr>
+<tr><td>arcsin x − x</td><td>x<sup>3</sup>/6</td></tr></table>
+<div class=\"warn\">最后三行是「三阶」的，只在分子分母都是 x<sup>3</sup> 级别时才用；同样 <b>1 − cos x ≈ x<sup>2</sup>/2 不能只写 x<sup>2</sup></b>。</div>`},
+ {t:'两个重要极限',tag:'公式',b:`<ul>
+<li>lim(x→0) sin x / x = 1</li>
+<li>lim(x→∞) (1 + 1/x)<sup>x</sup> = e，以及 lim(x→0)(1+x)<sup>1/x</sup> = e</li>
+<li>1<sup>∞</sup> 型通法：取对数，或写成 e<sup>lim(底−1)×指数</sup></li></ul>
+<div class=\"tip\">看到 (1 + 1/□)<sup>□</sup> 直接想 e，别展开。</div>`},
+ {t:'等价替换什么时候能用、什么时候不能',tag:'易错',b:`<ul>
+<li>乘除里随便换：lim sin 3x / x = 3</li>
+<li>加减里<b>不能</b>随手换：lim (sin x − x)/x<sup>3</sup>，把 sin x 换成 x 得 0，正确答案是 −1/6</li>
+<li>加减要换，先通分 / 提公因子 / 泰勒展开到同阶</li></ul>
+<div class=\"warn\">这是重修卷子里失分最多的一类，看到加减就用泰勒，稳。</div>`},
+ {t:'间断点分类',tag:'考点',b:`<table><tr><th>类型</th><th>判定</th><th>例子</th></tr>
+<tr><td>可去</td><td>左右极限相等但不等于函数值（或无定义）</td><td>sin x / x 在 0</td></tr>
+<tr><td>跳跃</td><td>左右极限存在但不相等</td><td>|x|/x 在 0</td></tr>
+<tr><td>无穷</td><td>至少一侧趋于∞</td><td>1/x 在 0</td></tr>
+<tr><td>振荡</td><td>来回振荡无极限</td><td>sin(1/x) 在 0</td></tr></table>`}
+]},
+{t:'② 导数与微分',pts:[
+ {t:'定义与可导/连续的关系',tag:'考点',b:`<ul>
+<li>f′(x<sub>0</sub>) = lim(Δx→0) [f(x<sub>0</sub>+Δx) − f(x<sub>0</sub>)] / Δx</li>
+<li><b>可导 ⇒ 连续</b>，反过来不成立（|x| 在 0 连续但不可导）</li>
+<li>分段函数在分界点求导，<b>必须用定义</b>（左右导数各算一遍）</li></ul>
+<div class=\"warn\">「分段点用定义」这句话重修必考，别忘了。</div>`},
+ {t:'复合、隐函数、参数方程求导',tag:'公式',b:`<ul>
+<li>链式：(f(g(x)))′ = f′(g(x))·g′(x)，剥洋葱一层层往外</li>
+<li>隐函数：两边对 x 求导，把 y 当 x 的函数，解出 y′</li>
+<li>参数方程：x=φ(t), y=ψ(t) → dy/dx = ψ′(t)/φ′(t)，二阶导要再除一次 φ′(t)</li></ul>
+<div class=\"tip\">参数方程二阶导是最爱出的坑：d<sup>2</sup>y/dx<sup>2</sup> = [d/dt(ψ′/φ′)] / φ′(t)。</div>`},
+ {t:'微分与近似',tag:'公式',b:`<ul>
+<li>dy = f′(x)dx，Δy ≈ f′(x)Δx</li>
+<li>用来做近似：(1.02)<sup>10</sup> ≈ 1 + 10×0.02 = 1.2</li>
+<li>一阶微分形式不变性：不管 u 是自变量还是函数，dy = f′(u)du</li></ul>`}
+]},
+{t:'③ 中值定理与导数应用（考试主战场）',pts:[
+ {t:'三大中值定理',tag:'公式',b:`<table><tr><th>定理</th><th>条件</th><th>结论</th></tr>
+<tr><td>罗尔</td><td>[a,b] 连续、(a,b) 可导、f(a)=f(b)</td><td>∃ξ，f′(ξ)=0</td></tr>
+<tr><td>拉格朗日</td><td>连续 + 可导</td><td>f(b) − f(a) = f′(ξ)(b − a)</td></tr>
+<tr><td>柯西</td><td>连续 + 可导，g′≠0</td><td>[f(b)−f(a)]/[g(b)−g(a)] = f′(ξ)/g′(ξ)</td></tr></table>
+<div class=\"tip\">证明题看到「存在 ξ 使某式成立」，先想<b>构造辅助函数 + 罗尔</b>，这是套路题。</div>`},
+ {t:'洛必达法则',tag:'公式',b:`<ul>
+<li>只管 0/0 和 ∞/∞，先化成这两种再用</li>
+<li>用了之后不是 0/0 就<b>立刻停</b>，继续求导会算错</li>
+<li>分子分母同时求导，别只导一个</li>
+<li>能用等价无穷小或泰勒就别用洛必达（更快更稳）</li></ul>
+<div class=\"warn\">洛必达连续用会把简单题做成灾难，优先替换。</div>`},
+ {t:'单调性、极值、凹凸、拐点',tag:'考点',b:`<table><tr><th>看什么</th><th>一阶导 f′</th><th>二阶导 f″</th></tr>
+<tr><td>单调</td><td>f′&gt;0 增，f′&lt;0 减</td><td>—</td></tr>
+<tr><td>极值</td><td>f′ 变号即极值</td><td>f′=0 且 f″&gt;0 极小，f″&lt;0 极大</td></tr>
+<tr><td>凹凸</td><td>—</td><td>f″&gt;0 凹（开口向上），f″&lt;0 凸</td></tr>
+<tr><td>拐点</td><td>—</td><td>f″ 变号处</td></tr></table>
+<div class=\"warn\">极值点不一定可导：y=|x| 在 0 是极小值但没导数。解题先找「f′=0 的点 + 不可导点」两类候选。</div>`},
+ {t:'渐近线（三条一次写全）',tag:'公式',b:`<ul>
+<li>垂直：x = a，若 lim(x→a) f(x) = ∞（通常 a 是分母零点 / 对数内零点）</li>
+<li>水平：y = b，若 lim(x→±∞) f(x) = b（两侧可能不同）</li>
+<li>斜：y = kx + b，k = lim f(x)/x，b = lim [f(x) − kx]，x→±∞ 要分别算</li></ul>
+<div class=\"tip\">有水平渐近线的一侧不会再有斜渐近线。</div>`}
+]},
+{t:'④ 不定积分',pts:[
+ {t:'基本积分表（必须默写）',tag:'公式',b:`<ul>
+<li>∫x<sup>n</sup>dx = x<sup>n+1</sup>/(n+1) + C（n≠−1）；∫dx/x = ln|x| + C</li>
+<li>∫e<sup>x</sup>dx = e<sup>x</sup> + C；∫a<sup>x</sup>dx = a<sup>x</sup>/ln a + C</li>
+<li>∫sin x dx = −cos x + C；∫cos x dx = sin x + C</li>
+<li>∫sec<sup>2</sup>x dx = tan x + C；∫dx/(1+x<sup>2</sup>) = arctan x + C</li>
+<li>∫dx/√(1−x<sup>2</sup>) = arcsin x + C；∫tan x dx = −ln|cos x| + C</li></ul>
+<div class=\"warn\">不定积分忘写 + C 直接扣分，别栽在这。</div>`},
+ {t:'两类换元',tag:'方法',b:`<ul>
+<li><b>第一类（凑微分）</b>：∫f(φ(x))φ′(x)dx = ∫f(u)du，如 ∫x e<sup>x<sup>2</sup></sup>dx 看成 ∫½e<sup>u</sup>du</li>
+<li><b>第二类（三角代换）</b>：√(a<sup>2</sup>−x<sup>2</sup>) → x = a sin t；√(a<sup>2</sup>+x<sup>2</sup>) → x = a tan t；√(x<sup>2</sup>−a<sup>2</sup>) → x = a sec t</li>
+<li>根号里有平方差就先代换，别硬凑</li></ul>`},
+ {t:'分部积分：选 u 的口诀',tag:'方法',b:`<p>∫u dv = uv − ∫v du</p>
+<ul><li>u 的优先顺序：<b>反、对、幂、指、三</b>（反三角 &gt; 对数 &gt; 幂函数 &gt; 指数 &gt; 三角），排前面的当 u</li>
+<li>例：∫x e<sup>x</sup>dx → u=x, dv=e<sup>x</sup>dx → xe<sup>x</sup> − e<sup>x</sup> + C</li>
+<li>例：∫ln x dx → u=ln x, dv=dx → x ln x − x + C</li></ul>`}
+]},
+{t:'⑤ 定积分及其应用',pts:[
+ {t:'牛顿-莱布尼茨 + 变上限积分求导',tag:'公式',b:`<ul>
+<li>∫<sub>a</sub><sup>b</sup> f(x)dx = F(b) − F(a)</li>
+<li>d/dx ∫<sub>a</sub><sup>x</sup> f(t)dt = f(x)</li>
+<li>d/dx ∫<sub>a</sub><sup>φ(x)</sup> f(t)dt = f(φ(x))·φ′(x)</li>
+<li>上下限都是函数的，上限项减下限项（下限带负号）</li></ul>
+<div class=\"tip\">变上限求导几乎每年都出，公式看熟就能拿。</div>`},
+ {t:'换元要换限',tag:'易错',b:`<ul>
+<li>做 t = φ(x) 时，上下限<b>同时换成 t 的值</b>，否则答案必错</li>
+<li>定积分换元后<b>不需要</b>再换回 x</li>
+<li>奇偶性：奇函数在对称区间积分为 0；偶函数是 2 倍半区间</li></ul>
+<div class=\"warn\">这是上册最后一个高频扣分点，写题时先在草稿上标新上下限。</div>`},
+ {t:'面积与体积公式',tag:'公式',b:`<table><tr><th>求什么</th><th>公式</th></tr>
+<tr><td>曲边梯形面积</td><td>∫<sub>a</sub><sup>b</sup> |f(x) − g(x)| dx</td></tr>
+<tr><td>绕 x 轴旋转体</td><td>V = π∫<sub>a</sub><sup>b</sup> f(x)<sup>2</sup> dx</td></tr>
+<tr><td>绕 y 轴旋转体（柱壳法）</td><td>V = 2π∫<sub>a</sub><sup>b</sup> x·f(x) dx</td></tr></table>
+<div class=\"tip\">两条曲线之间求面积，先求交点定上下限，再判哪条在上面。</div>`},
+ {t:'反常积分收敛性（p 积分）',tag:'考点',b:`<ul>
+<li>∫<sub>1</sub><sup>∞</sup> dx/x<sup>p</sup>：p&gt;1 收敛，p≤1 发散</li>
+<li>∫<sub>0</sub><sup>1</sup> dx/x<sup>p</sup>：p&lt;1 收敛，p≥1 发散</li></ul>
+<div class=\"warn\">两个方向<b>正好反着</b>，记「无穷看大，零点看小」。</div>`}
+]},
+{t:'⑥ 微分方程',pts:[
+ {t:'一阶方程三种类型',tag:'公式',b:`<table><tr><th>类型</th><th>形式</th><th>解法</th></tr>
+<tr><td>可分离变量</td><td>y′ = f(x)g(y)</td><td>dy/g(y) = f(x)dx，两边积分</td></tr>
+<tr><td>齐次</td><td>y′ = φ(y/x)</td><td>令 u = y/x，化成可分离</td></tr>
+<tr><td>一阶线性</td><td>y′ + P(x)y = Q(x)</td><td>y = e<sup>−∫P dx</sup>[∫Q e<sup>∫P dx</sup>dx + C]</td></tr></table>
+<div class=\"tip\">一阶线性公式直接背，考场上套就行，不用现推。</div>`},
+ {t:'二阶常系数齐次：看特征根',tag:'公式',b:`<p>y″ + py′ + qy = 0 → 特征方程 r<sup>2</sup> + pr + q = 0</p>
+<table><tr><th>判别式</th><th>根</th><th>通解</th></tr>
+<tr><td>Δ&gt;0</td><td>r<sub>1</sub>≠r<sub>2</sub> 实根</td><td>C<sub>1</sub>e<sup>r<sub>1</sub>x</sup> + C<sub>2</sub>e<sup>r<sub>2</sub>x</sup></td></tr>
+<tr><td>Δ=0</td><td>r<sub>1</sub>=r<sub>2</sub>=r</td><td>(C<sub>1</sub> + C<sub>2</sub>x)e<sup>rx</sup></td></tr>
+<tr><td>Δ&lt;0</td><td>α ± βi</td><td>e<sup>αx</sup>(C<sub>1</sub>cos βx + C<sub>2</sub>sin βx)</td></tr></table>`},
+ {t:'非齐次特解怎么设（待定系数）',tag:'方法',b:`<ul>
+<li>右端是 P<sub>m</sub>(x)e<sup>λx</sup>：特解设 x<sup>k</sup>Q<sub>m</sub>(x)e<sup>λx</sup>，k = λ 是特征根的重数（不是根 k=0，单根 k=1，重根 k=2）</li>
+<li>右端是 e<sup>αx</sup>(A cos βx + B sin βx)：特解设 x<sup>k</sup>e<sup>αx</sup>(a cos βx + b sin βx)，α±βi 是特征根则 k=1</li>
+<li>通解 = 齐次通解 + 一个特解</li></ul>
+<div class=\"warn\">k 取错是最常见的错，判完根再定 k。</div>`}
+]},
+{t:'⑦ 下册地图｜向量代数与空间解析几何',pts:[
+ {t:'这一章学什么',tag:'地图',b:`<ul>
+<li>向量的点积、叉积，平面与直线方程</li>
+<li>曲面：柱面、旋转面、二次曲面（椭球、抛物面、锥面）</li>
+<li>跟上册的关系：几乎全新，但叉积和行列式要会算</li></ul>
+<div class=\"tip\">这章是重积分和曲线曲面积分的<b>坐标系地基</b>，别跳。下学期开学第一个月就要用。</div>`}
+]},
+{t:'⑧ 下册地图｜多元函数微分法',pts:[
+ {t:'这一章学什么',tag:'地图',b:`<ul>
+<li>偏导、全微分、复合函数链式法则（树状图画清楚）</li>
+<li>隐函数求导（F<sub>x</sub>/F<sub>y</sub>）</li>
+<li>方向导数与梯度、多元极值（含条件极值拉格朗日乘数法）</li></ul>
+<div class=\"warn\">这里的链式法是上册链式的升级版，上册那节不熟，这章直接崩。</div>`}
+]},
+{t:'⑨ 下册地图｜重积分',pts:[
+ {t:'这一章学什么',tag:'地图',b:`<ul>
+<li>二重积分：直角坐标 X 型 / Y 型，交换积分次序</li>
+<li>极坐标：x=r cos θ, y=r sin θ，<b>别忘了雅可比 r</b></li>
+<li>三重积分：直角、柱面、球面坐标</li></ul>
+<div class=\"tip\">「换积分次序」是考试宠儿，画区域图是唯一靠谱的办法。</div>`}
+]},
+{t:'⑩ 下册地图｜曲线积分与曲面积分（最难）',pts:[
+ {t:'这一章学什么',tag:'地图',b:`<ul>
+<li>第一类（对弧长/面积）、第二类（对坐标）曲线积分</li>
+<li>格林公式（平面）、高斯公式（空间）、斯托克斯</li>
+<li>判别式：L 是否闭曲线、P/Q 是否有连续偏导 → 决定能不能用格林</li></ul>
+<div class=\"warn\">重修挂科通常挂在这里，下学期留出最多时间给这章。</div>`}
+]},
+{t:'⑪ 下册地图｜无穷级数',pts:[
+ {t:'这一章学什么',tag:'地图',b:`<ul>
+<li>正项级数判别：比较、比值（达朗贝尔）、根值</li>
+<li>交错级数（莱布尼茨）、绝对/条件收敛</li>
+<li>幂级数收敛半径 R，逐项求导与积分，泰勒展开</li></ul>
+<div class=\"tip\">收敛半径公式 R = lim|a<sub>n</sub>/a<sub>n+1</sub>|，端点要单独判。</div>`}
+]},
+{t:'⑫ 重修作战计划（阿屿排的）',pts:[
+ {t:'时间表',tag:'框架',b:`<table><tr><th>阶段</th><th>做什么</th><th>目标</th></tr>
+<tr><td>寒假（1 月）</td><td>上册 ①②③ 章重过一遍 + 每章 10 题</td><td>极限、求导、中值定理不卡</td></tr>
+<tr><td>寒假（2 月）</td><td>上册 ④⑤⑥ 章（积分 + 微分方程）</td><td>积分是下册的地基，必须过</td></tr>
+<tr><td>开学第 1–4 周</td><td>跟班学下册 ⑦⑧，作业当周做完</td><td>不积压</td></tr>
+<tr><td>第 5–10 周</td><td>⑨⑩ 重积分、曲线曲面积分</td><td>重点章，每题都动手</td></tr>
+<tr><td>考前 3 周</td><td>近 3 年期末卷 + 重修卷</td><td>至少刷两遍</td></tr></table>
+<div class=\"warn\">重修只有一次机会，别指望考前突击 —— 上次就是这么挂的。</div>`},
+ {t:'怎么用这个页面',tag:'框架',b:`<ul>
+<li>上册六章已经有公式和易错点，先做一遍「自我检查」：每章能默写公式就算过</li>
+<li>下册五章现在是地图，等你开学学到哪，我把那章填成和上册一样的密度</li>
+<li>做错的题告诉我，我按错因归类补进对应的章</li></ul>`}
+]}
+]}];
 
 /* ============ 渲染逻辑 ============ */
 const store = {
